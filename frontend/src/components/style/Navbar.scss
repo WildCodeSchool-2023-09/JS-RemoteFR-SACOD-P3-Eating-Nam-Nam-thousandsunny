@@ -7,15 +7,19 @@ $opacitiy-white: #f8f7f2d9;
 
 .Navbar {
   top: 0;
-  margin: 1em auto 1em auto;
-  width: 97%;
+  margin: 1.5em auto 1em auto;
+  width: calc(100% - 3em);
   left: 50%;
   transform: translateX(-50%);
   position: fixed;
 
   background-color: $opacitiy-white;
   border-radius: 50px;
-  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(2px);
 }
 
 img {
