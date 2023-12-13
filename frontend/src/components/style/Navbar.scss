@@ -38,7 +38,8 @@ $opacitiy-white: #f8f7f2d9;
     align-items: center;
   }
 
-  .SearchIcon {
+  .SearchIcon,
+  .SearchButton {
     display: none;
   }
 
@@ -84,9 +85,21 @@ $opacitiy-white: #f8f7f2d9;
   .Navbar {
     width: calc(100% - 3em);
 
+    .SearchButton {
+      display: block;
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      outline: inherit;
+    }
+
     .SearchIcon {
       display: block;
+      border-style: none;
       width: 2rem;
+      height: 2rem;
       margin-left: 1.5rem;
 
       &:hover {

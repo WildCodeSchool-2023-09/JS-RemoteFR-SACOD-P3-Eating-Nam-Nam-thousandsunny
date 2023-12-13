@@ -6,21 +6,20 @@ import "./style/Navbar.scss";
 
 function activateSearchBar() {
   const searchBar = document.getElementsByClassName("SearchBarMobile");
-
   searchBar[0].classList.toggle("SearchBarMobileActive");
-  console.log(searchBar[0]);
 }
 
 function Navbar() {
   return (
     <>
       <div className="Navbar">
-        <img
-          src={searchIcon}
-          alt="Rechercher"
-          className="SearchIcon"
+        <button
+          type="button"
           onClick={() => activateSearchBar()}
-        />
+          className="SearchButton"
+        >
+          <img src={searchIcon} alt="Rechercher" className="SearchIcon" />
+        </button>
         <img
           src={namNamIcon}
           alt="Page d'Accueil"
@@ -52,3 +51,11 @@ function Navbar() {
 }
 
 export default Navbar;
+/*
+<img
+  src={searchIcon}
+  alt="Rechercher"
+  className="SearchIcon"
+  onClick={() => activateSearchBar()}
+/>;
+*/
