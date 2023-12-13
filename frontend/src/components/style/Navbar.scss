@@ -109,13 +109,35 @@ $opacitiy-white: #f8f7f2d9;
   }
 
   .SearchBarMobile {
+    position: fixed;
     display: flex;
     justify-content: center;
-    transform: translateX(-1.5rem);
-    margin-top: 6rem;
+    align-items: flex-start;
+    background-color: #1818188e;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+
+    .SearchInput {
+      margin-top: 100px;
+      transform: translateX(3rem);
+    }
+
+    .GoIcon {
+      margin-top: 96.5px;
+      transform: translateX(-3rem);
+    }
   }
 
   .SearchBarDesktop {
     display: none;
+  }
+
+  .SearchBarMobile {
+    display: none;
+  }
+
+  .SearchBarMobileActive {
+    display: flex;
   }
 }
