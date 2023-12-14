@@ -10,5 +10,13 @@ class RecipeManager extends AbstractManager {
 
     return rows;
   }
+
+  async see(id) {
+    const [rows] = await this.database.query(
+      `select * from ${this.table} where id=?`,
+      [id]
+    );
+    return rows[0];
+  }
 }
 module.exports = RecipeManager;
