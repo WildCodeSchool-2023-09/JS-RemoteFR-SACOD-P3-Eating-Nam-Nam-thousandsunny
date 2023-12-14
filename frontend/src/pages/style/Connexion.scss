@@ -1,0 +1,17 @@
+$orange-color: #d56c06;
+$green-color: #97bf0d;
+$background-color: #ece8da;
+$white-color: #f8f7f2;
+$black-color: #181818;
+$opacitiy-white: #f8f7f2d9;
+
+.InscriptionGroup {
+  background-color: $white-color;
+  margin: 7rem 20% 0 20%;
+  padding: 2rem;
+  border-radius: 2rem;
+
+  input {
+    width: 99%;
+  }
+}
