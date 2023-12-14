@@ -18,6 +18,7 @@ router.get("/users", userControllers.browse);
 router.get("/recipes", recipeControllers.show);
 // Route to get a specific item by ID
 router.get("/users/:id", userControllers.read);
+router.get("/recipes/:id", recipeControllers.see);
 
 // Route to add a new item
 router.post("/users", upload.single("avatar"), userControllers.add);
