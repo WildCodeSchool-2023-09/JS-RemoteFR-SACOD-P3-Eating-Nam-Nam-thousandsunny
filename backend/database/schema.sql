@@ -1,4 +1,11 @@
-create table user (
+#Create DB
+CREATE DATABASE eating_nam_nam;
+
+#Access to DB
+USE eating_nam_nam;
+
+#Create tables for eating nam nam DB
+CREATE TABLE user (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
     email VARCHAR(80) NOT NULL,
@@ -9,8 +16,7 @@ create table user (
     is_admin BIT NOT NULL,
     avatar VARCHAR(200)
 );
-
-create table recipe (
+CREATE TABLE recipe (
   ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user_ID INT NOT NULL,
     name VARCHAR(80) NOT NULL,
@@ -20,16 +26,14 @@ create table recipe (
     image VARCHAR(200),
 FOREIGN KEY (user_ID) REFERENCES user(id)
 );
-
-create table ingredient
+CREATE TABLE ingredient
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     kcal INT NOT NULL,
     unité VARCHAR(10) NOT NULL
 );
-
-create table recipe_ingredient
+CREATE TABLE recipe_ingredient
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     recipe_ID INT NOT NULL,
@@ -38,14 +42,12 @@ create table recipe_ingredient
 FOREIGN KEY (recipe_ID) REFERENCES recipe(ID),
 FOREIGN KEY (ingredient_ID) REFERENCES ingredient(ID)
 );
-
-create table tag
+CREATE TABLE tag
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(40) NOT NULL
 );
-
-create table recipe_tag
+CREATE TABLE recipe_tag
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     recipe_ID INT NOT NULL,
@@ -53,8 +55,7 @@ create table recipe_tag
     FOREIGN KEY (recipe_ID) REFERENCES recipe(ID),
     FOREIGN KEY (tag_ID) REFERENCES tag(ID)
 );
-
-create table fav
+CREATE TABLE fav
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     recipe_ID INT NOT NULL,
@@ -62,8 +63,7 @@ create table fav
     FOREIGN KEY (recipe_ID) REFERENCES recipe(ID),
     FOREIGN KEY (user_ID) REFERENCES user(ID)
 );
-
-create table comment
+CREATE TABLE comment
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     description VARCHAR(500) NOT NULL,
@@ -72,22 +72,20 @@ create table comment
     FOREIGN KEY (user_ID) REFERENCES user(ID),
     FOREIGN KEY (recipe_ID) REFERENCES recipe(ID)
 );
-
-create table instruction
+CREATE TABLE instruction
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     description VARCHAR(500) NOT NULL,
     recipe_ID INT NOT NULL,
     FOREIGN KEY (recipe_ID) REFERENCES recipe(ID)
 );
-
-create table material
+CREATE TABLE material
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(50)
 );
 
-create table recipe_material
+CREATE TABLE recipe_material
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     recipe_ID INT NOT NULL,
