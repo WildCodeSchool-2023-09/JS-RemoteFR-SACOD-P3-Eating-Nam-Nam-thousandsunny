@@ -1,3 +1,4 @@
+import { useState } from "react";
 import searchIcon from "../assets/searchIcon.svg";
 import namNamIcon from "../assets/namNamIcon.svg";
 import burgerMenuIcon from "../assets/burgerMenuIcon.svg";
@@ -23,6 +24,8 @@ function activateBurgerMenu() {
 }
 
 function Navbar() {
+  const [searchValue, setSearchValue] = useState("");
+
   return (
     <>
       <div className="Navbar">
@@ -40,31 +43,53 @@ function Navbar() {
           href="/"
         />
         <div className="RightSide">
-          <div className="SearchBar SearchBarDesktop">
+          <form action="" method="get" className="SearchBar SearchBarDesktop">
             <input
               type="search"
               placeholder="Entrer votre recherche ici..."
-              className="SearchInput"
+              className="SearchInput DesktopInput"
+              name="Rechercher"
+              value={searchValue}
+              onChange={(event) => {
+                setSearchValue(event.target.value);
+              }}
             />
-            <img src={goNamNam} alt="Rechercher" className="GoIcon" />
-          </div>
+            <button type="button" className="GoButton">
+              <img src={goNamNam} alt="Rechercher" className="GoIcon" />
+            </button>
+          </form>
           <button
             type="button"
             onClick={() => activateBurgerMenu()}
             className="BurgerButton"
+            name="Rechercher"
           >
             <img src={burgerMenuIcon} alt="Menu" className="BurgerIcon" />
           </button>
         </div>
       </div>
-      <div id="SearchBarMobile" className="SearchBar SearchBarMobile">
+
+      <form
+        id="SearchBarMobile"
+        className="SearchBar SearchBarMobile"
+        action=""
+        method="get"
+      >
         <input
           type="search"
           placeholder="Entrer votre recherche ici..."
-          className="SearchInput"
+          className="SearchInput MobileInput"
+          name="Rechercher"
+          value={searchValue}
+          onChange={(event) => {
+            setSearchValue(event.target.value);
+          }}
         />
-        <img src={goNamNam} alt="Rechercher" className="GoIcon" />
-      </div>
+        <button type="button" className="GoButton">
+          <img src={goNamNam} alt="Rechercher" className="GoIcon" />
+        </button>
+      </form>
+
       <div className="BurgerMenu">
         <ul>
           <li>
