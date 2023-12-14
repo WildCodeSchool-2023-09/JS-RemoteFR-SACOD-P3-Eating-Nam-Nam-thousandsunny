@@ -1,11 +1,14 @@
+import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+
 import "./App.scss";
 
 function App() {
   return (
     <>
       <Navbar />
+      <Outlet />
       <p className="test">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
         dignissimos tempore, itaque corrupti hic aperiam quidem deleniti impedit
@@ -300,7 +303,9 @@ function App() {
         reprehenderit laudantium odit quam perferendis tenetur, omnis quo non.
         Nobis rerum ab, maxime libero blanditiis autem.
       </p>
-      <Footer />
+      <div>
+        <Footer />
+      </div>
     </>
   );
 }

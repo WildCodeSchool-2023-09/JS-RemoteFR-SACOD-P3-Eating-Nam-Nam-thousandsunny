@@ -2,11 +2,24 @@ const tables = require("../tables");
 
 const show = async (req, res, next) => {
   try {
-    const users = await tables.recipe.seeAll();
+    const recipe = await tables.recipe.seeAll();
 
-    res.json(users);
+    res.json(recipe);
   } catch (err) {
     next(err);
   }
 };
-module.exports = { show };
+const see = async (req, res, next) => {
+  try {
+    const recipe = await tables.recipe.see(req.params.id);
+
+    if (recipe == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(recipe);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+module.exports = { show, see };
