@@ -1,0 +1,15 @@
+.Footer {
+  background-image: url(/src/assets/footerBg.svg);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 20vh;
+  background-size: cover;
+  z-index: 0;
+}
+
+.Project {
+  color: #97bf0d;
+  font-size: 20px;
+}
