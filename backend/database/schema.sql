@@ -4,7 +4,8 @@ CREATE DATABASE eating_nam_nam;
 #Access to DB
 USE eating_nam_nam;
 
-#Create tables for eating_nam_nam DBCREATE TABLE user (
+#Create tables for eating nam nam DB
+CREATE TABLE user (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
     email VARCHAR(80) NOT NULL,
