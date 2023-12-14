@@ -303,7 +303,10 @@ function App() {
         reprehenderit laudantium odit quam perferendis tenetur, omnis quo non.
         Nobis rerum ab, maxime libero blanditiis autem.
       </p>
-    <Footer />
+      <div>
+        <Footer />
+      </div>
+    
     </div>
   );
 }
