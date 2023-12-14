@@ -1,0 +1,212 @@
+// Color set
+$orange-color: #d56c06;
+$green-color: #97bf0d;
+$background-color: #ece8da;
+$white-color: #f8f7f2;
+$black-color: #181818;
+$opacitiy-white: #f8f7f2d9;
+
+.Navbar {
+  // Set navbar postiton
+  top: 0;
+  margin: 1.5em auto 1em auto;
+  width: calc(100% - 10em);
+  left: 50%;
+  transform: translateX(-50%);
+  position: fixed;
+  // Set background navbar style
+  background-color: $opacitiy-white;
+  border-radius: 60px;
+  // Set elements/items postition
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(2px);
+  z-index: 2;
+
+  .HomeIcon {
+    width: 4.5rem;
+    margin: 0.7rem 0 0.7rem 3rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .RightSide {
+    display: flex;
+    align-items: center;
+  }
+
+  .SearchIcon,
+  .SearchButton {
+    display: none;
+  }
+
+  .BurgerIcon {
+    width: 2.5rem;
+    margin-right: 3rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .BurgerButton {
+    display: block;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: inherit;
+  }
+}
+
+.SearchBar {
+  display: flex;
+  align-items: center;
+
+  .SearchInput {
+    height: 3rem;
+    width: 18rem;
+    border-radius: 1rem;
+    border: 0.5px solid $black-color;
+    transform: translateX(5.2rem);
+    padding-left: 1rem;
+  }
+
+  .GoIcon {
+    scale: 0.75;
+    margin-right: 1rem;
+
+    &:hover {
+      cursor: pointer;
+      filter: grayscale(30%) hue-rotate(320deg);
+    }
+  }
+}
+
+.BurgerMenu {
+  position: fixed;
+  top: 0;
+  display: none;
+  text-align: center;
+  background-color: #1818188e;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+
+  ul {
+    position: fixed;
+    padding: 0;
+    top: 8rem;
+    right: 5rem;
+    border-radius: 32px;
+    backdrop-filter: blur(2px);
+    background-color: $opacitiy-white;
+  }
+
+  li {
+    padding: 1rem;
+    list-style: none;
+    font-weight: 450;
+
+    &:hover {
+      border-radius: 32px;
+      background-color: #1818181a;
+    }
+  }
+
+  a {
+    padding: 1rem;
+    text-decoration: none;
+    color: $black-color;
+  }
+}
+
+.BurgerMenuActive {
+  display: flex;
+}
+
+.SearchBarMobile {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .Navbar {
+    width: calc(100% - 3em);
+
+    .SearchButton {
+      display: block;
+      background: none;
+      color: inherit;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      outline: inherit;
+    }
+
+    .SearchIcon {
+      display: block;
+      border-style: none;
+      width: 2rem;
+      height: 2rem;
+      margin-left: 1.5rem;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .BurgerIcon {
+      width: 1.5rem;
+      margin-right: 1.5rem;
+    }
+
+    .HomeIcon {
+      width: 2.5rem;
+      margin: 0.5rem;
+    }
+    .GoSearch {
+      display: none;
+    }
+  }
+
+  .BurgerMenu {
+    ul {
+      top: 5.5rem;
+      right: 1.5rem;
+    }
+  }
+
+  .SearchBarMobile {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #1818188e;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+
+    .SearchInput {
+      margin-top: 100px;
+      transform: translateX(3.8rem);
+    }
+
+    .GoIcon {
+      margin-top: 96.5px;
+      transform: translateX(-1.8rem);
+    }
+  }
+
+  .SearchBarDesktop,
+  .SearchBarMobile {
+    display: none;
+  }
+
+  .SearchBarMobileActive {
+    display: flex;
+  }
+}

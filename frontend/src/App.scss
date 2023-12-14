@@ -1,0 +1,15 @@
+$background-color: #ece8da;
+// Font
+@import url("https://fonts.cdnfonts.com/css/now");
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: $background-color;
+  font-family: "now";
+}
+
+.test {
+  margin-top: 10rem;
+}
