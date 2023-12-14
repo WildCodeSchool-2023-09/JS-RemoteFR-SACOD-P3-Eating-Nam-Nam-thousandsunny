@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-
+import Footer from "./components/Footer";
 import "./App.scss";
 
 function App() {
@@ -300,6 +300,7 @@ function App() {
         reprehenderit laudantium odit quam perferendis tenetur, omnis quo non.
         Nobis rerum ab, maxime libero blanditiis autem.
       </p>
+      <Footer />
     </>
   );
 }
