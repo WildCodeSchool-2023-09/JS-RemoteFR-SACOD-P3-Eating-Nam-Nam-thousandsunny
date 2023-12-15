@@ -4,17 +4,22 @@ import "./style/Footer.scss";
 function Footer() {
   return (
     <footer className="Footer">
-      <div className="Project">
-        <span>&copy;Eating-Nam-Nam </span>
+      <div className="Left-bloc">
+        <div className="Project">&copy;Eating-Nam-Nam</div>
       </div>
-      <Link to="/Mentions legales">
-        <p>Mentions Légales</p>
-      </Link>
-      <Link to="/About Us">
-        <button type="button" className="transparent-button">
-          Nous Contacter
-        </button>
-      </Link>
+      <div className="Mid-bloc">
+        {" "}
+        <Link to="/Mentions legales" className="mentions">
+          <p>Thousand Sunny</p>
+        </Link>
+      </div>
+      <div className="Right-bloc">
+        <Link to="/About Us">
+          <button type="button" className="Contact-button">
+            Nous Contacter
+          </button>
+        </Link>
+      </div>
     </footer>
   );
 }
