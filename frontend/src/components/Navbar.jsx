@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import searchIcon from "../assets/searchIcon.svg";
 import namNamIcon from "../assets/namNamIcon.svg";
 import burgerMenuIcon from "../assets/burgerMenuIcon.svg";
@@ -36,14 +37,11 @@ function Navbar() {
         >
           <img src={searchIcon} alt="Rechercher" className="SearchIcon" />
         </button>
-        <img
-          src={namNamIcon}
-          alt="Page d'Accueil"
-          className="HomeIcon"
-          href="/"
-        />
+        <Link to="/">
+          <img src={namNamIcon} alt="Page d'Accueil" className="HomeIcon" />
+        </Link>
         <div className="RightSide">
-          <form action="" method="get" className="SearchBar SearchBarDesktop">
+          <form action="#" className="SearchBar SearchBarDesktop">
             <input
               type="search"
               placeholder="Entrer votre recherche ici..."
@@ -69,12 +67,7 @@ function Navbar() {
         </div>
       </div>
 
-      <form
-        id="SearchBarMobile"
-        className="SearchBar SearchBarMobile"
-        action=""
-        method="get"
-      >
+      <form action="#" className="SearchBar SearchBarMobile">
         <input
           type="search"
           placeholder="Entrer votre recherche ici..."
@@ -93,10 +86,13 @@ function Navbar() {
       <div className="BurgerMenu">
         <ul>
           <li>
-            <a href="/">Inscription</a>
-          </li>
-          <li>
-            <a href="/">Connexion</a>
+            <a href="/Connexion">
+              Connexion
+              <br />
+              ou
+              <br />
+              Inscription
+            </a>
           </li>
           <li>
             <a href="/">Voir les recettes</a>
