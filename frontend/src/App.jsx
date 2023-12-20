@@ -1,12 +1,12 @@
 import Navbar from "./components/Navbar";
 
-import "./App.scss";
+import "./vars.scss";
 
 function App() {
   return (
     <>
       <Navbar />
-      <p className="test">
+      <p className="body-content">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
         dignissimos tempore, itaque corrupti hic aperiam quidem deleniti impedit
         beatae! Fuga officia incidunt distinctio quae, sit cupiditate sint
