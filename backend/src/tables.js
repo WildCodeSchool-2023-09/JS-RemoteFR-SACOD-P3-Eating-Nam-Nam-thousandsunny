@@ -6,11 +6,13 @@
 const UserManager = require("./models/UserManager");
 const RecipeManager = require("./models/RecipeManager");
 const IngredientManager = require("./models/IngredientManager");
+const MaterialManager = require("./models/MaterialManager");
 
 const managers = [
   UserManager,
   RecipeManager,
   IngredientManager,
+  MaterialManager,
   // Add other managers here
 ];
 
