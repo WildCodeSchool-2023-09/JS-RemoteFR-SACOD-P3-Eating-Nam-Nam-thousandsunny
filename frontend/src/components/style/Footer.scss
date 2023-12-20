@@ -1,0 +1,52 @@
+.Footer {
+  background-image: url(/src/assets/FooterbgDesktop.svg);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 20vh;
+  background-size: cover;
+  z-index: 0;
+}
+
+.Project {
+  color: #97bf0d;
+  font-size: 2rem;
+  font-weight: 800;
+}
+.mentions {
+  color: black;
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.Contact-button {
+  font-size: 1.8rem;
+  font-weight: bold;
+  background-color: #97bf0d;
+}
+@media screen and (max-width: 800px) {
+  .Footer {
+    background-image: url(/src/assets/FooterbgMobile.svg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+    gap: 1rem;
+  }
+  .Project {
+    font-size: 1.5rem;
+  }
+
+  .Contact-button {
+    width: 20vh;
+    height: 12vw;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #97bf0d;
+  }
+  .mentions {
+    font-size: 1rem;
+  }
+}

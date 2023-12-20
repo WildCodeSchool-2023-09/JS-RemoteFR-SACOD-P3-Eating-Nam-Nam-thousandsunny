@@ -1,4 +1,6 @@
+import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 import "./vars.scss";
 
@@ -6,6 +8,7 @@ function App() {
   return (
     <>
       <Navbar />
+      <Outlet />
       <p className="body-content">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
         dignissimos tempore, itaque corrupti hic aperiam quidem deleniti impedit
@@ -300,6 +303,9 @@ function App() {
         reprehenderit laudantium odit quam perferendis tenetur, omnis quo non.
         Nobis rerum ab, maxime libero blanditiis autem.
       </p>
+      <div>
+        <Footer />
+      </div>
     </>
   );
 }

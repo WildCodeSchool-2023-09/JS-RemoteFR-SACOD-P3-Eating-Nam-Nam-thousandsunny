@@ -1,3 +1,7 @@
+#Inject testing data for DB
+# CAUTION
+# Please make sure you're in the right DB before launching script, if there is any data still existing, some rows could be duplicated.
+
 INSERT INTO user(username, email, firstname, lastname, birthdate, password, is_admin)
 VALUES
     ('tristanZ', 'tristan.zvunka@gmail.com','tristan','zvunka','1992-11-26', 'test1',1 ),
