@@ -7,12 +7,14 @@ const UserManager = require("./models/UserManager");
 const RecipeManager = require("./models/RecipeManager");
 const IngredientManager = require("./models/IngredientManager");
 const MaterialManager = require("./models/MaterialManager");
+const CommentManager = require("./models/CommentManager");
 
 const managers = [
   UserManager,
   RecipeManager,
   IngredientManager,
   MaterialManager,
+  CommentManager,
   // Add other managers here
 ];
 
