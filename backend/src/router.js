@@ -16,6 +16,7 @@ const IngredientControllers = require("./controllers/ingredientControllers");
 const MaterialControllers = require("./controllers/materialControllers");
 const CommentControllers = require("./controllers/commentControllers");
 const InstructionControllers = require("./controllers/instructionControllers");
+const FavControllers = require("./controllers/favControllers");
 
 // Route to get a list of items
 router.get("/users", UserControllers.browse);
@@ -28,6 +29,7 @@ router.get("/ingredient/:id", IngredientControllers.read);
 router.get("/material/:id", MaterialControllers.read);
 router.get("/comment/:id", CommentControllers.read);
 router.get("/instruction/:id", InstructionControllers.read);
+router.get("/fav/:id", FavControllers.read);
 
 // Route to add a new item
 router.post("/users", upload.single("avatar"), UserControllers.add);
