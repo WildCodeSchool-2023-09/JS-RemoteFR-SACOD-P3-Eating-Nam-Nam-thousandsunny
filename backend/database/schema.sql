@@ -6,13 +6,13 @@ CREATE TABLE user (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
     email VARCHAR(80) NOT NULL,
-    firstname VARCHAR(30) NOT NULL,
-    lastname VARCHAR(50) NOT NULL,
+    firstname VARCHAR(30) NULL,
+    lastname VARCHAR(50) NULL,
     birthdate DATE NULL,
     password VARCHAR(50) NOT NULL,
     description MEDIUMTEXT NULL,
-    is_admin BIT NOT NULL,
-    avatar VARCHAR(200)
+    is_admin BIT NULL,
+    avatar VARCHAR(200) NULL
 );
 CREATE TABLE recipe (
   ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
