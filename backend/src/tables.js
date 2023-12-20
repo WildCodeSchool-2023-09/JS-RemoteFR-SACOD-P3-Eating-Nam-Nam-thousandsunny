@@ -5,10 +5,12 @@
 // Import the manager modules responsible for handling data operations on the tables
 const UserManager = require("./models/UserManager");
 const RecipeManager = require("./models/RecipeManager");
+const IngredientManager = require("./models/IngredientManager");
 
 const managers = [
   UserManager,
   RecipeManager,
+  IngredientManager,
   // Add other managers here
 ];
 
