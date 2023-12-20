@@ -37,7 +37,7 @@ function Navbar() {
         >
           <img src={searchIcon} alt="Rechercher" className="SearchIcon" />
         </button>
-        <Link to="/">
+        <Link to="/home">
           <img src={namNamIcon} alt="Page d'Accueil" className="HomeIcon" />
         </Link>
         <div className="RightSide">
@@ -95,7 +95,7 @@ function Navbar() {
             </a>
           </li>
           <li>
-            <a href="/">Voir les recettes</a>
+            <a href="/recipes">Voir les recettes</a>
           </li>
           <li>
             <a href="/">Contact</a>
