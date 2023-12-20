@@ -1,6 +1,3 @@
-#Create DB
-CREATE DATABASE eating_nam_nam;
-
 #Access to DB
 USE eating_nam_nam;
 
@@ -13,6 +10,7 @@ CREATE TABLE user (
     lastname VARCHAR(50) NOT NULL,
     birthdate DATE NULL,
     password VARCHAR(50) NOT NULL,
+    description MEDIUMTEXT NULL,
     is_admin BIT NOT NULL,
     avatar VARCHAR(200)
 );
@@ -75,7 +73,7 @@ CREATE TABLE comment
 CREATE TABLE instruction
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    description VARCHAR(500) NOT NULL,
+    description MEDIUMTEXT NOT NULL,
     recipe_ID INT NOT NULL,
     FOREIGN KEY (recipe_ID) REFERENCES recipe(ID)
 );

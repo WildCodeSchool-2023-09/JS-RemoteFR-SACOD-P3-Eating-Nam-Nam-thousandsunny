@@ -11,11 +11,11 @@ VALUES
     ('hugoD','hugo.durand@gmail.com','Hugo','Durand','1989-02-05','test5',0)
 ;
 
-INSERT INTO recipe (name, user_ID, prep_time, nb_people, difficulty )
+INSERT INTO recipe (name, user_ID, prep_time, nb_people, difficulty,image )
 VALUES
-    ('oeufs au plat',1, 15, 1, 'facile'),
-    ('pâtes au beurre', 2, 25, 2, 'facile'),
-    ('religieuse au chocolat', 5, 90, 2, 'difficile')
+    ('oeufs au plat',1, 15, 1, 'facile','jetbrains://web-storm/navigate/reference?project=eating-nam-nam&path=backend/public/assets/images/uploads/pexels-iina-luoto-1211887.jpg'),
+    ('pâtes au beurre', 2, 25, 2, 'facile', 'C:\Users\trist\projects\eating-nam-nam\backend\public\assets\images\uploads\pexels-jer-chung-2116094.jpg'),
+    ('religieuse au chocolat', 5, 90, 2, 'difficile','C:\Users\trist\projects\eating-nam-nam\backend\public\assets\images\uploads\pexels-julie-aagaard-2097090.jpg')
     ;
 
 INSERT INTO ingredient (name, unité, kcal)
@@ -87,3 +87,4 @@ VALUES
     ("Il manque un peu de beurre à mon goût...", 2, 1),
     ("J'ai pas eu besoin de spatule pour ça!",5,2)
 ;
+

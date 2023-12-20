@@ -1,17 +1,17 @@
 const tables = require("../tables");
 
-const show = async (req, res, next) => {
+const browse = async (req, res, next) => {
   try {
-    const recipe = await tables.recipe.seeAll();
+    const recipe = await tables.recipe.readAll();
 
     res.json(recipe);
   } catch (err) {
     next(err);
   }
 };
-const see = async (req, res, next) => {
+const read = async (req, res, next) => {
   try {
-    const recipe = await tables.recipe.see(req.params.id);
+    const recipe = await tables.recipe.read(+req.params.id);
 
     if (recipe == null) {
       res.sendStatus(404);
@@ -22,4 +22,5 @@ const see = async (req, res, next) => {
     next(err);
   }
 };
-module.exports = { show, see };
+
+module.exports = { browse, read };

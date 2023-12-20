@@ -21,6 +21,7 @@ function RecipeList() {
               prep={recipes.prep_time}
               nb={recipes.nb_people}
               difficulty={recipes.difficulty}
+              image={recipes.image}
             />
           </li>
         ))}
