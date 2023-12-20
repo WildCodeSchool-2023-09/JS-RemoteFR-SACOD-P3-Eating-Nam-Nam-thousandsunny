@@ -31,6 +31,7 @@ router.get("/comment/:id", CommentControllers.read);
 router.get("/instruction/:id", InstructionControllers.read);
 router.get("/fav/:id", FavControllers.read);
 
+
 // Route to add a new item
 router.post("/users", upload.single("avatar"), UserControllers.add);
 
