@@ -15,6 +15,7 @@ const RecipeControllers = require("./controllers/recipeControllers");
 const IngredientControllers = require("./controllers/ingredientControllers");
 const MaterialControllers = require("./controllers/materialControllers");
 const CommentControllers = require("./controllers/commentControllers");
+const InstructionControllers = require("./controllers/instructionControllers");
 
 // Route to get a list of items
 router.get("/users", UserControllers.browse);
@@ -26,6 +27,7 @@ router.get("/recipes/:id", RecipeControllers.read);
 router.get("/ingredient/:id", IngredientControllers.read);
 router.get("/material/:id", MaterialControllers.read);
 router.get("/comment/:id", CommentControllers.read);
+router.get("/instruction/:id", InstructionControllers.read);
 
 // Route to add a new item
 router.post("/users", upload.single("avatar"), UserControllers.add);
