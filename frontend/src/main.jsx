@@ -4,16 +4,16 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
-import Acceuil from "./components/Acceuil";
+import Accueil from "./pages/Accueil";
 import Connexion from "./pages/Connexion";
-import RecipeDetails from "./components/RecipeDetails";
-import RecipeList from "./components/RecipeList";
+import RecipeDetails from "./pages/RecipeDetails";
+import RecipeList from "./pages/RecipeList";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <App />,
     children: [
+      { path: "/", element: <Accueil /> },
       {
         path: "/recipes",
         element: <RecipeList />,
@@ -22,12 +22,9 @@ const router = createBrowserRouter([
         path: "/recipes/:id",
         element: <RecipeDetails />,
       },
-      { path: "/home", element: <Acceuil /> },
+
+      { path: "/connexion", element: <Connexion /> },
     ],
-  },
-  {
-    path: "connexion/",
-    element: <Connexion />,
   },
 ]);
 

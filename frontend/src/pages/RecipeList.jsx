@@ -12,7 +12,7 @@ function RecipeList() {
       .catch((err) => console.error(err));
   }, []);
   return (
-    <div>
+    <div className="body-content">
       <ul>
         {allRecipe.map((recipes) => (
           <li key={recipes.ID}>
