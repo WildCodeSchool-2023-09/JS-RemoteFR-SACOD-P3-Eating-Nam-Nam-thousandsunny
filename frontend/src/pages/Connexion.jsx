@@ -41,10 +41,11 @@ function TypeOfForm({ checkbox }) {
         .post("http://localhost:3310/api/users", formData)
         .then(() => setSuccess(!success))
         .catch((err) => console.error(err));
+      console.info("Votre compte a été créé");
+      window.location.reload(false);
     }
     // Rechargement de la page
-    console.info("Votre compte a été créé");
-    window.location.reload(false);
+    console.info("Error");
   };
 
   return checkbox ? (
