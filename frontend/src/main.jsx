@@ -4,17 +4,17 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
-import Accueil from "./components/Accueil";
+import Accueil from "./pages/Accueil";
 import Connexion from "./pages/Connexion";
-import RecipeDetails from "./components/RecipeDetails";
-import RecipeList from "./components/RecipeList";
-import Profil from "./components/Profil";
+import RecipeDetails from "./pages/RecipeDetails";
+import RecipeList from "./pages/RecipeList";
+import Profil from "./pages/Profil";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <App />,
     children: [
+      { path: "/", element: <Accueil /> },
       {
         path: "/recipes",
         element: <RecipeList />,
@@ -23,16 +23,12 @@ const router = createBrowserRouter([
         path: "/recipes/:id",
         element: <RecipeDetails />,
       },
-      { path: "/home", element: <Accueil /> },
       {
         path: "/Profil",
         element: <Profil />,
       },
+      { path: "/connexion", element: <Connexion /> },
     ],
-  },
-  {
-    path: "Connexion/",
-    element: <Connexion />,
   },
 ]);
 
