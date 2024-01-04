@@ -8,7 +8,9 @@ import Accueil from "./pages/Accueil";
 import Connexion from "./pages/Connexion";
 import RecipeDetails from "./pages/RecipeDetails";
 import RecipeList from "./pages/RecipeList";
+
 import Profil from "./pages/Profil";
+
 
 const router = createBrowserRouter([
   {
