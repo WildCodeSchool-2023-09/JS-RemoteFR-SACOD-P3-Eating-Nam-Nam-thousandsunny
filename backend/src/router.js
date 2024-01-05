@@ -17,11 +17,15 @@ const MaterialControllers = require("./controllers/materialControllers");
 const CommentControllers = require("./controllers/commentControllers");
 const InstructionControllers = require("./controllers/instructionControllers");
 const FavControllers = require("./controllers/favControllers");
+const TagControllers = require("./controllers/tagControllers");
+
+// Middleware
 const hashPasswordMiddleware = require("./middleware/hashpassMiddleware");
 
 // Route to get a list of items
 router.get("/users", UserControllers.browse);
 router.get("/recipes", RecipeControllers.browse);
+router.get("/tags", TagControllers.browse);
 
 // Route to get a specific item by ID
 router.get("/users/:id", UserControllers.read);
