@@ -19,6 +19,9 @@ const InstructionControllers = require("./controllers/instructionControllers");
 const FavControllers = require("./controllers/favControllers");
 const TagControllers = require("./controllers/tagControllers");
 
+// Middleware
+const hashPasswordMiddleware = require("./middleware/hashpassMiddleware");
+
 // Route to get a list of items
 router.get("/users", UserControllers.browse);
 router.get("/recipes", RecipeControllers.browse);
@@ -34,7 +37,7 @@ router.get("/instruction/:id", InstructionControllers.read);
 router.get("/fav/:id", FavControllers.read);
 
 // Route to add a new item
-router.post("/users", UserControllers.add);
+router.post("/users", hashPasswordMiddleware, UserControllers.add);
 
 /* ************************************************************************* */
 

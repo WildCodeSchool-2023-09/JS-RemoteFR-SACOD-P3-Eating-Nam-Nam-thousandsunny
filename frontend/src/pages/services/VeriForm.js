@@ -1,15 +1,39 @@
-function isValidUsername(username) {
-  const error = "Le nom d'utilisateur doit contenir 2 à 25 caractères.";
+import axios from "axios";
+
+async function isValidUsername() {
+  // Récupère le username et la balise erreur correspondante
+  const username = document.querySelector("#username").value;
   const usernameErrorMsg = document.querySelector("#username-error");
-  if (username.length < 2 || username.length > 25) {
-    usernameErrorMsg.innerText = error;
+
+  // Verifie si la taille de username est OK
+  if (username.length < 5 || username.length > 20) {
+    usernameErrorMsg.innerText =
+      "Le nom d'utilisateur doit contenir 5 à 20 caractères.";
     return false;
   }
-  usernameErrorMsg.innerText = "";
+  // Verifie si l'utilisateur existe dans la BDD
+  try {
+    const response = await axios.get(
+      `http://localhost:3310/api/users/${username}`
+    );
+    // Si oui : retourne une erreur dans la balise et la fonction renvoie false
+    if (response.data.username === username) {
+      usernameErrorMsg.innerText = "Le nom d'utilisateur est déjà utilisé";
+      return false;
+    }
+  } catch (error) {
+    // Si une erreur 404, cela signifie que l'utilisateur n'existe pas dans la BDD
+    if (error.response.status === 404) {
+      usernameErrorMsg.innerText = ""; // Aucune erreur n'est affichée dans ce cas
+    }
+  }
+
+  // On peut donc renvoyer le username comme étant OK
   return true;
 }
 
-function isValidEmail(email) {
+function isValidEmail() {
+  const email = document.querySelector("#email").value;
   const error =
     "Format de l'adresse mail invalide. (Exemple valide : nom@nam-nam.fr)";
   const emailErrorMsg = document.querySelector("#email-error");
@@ -24,7 +48,8 @@ function isValidEmail(email) {
   return true;
 }
 
-function isValidPassword(password) {
+function isValidPassword() {
+  const password = document.querySelector("#password").value;
   const error =
     "Le mot de passe doit contenir 8 à 15 caractères avec au minimun : \n une majuscule, une minuscule, un chiffre et un caractère spéciale.";
   const passwordErrorMsg = document.querySelector("#password-error");
@@ -40,7 +65,9 @@ function isValidPassword(password) {
   return true;
 }
 
-function isPassMatch(password, passconf) {
+function isPassMatch() {
+  const password = document.querySelector("#password").value;
+  const passconf = document.querySelector("#passConf").value;
   const error =
     "Les mots de passes ne correspondent pas, veuillez entrer des mots de passes identiques.";
   const passConfErrorMsg = document.querySelector("#passConf-error");
@@ -52,16 +79,31 @@ function isPassMatch(password, passconf) {
   return true;
 }
 
-function resetErrorMessageSignIn() {
+function resetErrMsgUserSignIn() {
   const usernameErrorMsg = document.querySelector("#username-error");
-  const emailErrorMsg = document.querySelector("#email-error");
-  const passwordErrorMsg = document.querySelector("#password-error");
-  const passConfErrorMsg = document.querySelector("#passConf-error");
-
   usernameErrorMsg.innerText = "";
-  emailErrorMsg.innerText = "";
-  passwordErrorMsg.innerText = "";
-  passConfErrorMsg.innerText = "";
+}
+
+function resetErrMsgMailSignIn() {
+  const usernameErrorMsg = document.querySelector("#email-error");
+  usernameErrorMsg.innerText = "";
+}
+
+function resetErrMsgPassSignIn() {
+  const usernameErrorMsg = document.querySelector("#password-error");
+  usernameErrorMsg.innerText = "";
+}
+
+function resetErrMsgPassConfSignIn() {
+  const usernameErrorMsg = document.querySelector("#passConf-error");
+  usernameErrorMsg.innerText = "";
+}
+
+function resetAllErrMsgSignIn() {
+  resetErrMsgUserSignIn();
+  resetErrMsgMailSignIn();
+  resetErrMsgPassSignIn();
+  resetErrMsgPassConfSignIn();
 }
 
 export {
@@ -69,5 +111,9 @@ export {
   isValidEmail,
   isValidPassword,
   isPassMatch,
-  resetErrorMessageSignIn,
+  resetErrMsgUserSignIn,
+  resetErrMsgMailSignIn,
+  resetErrMsgPassSignIn,
+  resetErrMsgPassConfSignIn,
+  resetAllErrMsgSignIn,
 };
