@@ -1,5 +1,4 @@
 import addimage from "../assets/addimage.svg";
-
 import "./style/Profil.scss";
 
 function Profil() {
