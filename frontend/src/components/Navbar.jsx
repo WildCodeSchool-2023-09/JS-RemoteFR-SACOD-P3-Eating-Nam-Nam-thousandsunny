@@ -4,6 +4,7 @@ import searchIcon from "../assets/searchIcon.svg";
 import namNamIcon from "../assets/namNamIcon.svg";
 import burgerMenuIcon from "../assets/burgerMenuIcon.svg";
 import goNamNam from "../assets/GO.svg";
+
 import "./style/Navbar.scss";
 
 function activateSearchBar() {

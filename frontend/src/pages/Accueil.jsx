@@ -10,6 +10,9 @@ function Accueil() {
         <p>Connexion</p>
       </Link>
       <p>Inscription</p>
+      <Link to="/Profil">
+        <p>Profil</p>
+      </Link>
     </div>
   );
 }
