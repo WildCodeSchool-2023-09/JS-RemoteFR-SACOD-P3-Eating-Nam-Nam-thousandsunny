@@ -1,7 +1,8 @@
-function isValidUsername(username) {
+function isValidUsername() {
+  const username = document.querySelector("#username").value;
   const error = "Le nom d'utilisateur doit contenir 2 à 25 caractères.";
   const usernameErrorMsg = document.querySelector("#username-error");
-  if (username.length < 2 || username.length > 25) {
+  if (username.length < 5 || username.length > 25) {
     usernameErrorMsg.innerText = error;
     return false;
   }
@@ -9,7 +10,8 @@ function isValidUsername(username) {
   return true;
 }
 
-function isValidEmail(email) {
+function isValidEmail() {
+  const email = document.querySelector("#email").value;
   const error =
     "Format de l'adresse mail invalide. (Exemple valide : nom@nam-nam.fr)";
   const emailErrorMsg = document.querySelector("#email-error");
@@ -24,7 +26,8 @@ function isValidEmail(email) {
   return true;
 }
 
-function isValidPassword(password) {
+function isValidPassword() {
+  const password = document.querySelector("#password").value;
   const error =
     "Le mot de passe doit contenir 8 à 15 caractères avec au minimun : \n une majuscule, une minuscule, un chiffre et un caractère spéciale.";
   const passwordErrorMsg = document.querySelector("#password-error");
@@ -40,7 +43,9 @@ function isValidPassword(password) {
   return true;
 }
 
-function isPassMatch(password, passconf) {
+function isPassMatch() {
+  const password = document.querySelector("#password").value;
+  const passconf = document.querySelector("#passConf").value;
   const error =
     "Les mots de passes ne correspondent pas, veuillez entrer des mots de passes identiques.";
   const passConfErrorMsg = document.querySelector("#passConf-error");
@@ -52,16 +57,31 @@ function isPassMatch(password, passconf) {
   return true;
 }
 
-function resetErrorMessageSignIn() {
+function resetErrMsgUserSignIn() {
   const usernameErrorMsg = document.querySelector("#username-error");
-  const emailErrorMsg = document.querySelector("#email-error");
-  const passwordErrorMsg = document.querySelector("#password-error");
-  const passConfErrorMsg = document.querySelector("#passConf-error");
-
   usernameErrorMsg.innerText = "";
-  emailErrorMsg.innerText = "";
-  passwordErrorMsg.innerText = "";
-  passConfErrorMsg.innerText = "";
+}
+
+function resetErrMsgMailSignIn() {
+  const usernameErrorMsg = document.querySelector("#email-error");
+  usernameErrorMsg.innerText = "";
+}
+
+function resetErrMsgPassSignIn() {
+  const usernameErrorMsg = document.querySelector("#password-error");
+  usernameErrorMsg.innerText = "";
+}
+
+function resetErrMsgPassConfSignIn() {
+  const usernameErrorMsg = document.querySelector("#passConf-error");
+  usernameErrorMsg.innerText = "";
+}
+
+function resetAllErrMsgSignIn() {
+  resetErrMsgUserSignIn();
+  resetErrMsgMailSignIn();
+  resetErrMsgPassSignIn();
+  resetErrMsgPassConfSignIn();
 }
 
 export {
@@ -69,5 +89,9 @@ export {
   isValidEmail,
   isValidPassword,
   isPassMatch,
-  resetErrorMessageSignIn,
+  resetErrMsgUserSignIn,
+  resetErrMsgMailSignIn,
+  resetErrMsgPassSignIn,
+  resetErrMsgPassConfSignIn,
+  resetAllErrMsgSignIn,
 };

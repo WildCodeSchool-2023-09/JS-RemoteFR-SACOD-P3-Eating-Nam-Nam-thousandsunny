@@ -6,7 +6,11 @@ import {
   isValidEmail,
   isValidPassword,
   isPassMatch,
-  resetErrorMessageSignIn,
+  resetErrMsgUserSignIn,
+  resetErrMsgMailSignIn,
+  resetErrMsgPassSignIn,
+  resetErrMsgPassConfSignIn,
+  resetAllErrMsgSignIn,
 } from "./services/VeriForm";
 import "./style/Connexion.scss";
 
@@ -15,40 +19,45 @@ import "./style/Connexion.scss";
 function TypeOfForm({ checkbox }) {
   const [success, setSuccess] = useState(false);
 
-  const handleClickSignIn = (event) => {
+  const handleBlur = () => {
+    resetErrMsgPassConfSignIn();
+    isValidPassword();
+    isPassMatch();
+  };
+
+  const handleClickSignIn = () => {
     // Verification du formulaire d'inscription
-    event.preventDefault();
-    const username = document.querySelector("#username");
-    const usernameIsValid = isValidUsername(username.value);
-
-    const email = document.querySelector("#email");
-    const emailIsValid = isValidEmail(email.value);
-
-    const password = document.querySelector("#password");
-    const passwordIsValid = isValidPassword(password.value);
-
-    const passConf = document.querySelector("#passConf");
-    const passConfIsValid = isPassMatch(password.value, passConf.value);
+    const usernameIsValid = isValidUsername();
+    const emailIsValid = isValidEmail();
+    const passwordIsValid = isValidPassword();
+    const passConfIsValid = isPassMatch();
 
     if (usernameIsValid && emailIsValid && passwordIsValid && passConfIsValid) {
-      // Envoie les datas si tout est ok
+      const username = document.querySelector("#username");
+      const email = document.querySelector("#email");
+      const password = document.querySelector("#password");
+
+      // Création d'objet contenant la data à envoyer
       const formData = {
         username: username.value,
         email: email.value,
         password: password.value,
       };
+
+      // Envoie des données vers notre API
       axios
         .post("http://localhost:3310/api/users", formData)
         .then(() => setSuccess(!success))
         .catch((err) => console.error(err));
-      console.info("Votre compte a été créé");
+
+      // Rechargement de la page
       window.location.reload(false);
     }
-    // Rechargement de la page
-    console.info("Error");
+    console.error("Saisie du formulaire incorrect");
   };
-
+  // Affiche soit un formulaire de connexion soit d'inscription
   return checkbox ? (
+    // Formulaire de connexion
     <form className="form" id="form">
       <label htmlFor="login-username">Nom d'utilisateur :</label>
       <input type="text" name="login-username" id="login-username" />
@@ -63,21 +72,46 @@ function TypeOfForm({ checkbox }) {
       </button>
     </form>
   ) : (
+    // Formulaire d'inscription
     <form className="form" id="form" onSubmit={handleClickSignIn}>
       <label htmlFor="username">Nom d'utilisateur :</label>
-      <input type="text" name="username" id="username" />
+      <input
+        type="text"
+        name="username"
+        id="username"
+        onBlur={isValidUsername}
+        onFocus={resetErrMsgUserSignIn}
+      />
       <div id="username-error" className="error-msg" />
 
       <label htmlFor="email">Adresse e-mail :</label>
-      <input type="email" name="email" id="email" />
+      <input
+        type="email"
+        name="email"
+        id="email"
+        onBlur={isValidEmail}
+        onFocus={resetErrMsgMailSignIn}
+      />
       <div id="email-error" className="error-msg" />
 
       <label htmlFor="password">Mot de passe :</label>
-      <input type="password" name="password" id="password" />
+      <input
+        type="password"
+        name="password"
+        id="password"
+        onBlur={handleBlur}
+        onFocus={resetErrMsgPassSignIn}
+      />
       <div id="password-error" className="error-msg" />
 
       <label htmlFor="passConf">Confirmer le mot de passe :</label>
-      <input type="password" name="passConf" id="passConf" />
+      <input
+        type="password"
+        name="passConf"
+        id="passConf"
+        onBlur={isPassMatch}
+        onFocus={resetErrMsgPassConfSignIn}
+      />
       <div id="passConf-error" className="error-msg" />
 
       <button type="submit" name="submit" id="submit">
@@ -96,10 +130,10 @@ function Connexion() {
 
   const handleChange = () => {
     document.getElementsByTagName("form")[2].reset();
-    if (!checkbox) resetErrorMessageSignIn();
+    if (!checkbox) resetAllErrMsgSignIn();
     return !checkbox ? setCheckbox(true) : setCheckbox(false);
   };
-
+  // Affiche l'en-tête du composant du formulaire (bouton switch)
   return (
     <div className="body-content">
       <div className="wrapper">
