@@ -1,7 +1,7 @@
 const express = require("express");
-const multer = require("multer");
+// const multer = require("multer");
 
-const upload = multer({ dest: "uploads/" });
+// const upload = multer({ dest: "uploads/" });
 
 const router = express.Router();
 
@@ -32,7 +32,7 @@ router.get("/instruction/:id", InstructionControllers.read);
 router.get("/fav/:id", FavControllers.read);
 
 // Route to add a new item
-router.post("/users", upload.single("avatar"), UserControllers.add);
+router.post("/users", UserControllers.add);
 
 /* ************************************************************************* */
 
