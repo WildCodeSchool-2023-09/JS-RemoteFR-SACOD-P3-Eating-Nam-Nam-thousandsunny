@@ -25,7 +25,8 @@ function TypeOfForm({ checkbox }) {
     isPassMatch();
   };
 
-  const handleClickSignIn = () => {
+  const handleClickSignIn = (event) => {
+    event.preventDefault();
     // Verification du formulaire d'inscription
     const usernameIsValid = isValidUsername();
     const emailIsValid = isValidEmail();

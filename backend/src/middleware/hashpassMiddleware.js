@@ -1,4 +1,4 @@
-/* const argon2 = require("argon2");
+const argon2 = require("argon2");
 
 // Middleware pour hacher le mot de passe avant d'ajouter un utilisateur
 const hashPasswordMiddleware = async (req, res, next) => {
@@ -17,5 +17,3 @@ const hashPasswordMiddleware = async (req, res, next) => {
 };
 
 module.exports = hashPasswordMiddleware;
-
-*/
