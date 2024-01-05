@@ -10,6 +10,7 @@ const MaterialManager = require("./models/MaterialManager");
 const CommentManager = require("./models/CommentManager");
 const InstructionManager = require("./models/InstructionManager");
 const FavManager = require("./models/FavManager");
+const TagManager = require("./models/TagManager");
 
 const managers = [
   UserManager,
@@ -19,6 +20,7 @@ const managers = [
   CommentManager,
   InstructionManager,
   FavManager,
+  TagManager,
   // Add other managers here
 ];
 
