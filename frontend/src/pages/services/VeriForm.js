@@ -1,12 +1,34 @@
-function isValidUsername() {
+import axios from "axios";
+
+async function isValidUsername() {
+  // Récupère le username et la balise erreur correspondante
   const username = document.querySelector("#username").value;
-  const error = "Le nom d'utilisateur doit contenir 2 à 25 caractères.";
   const usernameErrorMsg = document.querySelector("#username-error");
-  if (username.length < 5 || username.length > 25) {
-    usernameErrorMsg.innerText = error;
+
+  // Verifie si la taille de username est OK
+  if (username.length < 5 || username.length > 20) {
+    usernameErrorMsg.innerText =
+      "Le nom d'utilisateur doit contenir 5 à 20 caractères.";
     return false;
   }
-  usernameErrorMsg.innerText = "";
+  // Verifie si l'utilisateur existe dans la BDD
+  try {
+    const response = await axios.get(
+      `http://localhost:3310/api/users/${username}`
+    );
+    // Si oui : retourne une erreur dans la balise et la fonction renvoie false
+    if (response.data.username === username) {
+      usernameErrorMsg.innerText = "Le nom d'utilisateur est déjà utilisé";
+      return false;
+    }
+  } catch (error) {
+    // Si une erreur 404, cela signifie que l'utilisateur n'existe pas dans la BDD
+    if (error.response.status === 404) {
+      usernameErrorMsg.innerText = ""; // Aucune erreur n'est affichée dans ce cas
+    }
+  }
+
+  // On peut donc renvoyer le username comme étant OK
   return true;
 }
 

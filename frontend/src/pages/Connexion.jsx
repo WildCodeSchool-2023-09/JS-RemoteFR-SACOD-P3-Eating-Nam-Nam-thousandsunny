@@ -17,7 +17,7 @@ import "./style/Connexion.scss";
 // Formulaires de LogIn ou SignIn
 
 function TypeOfForm({ checkbox }) {
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState("");
 
   const handleBlur = () => {
     resetErrMsgPassConfSignIn();
@@ -25,37 +25,51 @@ function TypeOfForm({ checkbox }) {
     isPassMatch();
   };
 
+  // Actions réalisés au submit "Connexion"
   const handleClickSignIn = (event) => {
     event.preventDefault();
+
     // Verification du formulaire d'inscription
-    const usernameIsValid = isValidUsername();
-    const emailIsValid = isValidEmail();
-    const passwordIsValid = isValidPassword();
-    const passConfIsValid = isPassMatch();
 
-    if (usernameIsValid && emailIsValid && passwordIsValid && passConfIsValid) {
-      const username = document.querySelector("#username");
-      const email = document.querySelector("#email");
-      const password = document.querySelector("#password");
+    let usernameIsValid = false;
+    isValidUsername().then((isValid) => {
+      // Attend le retour de la bdd pour savoir si l'utilisateur existe
+      usernameIsValid = isValid;
+      const emailIsValid = isValidEmail();
+      const passwordIsValid = isValidPassword();
+      const passConfIsValid = isPassMatch();
 
-      // Création d'objet contenant la data à envoyer
-      const formData = {
-        username: username.value,
-        email: email.value,
-        password: password.value,
-      };
+      // Si tout est OK envoie des données au serveur
+      if (
+        usernameIsValid &&
+        emailIsValid &&
+        passwordIsValid &&
+        passConfIsValid
+      ) {
+        const username = document.querySelector("#username");
+        const email = document.querySelector("#email");
+        const password = document.querySelector("#password");
 
-      // Envoie des données vers notre API
-      axios
-        .post("http://localhost:3310/api/users", formData)
-        .then(() => setSuccess(!success))
-        .catch((err) => console.error(err));
+        // Création d'objet contenant la data à envoyer
+        const formData = {
+          username: username.value,
+          email: email.value,
+          password: password.value,
+        };
 
-      // Rechargement de la page
-      window.location.reload(false);
-    }
-    console.error("Saisie du formulaire incorrect");
+        // Envoie des données vers notre API
+        axios
+          .post("http://localhost:3310/api/users", formData)
+          .then(() => setSuccess(!success))
+          .catch((err) => console.error(err));
+
+        // Rechargement de la page
+        window.location.reload(false);
+      }
+      console.error("Saisie du formulaire incorrect");
+    });
   };
+
   // Affiche soit un formulaire de connexion soit d'inscription
   return checkbox ? (
     // Formulaire de connexion
