@@ -22,11 +22,12 @@ function RecipeList() {
   useEffect(() => {
     getData();
   }, []);
+
   return (
     <div className="body-content">
       <form>
-        <label htmlFor="select tag">
-          <select id="select tag" onChange={(e) => setFilters(e.target.value)}>
+        <label htmlFor="select-tag">
+          <select id="select-tag" onChange={(e) => setFilters(e.target.value)}>
             <option value="">----</option>
             {filters.map((filtre) => {
               return (
@@ -39,14 +40,15 @@ function RecipeList() {
         </label>
       </form>
       <ul>
-        {allRecipe.map((recipes) => (
-          <li key={recipes.ID}>
+        {allRecipe.map((recipe) => (
+          <li key={recipe.ID}>
             <Recipe
-              name={recipes.name}
-              prep={recipes.prep_time}
-              nb={recipes.nb_people}
-              difficulty={recipes.difficulty}
-              image={recipes.image}
+              id={recipe.ID}
+              name={recipe.name}
+              prep={recipe.prep_time}
+              nb={recipe.nb_people}
+              difficulty={recipe.difficulty}
+              image={recipe.image}
             />
           </li>
         ))}

@@ -8,7 +8,6 @@ import {
   isPassMatch,
   resetErrorMessageSignIn,
 } from "./services/VeriForm";
-import Navbar from "../components/Navbar";
 import "./style/Connexion.scss";
 
 // Formulaires de LogIn ou SignIn
@@ -42,10 +41,11 @@ function TypeOfForm({ checkbox }) {
         .post("http://localhost:3310/api/users", formData)
         .then(() => setSuccess(!success))
         .catch((err) => console.error(err));
+      console.info("Votre compte a été créé");
+      window.location.reload(false);
     }
     // Rechargement de la page
-    console.info("Votre compte a été créé");
-    window.location.reload(false);
+    console.info("Error");
   };
 
   return checkbox ? (
@@ -101,38 +101,35 @@ function Connexion() {
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="body-content">
-        <div className="wrapper">
-          <div className="form-container">
-            <div className="slide-controls">
-              <input
-                type="radio"
-                name="slide"
-                id="login"
-                defaultChecked
-                onChange={handleChange}
-              />
-              <input
-                type="radio"
-                name="slide"
-                id="signup"
-                onChange={handleChange}
-              />
-              <label htmlFor="login" className="slide login">
-                Connexion
-              </label>
-              <label htmlFor="signup" className="slide signup">
-                Inscription
-              </label>
-              <div className="slider-tab" />
-            </div>
+    <div className="body-content">
+      <div className="wrapper">
+        <div className="form-container">
+          <div className="slide-controls">
+            <input
+              type="radio"
+              name="slide"
+              id="login"
+              defaultChecked
+              onChange={handleChange}
+            />
+            <input
+              type="radio"
+              name="slide"
+              id="signup"
+              onChange={handleChange}
+            />
+            <label htmlFor="login" className="slide login">
+              Connexion
+            </label>
+            <label htmlFor="signup" className="slide signup">
+              Inscription
+            </label>
+            <div className="slider-tab" />
           </div>
-          <TypeOfForm checkbox={checkbox} />
         </div>
+        <TypeOfForm checkbox={checkbox} />
       </div>
-    </>
+    </div>
   );
 }
 

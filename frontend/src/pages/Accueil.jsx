@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-function Acceuil() {
+function Accueil() {
   return (
-    <div>
+    <div className="body-content">
       <Link to="/recipes">
         <p>Voir les recettes</p>
       </Link>
@@ -10,8 +10,11 @@ function Acceuil() {
         <p>Connexion</p>
       </Link>
       <p>Inscription</p>
+      <Link to="/Profil">
+        <p>Profil</p>
+      </Link>
     </div>
   );
 }
 
-export default Acceuil;
+export default Accueil;
