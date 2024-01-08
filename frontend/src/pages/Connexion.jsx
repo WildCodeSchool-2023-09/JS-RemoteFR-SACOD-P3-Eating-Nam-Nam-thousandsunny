@@ -6,12 +6,12 @@ import {
   isValidEmail,
   isValidPassword,
   isPassMatch,
-  resetErrMsgUserSignIn,
-  resetErrMsgMailSignIn,
-  resetErrMsgPassSignIn,
-  resetErrMsgPassConfSignIn,
-  resetAllErrMsgSignIn,
-} from "./services/VeriForm";
+  resetErrMsgUserSign,
+  resetErrMsgMailSign,
+  resetErrMsgPassSign,
+  resetErrMsgPassConfSign,
+  resetAllErrMsgSign,
+} from "./services/postUserVerif";
 import "./style/Connexion.scss";
 
 // Formulaires de LogIn ou SignIn
@@ -19,53 +19,110 @@ import "./style/Connexion.scss";
 function TypeOfForm({ checkbox }) {
   const [success, setSuccess] = useState("");
 
+  const handleClickLogin = async (event) => {
+    event.preventDefault();
+
+    const username = document.querySelector("#login-username").value;
+    const password = document.querySelector("#login-password").value;
+    const loginErrorMsg = document.querySelector("#login-error");
+    const usernameErrorMsg = document.querySelector("#username-error");
+    const passwordErrorMsg = document.querySelector("#password-error");
+
+    loginErrorMsg.innerText = "";
+
+    if (username && password) {
+      usernameErrorMsg.innerText = "";
+      passwordErrorMsg.innerText = "";
+
+      const formData = {
+        username,
+        password,
+      };
+      console.info(formData);
+
+      try {
+        // Appel à l'API pour demander une connexion
+        const response = await axios
+          .post(`${import.meta.env.VITE_BACKEND_URL}/api/register`, formData)
+          // .then(() => setSuccess(!success))
+          .catch((err) => console.error(err));
+
+        // Redirection vers la page de connexion si la création réussit
+
+        if (response && response.status === 200) {
+          const user = response.data;
+          console.info(user);
+        } else {
+          loginErrorMsg.innerText =
+            "Nom d'utilisateur ou mot de passe incorrect";
+        }
+      } catch (err) {
+        // Log des erreurs possibles
+        console.error(err);
+      }
+    }
+    if (!username) {
+      usernameErrorMsg.innerText = "Veuillez saisir votre nom d'utilisateur";
+    }
+    if (!password) {
+      passwordErrorMsg.innerText = "Veuillez saisir votre mot de passe";
+    }
+  };
+
+  // Vérifie en temps réel si le password est valide et qu'il correspond au passConf si celui-ci est renseigné
   const handleBlur = () => {
-    resetErrMsgPassConfSignIn();
+    resetErrMsgPassConfSign();
     isValidPassword();
     isPassMatch();
   };
 
   // Actions réalisés au submit "Connexion"
-  const handleClickSignIn = (event) => {
+  const handleClickRegister = (event) => {
     event.preventDefault();
 
     // Verification du formulaire d'inscription
 
-    let usernameIsValid = false;
-    isValidUsername().then((isValid) => {
-      // Attend le retour de la bdd pour savoir si l'utilisateur existe
-      usernameIsValid = isValid;
-      const emailIsValid = isValidEmail();
-      const passwordIsValid = isValidPassword();
-      const passConfIsValid = isPassMatch();
+    isValidUsername().then((usernameIsValid) => {
+      // Ici avec le '.then' on attend le retour de la fonction async qui cherche dans la BDD si l'utilisateur existe
+      // La fonction renvoie une valeur 'true' ou 'false' contenu dans "usernameIsValid"
 
-      // Si tout est OK envoie des données au serveur
-      if (
-        usernameIsValid &&
-        emailIsValid &&
-        passwordIsValid &&
-        passConfIsValid
-      ) {
-        const username = document.querySelector("#username");
-        const email = document.querySelector("#email");
-        const password = document.querySelector("#password");
+      isValidEmail().then((emailIsValid) => {
+        // Ici avec le '.then' on attend le retour de la fonction async qui cherche dans la BDD si l'email existe
+        // La fonction renvoie une valeur 'true' ou 'false' contenu dans "usernameIsValid"
 
-        // Création d'objet contenant la data à envoyer
-        const formData = {
-          username: username.value,
-          email: email.value,
-          password: password.value,
-        };
+        // Puis le reste des verifications s'exécute et renvoient une valeur 'true' ou 'false'
+        const passwordIsValid = isValidPassword();
+        const passConfIsValid = isPassMatch();
 
-        // Envoie des données vers notre API
-        axios
-          .post("http://localhost:3310/api/users", formData)
-          .then(() => setSuccess(!success))
-          .catch((err) => console.error(err));
+        // Si tout est OK (true) on exécute la suite du code
+        if (
+          usernameIsValid &&
+          emailIsValid &&
+          passwordIsValid &&
+          passConfIsValid
+        ) {
+          // Récuperation des valeurs du formulaire
+          const username = document.querySelector("#username");
+          const email = document.querySelector("#email");
+          const password = document.querySelector("#password");
 
+          // Création de l'objet contenant la data à envoyer
+          const formData = {
+            username: username.value,
+            email: email.value,
+            password: password.value,
+          };
+
+          // Envoie des données vers notre API
+          axios
+            .post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, formData)
+            .then(() => setSuccess(!success))
+            .catch((err) => console.error(err));
+        }
         // Rechargement de la page
-        window.location.reload(false);
-      }
+        // window.location.reload(false);
+      });
+
       console.error("Saisie du formulaire incorrect");
     });
   };
@@ -73,62 +130,72 @@ function TypeOfForm({ checkbox }) {
   // Affiche soit un formulaire de connexion soit d'inscription
   return checkbox ? (
     // Formulaire de connexion
-    <form className="form" id="form">
+    <form className="form" id="form" onSubmit={handleClickLogin}>
+      {/* Label et champ du nom de l'adresse email */}
       <label htmlFor="login-username">Nom d'utilisateur :</label>
       <input type="text" name="login-username" id="login-username" />
       <div id="username-error" className="error-msg" />
 
+      {/* Label et champ du mot de passe */}
       <label htmlFor="login-password">Mot de passe :</label>
       <input type="password" name="login-password" id="login-password" />
       <div id="password-error" className="error-msg" />
+      <div id="login-error" className="error-msg" />
 
+      {/* Bouton d'action de la demande de connexion à un compte */}
       <button type="submit" name="submit" id="submit">
         Se connecter
       </button>
     </form>
   ) : (
     // Formulaire d'inscription
-    <form className="form" id="form" onSubmit={handleClickSignIn}>
+    // Les fonctions 'onBlur' et 'onFocus' permettent de vérifier et d'afficher "en temps réel" si il y a des erreurs lors de la saisie du formaulaire
+    <form className="form" id="form" onSubmit={handleClickRegister}>
+      {/* Label et champ du nom d'utilisateur */}
       <label htmlFor="username">Nom d'utilisateur :</label>
       <input
         type="text"
         name="username"
         id="username"
         onBlur={isValidUsername}
-        onFocus={resetErrMsgUserSignIn}
+        onFocus={resetErrMsgUserSign}
       />
       <div id="username-error" className="error-msg" />
 
+      {/* Label et champ du nom de l'adresse email */}
       <label htmlFor="email">Adresse e-mail :</label>
       <input
         type="email"
         name="email"
         id="email"
         onBlur={isValidEmail}
-        onFocus={resetErrMsgMailSignIn}
+        onFocus={resetErrMsgMailSign}
       />
       <div id="email-error" className="error-msg" />
 
+      {/* Label et champ du mot de passe */}
       <label htmlFor="password">Mot de passe :</label>
       <input
         type="password"
         name="password"
         id="password"
         onBlur={handleBlur}
-        onFocus={resetErrMsgPassSignIn}
+        onFocus={resetErrMsgPassSign}
       />
       <div id="password-error" className="error-msg" />
 
+      {/* Label et champ de la confirmation du mot de passe */}
       <label htmlFor="passConf">Confirmer le mot de passe :</label>
       <input
         type="password"
         name="passConf"
         id="passConf"
         onBlur={isPassMatch}
-        onFocus={resetErrMsgPassConfSignIn}
+        onFocus={resetErrMsgPassConfSign}
       />
       <div id="passConf-error" className="error-msg" />
 
+      {/* Bouton d'action de l'envoie de la requête de création de compte */}
       <button type="submit" name="submit" id="submit">
         Créer mon compte
       </button>
@@ -145,7 +212,7 @@ function Connexion() {
 
   const handleChange = () => {
     document.getElementsByTagName("form")[2].reset();
-    if (!checkbox) resetAllErrMsgSignIn();
+    if (!checkbox) resetAllErrMsgSign();
     return !checkbox ? setCheckbox(true) : setCheckbox(false);
   };
   // Affiche l'en-tête du composant du formulaire (bouton switch)
