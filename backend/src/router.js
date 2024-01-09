@@ -79,9 +79,6 @@ router.get("/fav/:id", FavControllers.read); // Route to get a specific item by 
 
 const TagControllers = require("./controllers/tagControllers");
 
-// Middleware
-const hashPasswordMiddleware = require("./middleware/hashpassMiddleware");
-
 // Route to get a list of items
 router.get("/users", UserControllers.browse);
 router.get("/recipes", RecipeControllers.browse);
