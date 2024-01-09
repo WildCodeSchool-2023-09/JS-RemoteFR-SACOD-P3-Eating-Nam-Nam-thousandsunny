@@ -1,13 +1,14 @@
 const argon2 = require("argon2");
 
-// Middleware pour hacher le mot de passe avant d'ajouter un utilisateur
+// Middleware pour hasher le password dans la DB lors de l'ajout d'un utilisateur
 const hashPasswordMiddleware = async (req, res, next) => {
   try {
-    // Vérifiez si le mot de passe est présent dans le corps de la requête
+    // Vérifie si le password est présent dans le corps de la requête
     if (req.body.password) {
-      // Hachez le mot de passe
+      // Hash le password avec Argon2
       const hashedPassword = await argon2.hash(req.body.password);
-      // Remplacez le mot de passe en clair par le mot de passe haché dans le corps de la requête
+
+      // Ecrase le password en clair par le password hashé (il le remplace) dans le corps de la requête
       req.body.password = hashedPassword;
     }
     next();
