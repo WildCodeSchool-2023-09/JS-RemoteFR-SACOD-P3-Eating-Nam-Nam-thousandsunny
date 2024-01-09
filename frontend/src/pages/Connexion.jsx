@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import {
   isValidUsername,
@@ -12,12 +13,13 @@ import {
   resetErrMsgPassConfSign,
   resetAllErrMsgSign,
 } from "./services/postUserVerif";
+import "react-toastify/dist/ReactToastify.css";
 import "./style/Connexion.scss";
 
 // Formulaires de LogIn ou SignIn
 
-function TypeOfForm({ checkbox }) {
-  const [success, setSuccess] = useState("");
+function TypeOfForm({ checkbox, setCheckbox }) {
+  const [success, setSuccess] = useState(false);
 
   const handleClickLogin = async (event) => {
     event.preventDefault();
@@ -43,7 +45,7 @@ function TypeOfForm({ checkbox }) {
       try {
         // Appel à l'API pour demander une connexion
         const response = await axios
-          .post(`${import.meta.env.VITE_BACKEND_URL}/api/register`, formData)
+          .post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, formData)
           // .then(() => setSuccess(!success))
           .catch((err) => console.error(err));
 
@@ -52,7 +54,19 @@ function TypeOfForm({ checkbox }) {
         if (response && response.status === 200) {
           const user = response.data;
           console.info(user);
+          toast.success(
+            "Authentification réussie ! 😎 Redirection en cours..",
+            {
+              onClose: () => {
+                // Redirection après la fermeture du toast
+                setTimeout(() => {
+                  window.location.href = "/recipes";
+                }, 3000);
+              },
+            }
+          );
         } else {
+          toast.error("Erreur d'authentification 😕");
           loginErrorMsg.innerText =
             "Nom d'utilisateur ou mot de passe incorrect";
         }
@@ -79,7 +93,6 @@ function TypeOfForm({ checkbox }) {
   // Actions réalisés au submit "Connexion"
   const handleClickRegister = (event) => {
     event.preventDefault();
-
     // Verification du formulaire d'inscription
 
     isValidUsername().then((usernameIsValid) => {
@@ -118,11 +131,14 @@ function TypeOfForm({ checkbox }) {
             .post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, formData)
             .then(() => setSuccess(!success))
             .catch((err) => console.error(err));
-        }
-        // Rechargement de la page
-        // window.location.reload(false);
-      });
 
+          // Rechargement de la page
+          toast.success("Votre compte à bien été créé ! 😎");
+          document.getElementsByTagName("form")[2].email.value = "";
+          if (!checkbox) setCheckbox(true);
+          else setCheckbox(false);
+        }
+      });
       console.error("Saisie du formulaire incorrect");
     });
   };
@@ -204,6 +220,7 @@ function TypeOfForm({ checkbox }) {
 }
 TypeOfForm.propTypes = {
   checkbox: PropTypes.bool.isRequired,
+  setCheckbox: PropTypes.func.isRequired,
 };
 
 function Connexion() {
@@ -218,6 +235,7 @@ function Connexion() {
   // Affiche l'en-tête du composant du formulaire (bouton switch)
   return (
     <div className="body-content">
+      <ToastContainer autoClose={2000} pauseOnHover={false} />
       <div className="wrapper">
         <div className="form-container">
           <div className="slide-controls">
@@ -225,13 +243,14 @@ function Connexion() {
               type="radio"
               name="slide"
               id="login"
-              defaultChecked
+              checked={checkbox === true}
               onChange={handleChange}
             />
             <input
               type="radio"
               name="slide"
               id="signup"
+              checked={checkbox === false}
               onChange={handleChange}
             />
             <label htmlFor="login" className="slide login">
@@ -243,7 +262,7 @@ function Connexion() {
             <div className="slider-tab" />
           </div>
         </div>
-        <TypeOfForm checkbox={checkbox} />
+        <TypeOfForm checkbox={checkbox} setCheckbox={setCheckbox} />
       </div>
     </div>
   );

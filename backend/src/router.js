@@ -87,7 +87,7 @@ const AuthControllers = require("./controllers/authControllers");
 // Route to get specific items and block the register if they exists
 router.get("/username/:username", AuthControllers.readByUsername);
 router.get("/email/:email", AuthControllers.readByEmail);
-router.post("/register", AuthControllers.login);
+router.post("/login", AuthControllers.login);
 
 /* ************************************************************************* */
 
