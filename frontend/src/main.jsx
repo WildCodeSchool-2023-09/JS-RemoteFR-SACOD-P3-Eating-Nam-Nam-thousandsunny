@@ -28,6 +28,13 @@ const router = createBrowserRouter([
         element: <Profil />,
       },
       { path: "/connexion", element: <Connexion /> },
+      {
+        path: "/recipes/:id",
+        element: <RecipeDetails />,
+        loader: ({ params }) => {
+          return fetch(`http://localhost:3310/api/recipes/${params.id}`);
+        },
+      },
     ],
   },
 ]);

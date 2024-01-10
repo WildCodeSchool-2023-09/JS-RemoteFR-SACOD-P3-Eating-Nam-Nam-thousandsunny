@@ -49,6 +49,9 @@ function RecipeList() {
               nb={recipe.nb_people}
               difficulty={recipe.difficulty}
               image={recipe.image}
+              tag1={recipe.tag1}
+              tag2={recipe.tag2}
+              tag3={recipe.tag3}
             />
           </li>
         ))}

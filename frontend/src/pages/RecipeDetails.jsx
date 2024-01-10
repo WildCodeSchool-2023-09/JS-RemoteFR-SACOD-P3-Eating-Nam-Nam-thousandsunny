@@ -1,20 +1,11 @@
-import { Link } from "react-router-dom";
-/* UseEffect for loading data
-import { useEffect } from "react";
-import axios from "axios";
+import { Link, useLoaderData } from "react-router-dom";
+import Detail from "./Detail";
 
-
-useEffect(() => {
-  axios
-    .get("http://localhost:3310/api/recipes/{id}")
-    .then((res) => setAllRecipe(res.data))
-    .catch((err) => console.error(err));
-}, []);
- */
 function RecipeDetails() {
+  const detail = useLoaderData();
   return (
     <div>
-      <p>GROS TEST DES Familles</p>
+      <Detail name={detail.name} prep={detail.prep_time} titre={detail.titre} />
       <Link to="/recipes">
         <p>retour</p>
       </Link>
