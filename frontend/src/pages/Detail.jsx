@@ -6,8 +6,8 @@ import axios from "axios";
 function Detail({ name, prep, titre }) {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
+  const { id } = useParams();
   const getData = () => {
-    const { id } = useParams();
     const endpoints = [
       `http://localhost:3310/api/ingredientbyrecipe/${id}`,
       `http://localhost:3310/api/instructionbyrecipe/${id}`,
@@ -25,7 +25,7 @@ function Detail({ name, prep, titre }) {
   return (
     <div>
       <h1>{name}</h1>
-      <p>{prep}</p>
+      <p>{prep} minutes</p>
       <p>{titre}</p>
       <div>
         {ingredients.map((element) => (
