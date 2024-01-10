@@ -13,7 +13,9 @@ class RecipeManager extends AbstractManager {
 
   async read(id) {
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id=?`,
+      `SELECT r.*, u.username from recipe AS r
+    JOIN user AS u ON u.ID = r.user_ID
+    WHERE r.ID=?`,
       [id]
     );
     return rows[0];
