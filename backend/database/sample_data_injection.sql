@@ -11,31 +11,20 @@ VALUES
     ('hugoD','hugo.durand@gmail.com','Hugo','Durand','1989-02-05','test5',0)
 ;
 
-INSERT INTO recipe (name, user_ID, prep_time, nb_people, difficulty,image )
+INSERT INTO recipe (name,titre, user_ID, prep_time, nb_people, difficulty,tag1, tag2 )
 VALUES
-    ('oeufs au plat',1, 15, 1, 'facile','jetbrains://web-storm/navigate/reference?project=eating-nam-nam&path=backend/public/assets/images/uploads/pexels-iina-luoto-1211887.jpg'),
-    ('pâtes au beurre', 2, 25, 2, 'facile', 'C:\Users\trist\projects\eating-nam-nam\backend\public\assets\images\uploads\pexels-jer-chung-2116094.jpg'),
-    ('religieuse au chocolat', 5, 90, 2, 'difficile','C:\Users\trist\projects\eating-nam-nam\backend\public\assets\images\uploads\pexels-julie-aagaard-2097090.jpg')
+    ('oeufs au plat', 'simple comme bonjour',1, 15, 1, 'facile', 'végétarien', 'sans gluten'),
+    ('pâtes au beurre','la spécialité des étudiants!', 2, 25, 2, 'facile', 'végétarien', NULL),
+    ('religieuse au chocolat','pour les experts en pâtisserie', 5, 90, 2, 'difficile', 'végétarien', 'gourmand')
     ;
 
-INSERT INTO ingredient (name, unité, kcal)
+INSERT INTO ingredient (name, unit, kcal)
 VALUES
-('oeuf', 'pièce(s)', 20),
+('oeuf', 'pièce(s)', 20), 
 ('beurre', 'grammes', 5),
 ('chocolat noir', 'grammes', 3),
 ('farine de blé', 'grammes', 1),
 ('pâtes', 'grammes', 2)
-;
-
-INSERT INTO recipe_ingredient (recipe_ID, ingredient_ID, quantity)
-VALUES
-    (1, 1, 2),
-    (1, 2, 20),
-    (2, 5, 200),
-    (2, 2, 50),
-    (3,3,300),
-    (3,4,200),
-    (3,1,6)
 ;
 
 INSERT INTO instruction (description, recipe_ID)
@@ -74,12 +63,6 @@ VALUES
     ("sans gluten")
 ;
 
-INSERT INTO recipe_tag (recipe_ID,tag_ID)
-VALUES
-    (1,2),
-    (1,3),
-    (2,2)
-;
 
 INSERT INTO comment (description, user_ID, recipe_ID)
 VALUES
@@ -88,3 +71,8 @@ VALUES
     ("J'ai pas eu besoin de spatule pour ça!",5,2)
 ;
 
+INSERT INTO recipe_ingredient (recipe_ID, ingredient_ID, quantity)
+VALUES
+    (1,1,2),
+    (1,2,10)
+;

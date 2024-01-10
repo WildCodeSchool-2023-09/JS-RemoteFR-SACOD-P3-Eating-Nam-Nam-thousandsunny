@@ -18,10 +18,14 @@ CREATE TABLE recipe (
   ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user_ID INT NOT NULL,
     name VARCHAR(80) NOT NULL,
+    titre VARCHAR(100) NOT NULL,
     prep_time INT NOT NULL,
     nb_people INT NOT NULL,
     difficulty VARCHAR(30) NOT NULL,
     image VARCHAR(200),
+    tag1 VARCHAR(30),
+    tag2 VARCHAR(30),
+    tag3 VARCHAR(30),
 FOREIGN KEY (user_ID) REFERENCES user(id)
 );
 CREATE TABLE ingredient
@@ -29,30 +33,9 @@ CREATE TABLE ingredient
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     kcal INT NOT NULL,
-    unité VARCHAR(10) NOT NULL
+    unit VARCHAR(10) NOT NULL
 );
-CREATE TABLE recipe_ingredient
-(
-    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    recipe_ID INT NOT NULL,
-    ingredient_ID INT NOT NULL,
-    quantity INT NOT NULL,
-FOREIGN KEY (recipe_ID) REFERENCES recipe(ID),
-FOREIGN KEY (ingredient_ID) REFERENCES ingredient(ID)
-);
-CREATE TABLE tag
-(
-    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    name VARCHAR(40) NOT NULL
-);
-CREATE TABLE recipe_tag
-(
-    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    recipe_ID INT NOT NULL,
-    tag_ID INT NOT NULL,
-    FOREIGN KEY (recipe_ID) REFERENCES recipe(ID),
-    FOREIGN KEY (tag_ID) REFERENCES tag(ID)
-);
+
 CREATE TABLE fav
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -90,6 +73,16 @@ CREATE TABLE recipe_material
     material_ID INT NOT NULL,
     FOREIGN KEY (recipe_ID) REFERENCES recipe(ID),
     FOREIGN KEY (material_ID) REFERENCES material(ID)
+);
+
+CREATE TABLE recipe_ingredient
+(
+    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    recipe_ID INT NOT NULL,
+    ingredient_ID INT NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (recipe_ID) REFERENCES recipe(ID),
+    FOREIGN KEY (ingredient_ID) REFERENCES ingredient(ID)
 );
 
 

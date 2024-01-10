@@ -1,12 +1,15 @@
 .Footer {
   background-image: url(/src/assets/FooterbgDesktop.svg);
   display: flex;
+  position: fixed;
+  bottom: 0;
   justify-content: space-around;
   align-items: center;
   width: 100%;
   height: 20vh;
   background-size: cover;
   z-index: 0;
+  object-fit: contain;
 }
 
 .Project {
@@ -27,12 +30,12 @@
 }
 @media screen and (max-width: 800px) {
   .Footer {
-    background-image: url(/src/assets/FooterbgMobile.svg);
+    background-image: url(/src/assets/Footerbg.svg);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 40vh;
+    height: 30vh;
     gap: 1rem;
   }
   .Project {
