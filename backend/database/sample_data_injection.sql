@@ -18,7 +18,7 @@ VALUES
     ('religieuse au chocolat', 5, 90, 2, 'difficile', 'végétarien', 'gourmand')
     ;
 
-INSERT INTO ingredient (name, unité, kcal)
+INSERT INTO ingredient (name, unit, kcal)
 VALUES
 ('oeuf', 'pièce(s)', 20), 
 ('beurre', 'grammes', 5),
@@ -71,3 +71,8 @@ VALUES
     ("J'ai pas eu besoin de spatule pour ça!",5,2)
 ;
 
+INSERT INTO recipe_ingredient (recipe_ID, ingredient_ID, quantity)
+VALUES
+    (1,1,2),
+    (1,2,10)
+;
