@@ -88,6 +88,6 @@ CREATE TABLE recipe_ingredient
 CREATE TABLE tag
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    tag_name VARCHAR(30) NOT NULL
+    name VARCHAR(30) NOT NULL
 )
 
