@@ -1,21 +1,30 @@
-.Profil {
+.body-content {
   width: 100vw;
   height: 100vh;
 }
 
 .Profil_container {
   background-color: #f8f7f2;
-  display: flex;
-  align-items: baseline;
+
   width: 80%;
-  height: 35%;
-  margin: 2.5rem;
-  margin-top: 8rem;
+  height: 30%;
   border-radius: 1rem;
 }
 
+.first {
+  display: flex;
+  justify-content: space-around;
+}
+
+.mid-block {
+  width: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .No-photo {
-  width: 40%;
+  width: 80%;
   position: relative;
   z-index: 20;
   left: 1rem;
@@ -31,4 +40,25 @@
   font-size: 1rem;
   font-weight: 500;
   text-align: center;
+}
+
+.age {
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+.pseudo {
+  font-size: 16px;
+  font-weight: light;
+}
+
+.recipes {
+  font-size: 12px;
+}
+
+.comments {
+  font-size: 12px;
+}
+.mid {
+  font-size: 12px;
 }
