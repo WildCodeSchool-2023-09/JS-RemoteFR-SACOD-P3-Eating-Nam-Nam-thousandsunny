@@ -5,11 +5,11 @@ USE eating_nam_nam;
 CREATE TABLE user (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     username VARCHAR(30) NOT NULL,
-    email VARCHAR(256) NOT NULL,
+    email VARCHAR(80) NOT NULL,
     firstname VARCHAR(30),
     lastname VARCHAR(50),
     birthdate DATE,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(256) NOT NULL,
     description MEDIUMTEXT,
     is_admin BIT,
     avatar VARCHAR(200)
