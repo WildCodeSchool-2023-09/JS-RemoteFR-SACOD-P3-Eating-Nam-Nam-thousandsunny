@@ -15,12 +15,19 @@ const router = express.Router();
 
 // Import userControllers module for handling item-related operations
 const UserControllers = require("./controllers/userControllers");
+const AuthControllers = require("./controllers/authControllers");
+
 // Import the middleware for hash password in DB when a new user register
 const hashPasswordMiddleware = require("./middleware/hashpassMiddleware");
 
 router.get("/users", UserControllers.browse); // Route to get a list of items
 router.get("/users/:id", UserControllers.read); // Route to get a specific item by ID
 router.post("/users", hashPasswordMiddleware, UserControllers.add);
+
+// Route to get specific items and block the register if they exists
+router.get("/username/:username", AuthControllers.readByUsername);
+router.get("/email/:email", AuthControllers.readByEmail);
+router.post("/login", AuthControllers.login);
 
 /* ************************************************************************* */
 // RECIPE
@@ -60,6 +67,7 @@ router.get("/materialByRecipe/:id", MaterialControllers.readByRecipe); // Route 
 const CommentControllers = require("./controllers/commentControllers");
 
 router.get("/commentbyrecipe/:id", CommentControllers.readByRecipe); // Route to get comments for a specific Recipe
+router.get("/commentbyuser/:id", CommentControllers.readByUser); // Route to get comments for a specific User
 
 /* ************************************************************************* */
 // INSTRUCTION
@@ -86,18 +94,6 @@ const TagControllers = require("./controllers/tagControllers");
 router.get("/users", UserControllers.browse);
 router.get("/recipes", RecipeControllers.browse);
 router.get("/tags", TagControllers.browse);
-
-/* ************************************************************************* */
-// AUTH
-/* ************************************************************************* */
-
-// Import authControllers module for register and connection
-const AuthControllers = require("./controllers/authControllers");
-
-// Route to get specific items and block the register if they exists
-router.get("/username/:username", AuthControllers.readByUsername);
-router.get("/email/:email", AuthControllers.readByEmail);
-router.post("/login", AuthControllers.login);
 
 /* ************************************************************************* */
 

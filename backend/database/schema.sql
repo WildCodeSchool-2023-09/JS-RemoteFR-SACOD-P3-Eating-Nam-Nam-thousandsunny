@@ -4,12 +4,12 @@ USE eating_nam_nam;
 #Create tables for eating nam nam DB
 CREATE TABLE user (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    username VARCHAR(30) NOT NULL,
-    email VARCHAR(80) NOT NULL,
-    firstname VARCHAR(30),
-    lastname VARCHAR(50),
+    username VARCHAR(20) UNIQUE NOT NULL,
+    email VARCHAR(30) UNIQUE NOT NULL,
+    firstname VARCHAR(20),
+    lastname VARCHAR(20),
     birthdate DATE,
-    password VARCHAR(256) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     description MEDIUMTEXT,
     is_admin BIT,
     avatar VARCHAR(200)
@@ -18,6 +18,7 @@ CREATE TABLE recipe (
   ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user_ID INT NOT NULL,
     name VARCHAR(80) NOT NULL,
+    titre VARCHAR(100) NOT NULL,
     prep_time INT NOT NULL,
     nb_people INT NOT NULL,
     difficulty VARCHAR(30) NOT NULL,
@@ -84,4 +85,9 @@ CREATE TABLE recipe_ingredient
     FOREIGN KEY (ingredient_ID) REFERENCES ingredient(ID)
 );
 
+CREATE TABLE tag
+(
+    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    tag_name VARCHAR(30) NOT NULL
+)
 
