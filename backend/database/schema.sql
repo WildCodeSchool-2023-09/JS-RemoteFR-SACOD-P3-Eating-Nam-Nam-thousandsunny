@@ -85,4 +85,9 @@ CREATE TABLE recipe_ingredient
     FOREIGN KEY (ingredient_ID) REFERENCES ingredient(ID)
 );
 
+CREATE TABLE tag
+(
+    ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    tag_name VARCHAR(30) NOT NULL
+)
 
