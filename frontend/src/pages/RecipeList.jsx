@@ -9,7 +9,7 @@ function RecipeList() {
   const getData = () => {
     const endpoints = [
       "http://localhost:3310/api/recipes",
-      "http://localhost:3310/api/tag",
+      "http://localhost:3310/api/tags",
     ];
     Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
       ([{ data: recipe }, { data: tag }]) => {

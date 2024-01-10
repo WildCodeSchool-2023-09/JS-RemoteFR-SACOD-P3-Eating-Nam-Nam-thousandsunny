@@ -21,5 +21,16 @@ WHERE r.ID = ${id};`,
     );
     return rows;
   }
+
+  async readByRecipe(id) {
+    const [rows] = await this.database.query(
+      `SELECT m.name from material AS m 
+JOIN recipe_material AS p ON p.material_ID = m.ID
+JOIN recipe ON recipe.ID= p.recipe_ID
+WHERE recipe.ID= ?`,
+      [id]
+    );
+    return rows;
+  }
 }
 module.exports = MaterialManager;

@@ -12,15 +12,13 @@ import {
   resetErrMsgPassSign,
   resetErrMsgPassConfSign,
   resetAllErrMsgSign,
-} from "./services/postUserVerif";
+} from "./services/postUserValid";
 import "react-toastify/dist/ReactToastify.css";
 import "./style/Connexion.scss";
 
 // Formulaires de LogIn ou SignIn
 
 function TypeOfForm({ checkbox, setCheckbox }) {
-  const [success, setSuccess] = useState(false);
-
   const handleClickLogin = async (event) => {
     event.preventDefault();
 
@@ -31,6 +29,13 @@ function TypeOfForm({ checkbox, setCheckbox }) {
     const passwordErrorMsg = document.querySelector("#password-error");
 
     loginErrorMsg.innerText = "";
+
+    if (!username) {
+      usernameErrorMsg.innerText = "Veuillez saisir votre nom d'utilisateur";
+    }
+    if (!password) {
+      passwordErrorMsg.innerText = "Veuillez saisir votre mot de passe";
+    }
 
     if (username && password) {
       usernameErrorMsg.innerText = "";
@@ -52,8 +57,8 @@ function TypeOfForm({ checkbox, setCheckbox }) {
         // Redirection vers la page de connexion si la création réussit
 
         if (response && response.status === 200) {
-          const user = response.data;
-          console.info(user);
+          const userLogged = response.data;
+          console.info("user =", userLogged);
           toast.success(
             "Authentification réussie ! 😎 Redirection en cours..",
             {
@@ -72,14 +77,8 @@ function TypeOfForm({ checkbox, setCheckbox }) {
         }
       } catch (err) {
         // Log des erreurs possibles
-        console.error(err);
+        console.info(err);
       }
-    }
-    if (!username) {
-      usernameErrorMsg.innerText = "Veuillez saisir votre nom d'utilisateur";
-    }
-    if (!password) {
-      passwordErrorMsg.innerText = "Veuillez saisir votre mot de passe";
     }
   };
 
@@ -93,54 +92,46 @@ function TypeOfForm({ checkbox, setCheckbox }) {
   // Actions réalisés au submit "Connexion"
   const handleClickRegister = (event) => {
     event.preventDefault();
+
     // Verification du formulaire d'inscription
+    const usernameIsValid = isValidUsername();
+    const emailIsValid = isValidEmail();
+    const passwordIsValid = isValidPassword();
+    const passConfIsValid = isPassMatch();
 
-    isValidUsername().then((usernameIsValid) => {
-      // Ici avec le '.then' on attend le retour de la fonction async qui cherche dans la BDD si l'utilisateur existe
-      // La fonction renvoie une valeur 'true' ou 'false' contenu dans "usernameIsValid"
+    // Si tout est OK (true) on exécute la suite du code
+    if (usernameIsValid && emailIsValid && passwordIsValid && passConfIsValid) {
+      // Récuperation des valeurs du formulaire
+      const username = document.querySelector("#username").value;
+      const email = document.querySelector("#email").value;
+      const password = document.querySelector("#password").value;
 
-      isValidEmail().then((emailIsValid) => {
-        // Ici avec le '.then' on attend le retour de la fonction async qui cherche dans la BDD si l'email existe
-        // La fonction renvoie une valeur 'true' ou 'false' contenu dans "usernameIsValid"
+      // Création de l'objet contenant la data à envoyer
+      const formData = {
+        username,
+        email,
+        password,
+      };
 
-        // Puis le reste des verifications s'exécute et renvoient une valeur 'true' ou 'false'
-        const passwordIsValid = isValidPassword();
-        const passConfIsValid = isPassMatch();
+      // Envoie des données vers notre API
+      axios
+        .post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, formData)
+        .then((res) => {
+          if (res.status === 201) {
+            // Message pop-up de succès
+            toast.success("Votre compte à bien été créé ! 😎");
 
-        // Si tout est OK (true) on exécute la suite du code
-        if (
-          usernameIsValid &&
-          emailIsValid &&
-          passwordIsValid &&
-          passConfIsValid
-        ) {
-          // Récuperation des valeurs du formulaire
-          const username = document.querySelector("#username");
-          const email = document.querySelector("#email");
-          const password = document.querySelector("#password");
-
-          // Création de l'objet contenant la data à envoyer
-          const formData = {
-            username: username.value,
-            email: email.value,
-            password: password.value,
-          };
-
-          // Envoie des données vers notre API
-          axios
-            .post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, formData)
-            .then(() => setSuccess(!success))
-            .catch((err) => console.error(err));
-
-          // Rechargement de la page
-          toast.success("Votre compte à bien été créé ! 😎");
-          document.getElementsByTagName("form")[2].email.value = "";
-          if (!checkbox) setCheckbox(true);
-          else setCheckbox(false);
-        }
-      });
-      console.error("Saisie du formulaire incorrect");
-    });
+            // Redirection sur le login en gardant la valeur de username
+            document.getElementsByTagName("form")[2].email.value = "";
+            if (!checkbox) setCheckbox(true);
+            console.info("response =", res);
+          }
+        })
+        .catch((err) => {
+          // Affiche un pop-up du message d'erreur
+          toast.error(err.response.data.message);
+        });
+    } else toast.error("Saisie du formulaire incorrect 🫠");
   };
 
   // Affiche soit un formulaire de connexion soit d'inscription
@@ -165,7 +156,7 @@ function TypeOfForm({ checkbox, setCheckbox }) {
     </form>
   ) : (
     // Formulaire d'inscription
-    // Les fonctions 'onBlur' et 'onFocus' permettent de vérifier et d'afficher "en temps réel" si il y a des erreurs lors de la saisie du formaulaire
+    // Les fonctions 'onBlur' et 'onFocus' permettent de vérifier et d'afficher "en temps réel" si il y a des erreurs lors de la saisie du formulaire
     <form className="form" id="form" onSubmit={handleClickRegister}>
       {/* Label et champ du nom d'utilisateur */}
       <label htmlFor="username">Nom d'utilisateur :</label>

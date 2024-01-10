@@ -24,7 +24,18 @@ const read = async (req, res, next) => {
     next(err);
   }
 };
-
+const readByRecipe = async (req, res, next) => {
+  try {
+    const ingredient = await tables.ingredient.readByRecipe(req.params.id);
+    if (ingredient == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(ingredient);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 // The E of BREAD - Edit (Update) operation
 //  This operation is not yet implemented
 
@@ -48,6 +59,7 @@ const add = async (req, res, next) => {
 module.exports = {
   browse,
   read,
+  readByRecipe,
   // edit,
   add,
   // destroy,

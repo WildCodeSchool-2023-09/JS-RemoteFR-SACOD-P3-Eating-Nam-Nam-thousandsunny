@@ -12,9 +12,22 @@ const browse = async (req, res, next) => {
 };
 
 // READ
-const read = async (req, res, next) => {
+const readByRecipe = async (req, res, next) => {
   try {
-    const comment = await tables.comment.read(req.params.id);
+    const comment = await tables.comment.readByRecipe(req.params.id);
+    if (comment == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(comment);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
+const readByUser = async (req, res, next) => {
+  try {
+    const comment = await tables.comment.readByUser(req.params.id);
     if (comment == null) {
       res.sendStatus(404);
     } else {
@@ -47,7 +60,8 @@ const add = async (req, res, next) => {
 // Ready to export the controller functions
 module.exports = {
   browse,
-  read,
+  readByRecipe,
+  readByUser,
   // edit,
   add,
   // destroy,
