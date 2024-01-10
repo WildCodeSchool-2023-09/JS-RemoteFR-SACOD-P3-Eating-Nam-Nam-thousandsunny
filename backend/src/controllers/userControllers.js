@@ -40,15 +40,34 @@ const read = async (req, res, next) => {
 const add = async (req, res, next) => {
   // Extract the user data from the request body
   const item = req.body;
-  try {
-    // Insert the user into the database
-    const insertId = await tables.user.create(item);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted user
-    res.status(201).json({ insertId });
-  } catch (err) {
-    // Pass any errors to the error-handling middleware
-    next(err);
+  const existingUsername = await tables.user.readByUsername(item.username);
+  const existingEmail = await tables.user.readByEmail(item.email);
+
+  if (existingUsername && existingEmail) {
+    res.status(400).json({
+      message:
+        "Il semblerait qu'un compte soit déjà existant avec ce nom d'utilisateur et cette adresse email, essayez de vous connecter",
+    });
+  } else if (existingUsername) {
+    res.status(400).json({ message: "Nom d'utilisateur déjà utilisé" });
+  } else if (existingEmail) {
+    res
+      .status(400)
+      .json({ message: "Cette adresse mail est déjà associé avec un compte" });
+  }
+
+  if (!existingUsername && !existingEmail) {
+    try {
+      // Insert the user into the database
+      const insertId = await tables.user.create(item);
+
+      // Respond with HTTP 201 (Created) and the ID of the newly inserted user
+      res.status(201).json({ insertId });
+    } catch (err) {
+      // Pass any errors to the error-handling middleware
+      next(err);
+    }
   }
 };
 

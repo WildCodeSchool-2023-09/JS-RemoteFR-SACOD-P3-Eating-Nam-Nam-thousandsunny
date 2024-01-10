@@ -4,12 +4,12 @@ USE eating_nam_nam;
 #Create tables for eating nam nam DB
 CREATE TABLE user (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    username VARCHAR(30) NOT NULL,
-    email VARCHAR(256) NOT NULL,
-    firstname VARCHAR(30),
-    lastname VARCHAR(50),
+    username VARCHAR(20) UNIQUE NOT NULL,
+    email VARCHAR(30) UNIQUE NOT NULL,
+    firstname VARCHAR(20),
+    lastname VARCHAR(20),
     birthdate DATE,
-    password VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     description MEDIUMTEXT,
     is_admin BIT,
     avatar VARCHAR(200)
