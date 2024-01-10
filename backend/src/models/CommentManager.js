@@ -11,12 +11,12 @@ class CommentManager extends AbstractManager {
     return rows;
   }
 
-  async read(id) {
+  async readByRecipe(id) {
     const [rows] = await this.database.query(
-      `SELECT  c.description, u.username FROM comment AS c
+      `SELECT  c.description, u.username, u.avatar FROM comment AS c
 JOIN recipe AS r ON r.ID = c.recipe_ID
 JOIN user AS u ON u.ID = c.user_ID
-WHERE r.ID = ${id};`,
+WHERE r.ID = ?`,
       [id]
     );
     return rows;

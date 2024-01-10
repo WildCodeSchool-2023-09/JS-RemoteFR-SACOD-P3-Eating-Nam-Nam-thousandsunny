@@ -20,5 +20,15 @@ WHERE r.ID = ${id};`,
     );
     return rows;
   }
+
+  async readByRecipe(id) {
+    const [rows] = await this.database.query(
+      `SELECT i.description from instruction AS i 
+JOIN recipe ON recipe.ID= i.recipe_ID
+WHERE recipe.ID= ?`,
+      [id]
+    );
+    return rows;
+  }
 }
 module.exports = InstructionManager;

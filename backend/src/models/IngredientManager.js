@@ -21,5 +21,16 @@ WHERE r.ID = ${id};`,
     );
     return rows;
   }
+
+  async readByRecipe(id) {
+    const [rows] = await this.database.query(
+      `SELECT i.name, i.unit, i.kcal, p.quantity from ingredient AS i 
+JOIN recipe_ingredient AS p ON p.ingredient_ID = i.ID
+JOIN recipe ON recipe.ID= p.recipe_ID
+WHERE recipe.ID= ?`,
+      [id]
+    );
+    return rows;
+  }
 }
 module.exports = IngredientManager;

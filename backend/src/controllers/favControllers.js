@@ -12,9 +12,9 @@ const browse = async (req, res, next) => {
 };
 
 // READ
-const read = async (req, res, next) => {
+const readByRecipe = async (req, res, next) => {
   try {
-    const fav = await tables.fav.read(req.params.id);
+    const fav = await tables.fav.readByRecipe(req.params.id);
     if (fav == null) {
       res.sendStatus(404);
     } else {
@@ -47,7 +47,7 @@ const add = async (req, res, next) => {
 // Ready to export the controller functions
 module.exports = {
   browse,
-  read,
+  readByRecipe,
   // edit,
   add,
   // destroy,
