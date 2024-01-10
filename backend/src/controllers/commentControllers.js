@@ -25,6 +25,19 @@ const readByRecipe = async (req, res, next) => {
   }
 };
 
+const readByUser = async (req, res, next) => {
+  try {
+    const comment = await tables.comment.readByUser(req.params.id);
+    if (comment == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(comment);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 // The E of BREAD - Edit (Update) operation
 //  This operation is not yet implemented
 
@@ -48,6 +61,7 @@ const add = async (req, res, next) => {
 module.exports = {
   browse,
   readByRecipe,
+  readByUser,
   // edit,
   add,
   // destroy,

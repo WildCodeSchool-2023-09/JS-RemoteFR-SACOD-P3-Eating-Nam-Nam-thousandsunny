@@ -11,11 +11,11 @@ VALUES
     ('hugoD','hugo.durand@gmail.com','Hugo','Durand','1989-02-05','test5',0)
 ;
 
-INSERT INTO recipe (name, user_ID, prep_time, nb_people, difficulty,tag1, tag2 )
+INSERT INTO recipe (name,titre, user_ID, prep_time, nb_people, difficulty,tag1, tag2 )
 VALUES
-    ('oeufs au plat',1, 15, 1, 'facile', 'végétarien', 'sans gluten'),
-    ('pâtes au beurre', 2, 25, 2, 'facile', 'végétarien', NULL),
-    ('religieuse au chocolat', 5, 90, 2, 'difficile', 'végétarien', 'gourmand')
+    ('oeufs au plat', 'simple comme bonjour',1, 15, 1, 'facile', 'végétarien', 'sans gluten'),
+    ('pâtes au beurre','la spécialité des étudiants!', 2, 25, 2, 'facile', 'végétarien', NULL),
+    ('religieuse au chocolat','pour les experts en pâtisserie', 5, 90, 2, 'difficile', 'végétarien', 'gourmand')
     ;
 
 INSERT INTO ingredient (name, unit, kcal)

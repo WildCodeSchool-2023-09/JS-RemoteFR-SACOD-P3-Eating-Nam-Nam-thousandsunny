@@ -60,6 +60,7 @@ router.get("/materialByRecipe/:id", MaterialControllers.readByRecipe); // Route 
 const CommentControllers = require("./controllers/commentControllers");
 
 router.get("/commentbyrecipe/:id", CommentControllers.readByRecipe); // Route to get comments for a specific Recipe
+router.get("/commentbyuser/:id", CommentControllers.readByUser); // Route to get comments for a specific User
 
 /* ************************************************************************* */
 // INSTRUCTION
