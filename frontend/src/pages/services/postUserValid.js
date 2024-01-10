@@ -1,6 +1,4 @@
-import axios from "axios";
-
-async function isValidUsername() {
+function isValidUsername() {
   // Récupère le champ username et la balise erreur correspondante
   const username = document.querySelector("#username").value;
   const usernameErrorMsg = document.querySelector("#username-error");
@@ -11,28 +9,12 @@ async function isValidUsername() {
       "Le nom d'utilisateur doit contenir 5 à 20 caractères.";
     return false;
   }
-  // Verifie si l'utilisateur existe dans la BDD
-  try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/username/${username}`
-    );
-    // Si oui : retourne un mdg d'erreur dans la balise, et la fonction renvoie false
-    if (response.data.username === username) {
-      usernameErrorMsg.innerText = "Le nom d'utilisateur est déjà utilisé";
-      return false;
-    }
-  } catch (error) {
-    // Si on obtient une erreur 404, cela signifie que l'utilisateur n'existe pas dans la BDD
-    if (error.response.status === 404) {
-      usernameErrorMsg.innerText = ""; // Aucune erreur n'est affichée dans ce cas
-    }
-  }
 
   // Sinon la fonction renvoie 'true' sans message d'erreur pour indiquer le username comme OK
   return true;
 }
 
-async function isValidEmail() {
+function isValidEmail() {
   // Récupère le champ email et la balise erreur correspondante
   const email = document.querySelector("#email").value;
   const emailErrorMsg = document.querySelector("#email-error");
@@ -49,24 +31,6 @@ async function isValidEmail() {
     return false;
   }
 
-  // Verifie si l'email existe dans la BDD
-  try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/email/${email}`
-    );
-    // Si oui : retourne un msg d'erreur dans la balise, et la fonction renvoie false
-    if (response.data.email === email) {
-      emailErrorMsg.innerText =
-        "Cette adresse email est déjà utilisé avec un autre compte.";
-      console.info(emailErrorMsg.innerText);
-      return false;
-    }
-  } catch (error) {
-    // Si on obtient une erreur 404, cela signifie que l'email n'existe pas dans la BDD
-    if (error.response.status === 404) {
-      emailErrorMsg.innerText = ""; // Aucune erreur n'est affichée dans ce cas
-    }
-  }
   // Sinon la fonction renvoie 'true' sans message d'erreur pour indiquer le mail comme OK
   return true;
 }
