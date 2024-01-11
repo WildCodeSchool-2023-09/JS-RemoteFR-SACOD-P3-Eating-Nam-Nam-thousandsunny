@@ -6,8 +6,7 @@ class RecipeManager extends AbstractManager {
   }
 
   async readAll() {
-    const [rows] = await this.database.query(`select *
-                                              from ${this.table}`);
+    const [rows] = await this.database.query(`select * from ${this.table}`);
 
     return rows;
   }
@@ -24,10 +23,7 @@ class RecipeManager extends AbstractManager {
 
   async readByUser(id) {
     const [rows] = await this.database.query(
-      `SELECT r.name, r.titre, r.image
-         FROM recipe AS r
-                JOIN user AS u ON u.ID = r.user_ID
-         WHERE u.ID = ?`,
+      `SELECT r.name, r.titre, r.image FROM recipe AS r JOIN user AS u ON u.ID = r.user_ID WHERE u.ID = ?`,
       [id]
     );
     return rows[0];

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-function Detail({ name, prep, titre }) {
+function Detail({ name, prep }) {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
   const { id } = useParams();
@@ -26,7 +26,6 @@ function Detail({ name, prep, titre }) {
     <div>
       <h1>{name}</h1>
       <p>{prep} minutes</p>
-      <p>{titre}</p>
       <div>
         {ingredients.map((element) => (
           <li key={element.id}>
@@ -50,7 +49,6 @@ function Detail({ name, prep, titre }) {
 Detail.propTypes = {
   name: PropTypes.string.isRequired,
   prep: PropTypes.number.isRequired,
-  titre: PropTypes.string.isRequired,
 };
 
 export default Detail;
