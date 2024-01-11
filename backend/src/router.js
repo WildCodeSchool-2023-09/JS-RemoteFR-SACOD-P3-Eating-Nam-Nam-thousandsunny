@@ -3,6 +3,10 @@ const express = require("express");
 
 // const upload = multer({ dest: "uploads/" });
 
+const multer = require("multer");
+
+const upload = multer({ dest: "public/assets/images/uploads" });
+
 const router = express.Router();
 
 /* ************************************************************************* */
@@ -38,7 +42,7 @@ const RecipeControllers = require("./controllers/recipeControllers");
 
 router.get("/recipes", RecipeControllers.browse); // Route to get a list of items
 router.get("/recipes/:id", RecipeControllers.read); // Route to get a specific item by ID
-
+router.post("/recipes", upload.single("image"), RecipeControllers.add);
 /* ************************************************************************* */
 // INGREDIENT
 /* ************************************************************************* */
