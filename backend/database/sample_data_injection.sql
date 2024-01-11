@@ -11,11 +11,14 @@ VALUES
     ('hugoD','hugo.durand@gmail.com','Hugo','Durand','1989-02-05','test5',0)
 ;
 
-INSERT INTO recipe (name,titre, user_ID, prep_time, nb_people, difficulty,tag1, tag2 )
+INSERT INTO recipe (name,title, user_ID, prep_time, nb_people, difficulty,tag1, tag2 )
 VALUES
     ('oeufs au plat', 'simple comme bonjour',1, 15, 1, 'facile', 'végétarien', 'sans gluten'),
     ('pâtes au beurre','la spécialité des étudiants!', 2, 25, 2, 'facile', 'végétarien', NULL),
-    ('religieuse au chocolat','pour les experts en pâtisserie', 5, 90, 2, 'difficile', 'végétarien', 'gourmand')
+    ('religieuse au chocolat','pour les experts en pâtisserie', 5, 90, 2, 'difficile', 'dessert', 'gourmand'),
+    ('ramen', 'Comment réussir un vrai ramen maison comme au Japon?', 2, 180, 2, 'difficile', 'japon', 'gourmand', 'soupe'),
+    ('cheeseburger', 'Créez votre propre cheeseburger maison!',3,45,2,facile,'burger','gourmand',NULL),
+    ('Les inimitables crêoes','Rapide et efficace, le tout en quelques étapes!', 5, 20, 4, facile, 'rapide', 'gourmand','dessert')
     ;
 
 INSERT INTO ingredient (name, unit, kcal)
@@ -25,6 +28,13 @@ VALUES
 ('chocolat noir', 'grammes', 3),
 ('farine de blé', 'grammes', 1),
 ('pâtes', 'grammes', 2)
+('nouilles udon', grammes,50),
+('steak haché', 'pièce(s)',100),
+('pain bun','pièce(s)', 40),
+('cheddar', 'grammes', 200)
+('tomate','pièce(s)',10),
+('lait','centilitres',5),
+('farine', 'grammes', 0.5)
 ;
 
 INSERT INTO instruction (description, recipe_ID)
@@ -36,7 +46,11 @@ VALUES
     ("Faites chauffer l'équivalent de 3 volumes d'eau par volume de pâtes dans une casserole en ajoutant du sel",2),
     ("Une fois que l'eau bout, insérez les pâtes dans l'eau frémissante et respectez le temps de cuisson indiquée sur le sachet",2),
     ("Disposez les pâtes dans l'assiette avec le beurre et mélangez",2),
-    ("Savourez!",2)
+    ("Savourez!",2),
+    ("mélangez les oeufs et le lait",6),
+    ("rajoutez la farine",6),
+    ("laissez reposer 3 heures au minimum", 6),
+    ("Disposez la pâte sur une poêle chaude",6)
 ;
 
 INSERT INTO material (name)
@@ -60,7 +74,11 @@ INSERT INTO tag (name)
 VALUES
     ("vegan"),
     ("végétarien"),
-    ("sans gluten")
+    ("sans gluten"),
+    ("Japon"),
+    ("Soupe"),
+    ("Burger"),
+    ("dessert")
 ;
 
 
@@ -74,5 +92,15 @@ VALUES
 INSERT INTO recipe_ingredient (recipe_ID, ingredient_ID, quantity)
 VALUES
     (1,1,2),
-    (1,2,10)
+    (1,2,10),
+    (4,1,2),
+    (4,6,200),
+    (5,7,2),
+    (5, 8,2),
+    (5,9,200),
+    (5,10,1),
+    (6,1,6),
+    (6,2,20),
+    (6,10,20),
+    (6,11,200)
 ;
