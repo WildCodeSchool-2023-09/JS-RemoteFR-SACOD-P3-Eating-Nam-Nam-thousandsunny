@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import img from "../assets/crepe.jpeg";
 
-function Recipe({ name, prep, nb, difficulty, id, image }) {
+function Recipe({ name, titre, difficulty, id, image }) {
   let test = image;
   test = img;
   return (
@@ -12,8 +12,7 @@ function Recipe({ name, prep, nb, difficulty, id, image }) {
       </div>
       <div className="desc-recipe">
         <h2>{name}</h2>
-        <p>{prep}</p>
-        <p>{nb}</p>
+        <p>{titre}</p>
         <p>{difficulty}</p>
         <div className="link-to">
           <Link to={`/recipes/${id}`}>
@@ -27,8 +26,7 @@ function Recipe({ name, prep, nb, difficulty, id, image }) {
 
 Recipe.propTypes = {
   name: PropTypes.string.isRequired,
-  prep: PropTypes.number.isRequired,
-  nb: PropTypes.number.isRequired,
+  titre: PropTypes.number.isRequired,
   difficulty: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
