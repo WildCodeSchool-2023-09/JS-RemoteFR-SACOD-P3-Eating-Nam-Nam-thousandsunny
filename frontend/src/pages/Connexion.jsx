@@ -225,7 +225,7 @@ function Connexion() {
   };
   // Affiche l'en-tête du composant du formulaire (bouton switch)
   return (
-    <div className="body-content">
+    <div className="body-content connect-content">
       <ToastContainer autoClose={2000} pauseOnHover={false} />
       <div className="wrapper">
         <div className="form-container">

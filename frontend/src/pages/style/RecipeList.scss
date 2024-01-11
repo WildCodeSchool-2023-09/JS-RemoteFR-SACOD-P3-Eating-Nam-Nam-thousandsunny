@@ -1,0 +1,81 @@
+@import "../../vars.scss";
+
+.recipe-content {
+  display: flex;
+  flex-direction: column;
+
+  .filter {
+    text-align: right;
+    select {
+      background-color: $green-color;
+      height: 2rem;
+      width: 6rem;
+      border-radius: 0.5rem;
+      color: $white-color;
+      border: none;
+    }
+  }
+
+  .recipe-list {
+    padding: 0;
+    margin-top: 1.5rem;
+
+    .recipe {
+      list-style: none;
+      background-color: $white-color;
+      border-radius: 1.5rem;
+      margin-bottom: 2rem;
+      height: 150px;
+
+      display: flex;
+
+      * {
+        margin: 0;
+      }
+
+      .image-recipe-pos {
+        width: 45%;
+        height: 150px;
+      }
+      .image-recipe {
+        height: 150px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 1.5rem 0 0 1.5rem;
+      }
+
+      .desc-recipe {
+        margin: 0.5rem;
+        width: 55%;
+        display: flex;
+        flex-direction: column;
+
+        h2 {
+          font-size: medium;
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+        }
+        p {
+          font-size: small;
+          margin: 0.25rem 0.5rem 0.25rem 0;
+        }
+
+        .link-to {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          height: 100%;
+          margin: 0.25rem 0.25rem 0.25rem auto;
+          background-color: $orange-color;
+          padding-left: 0.5rem;
+          border-radius: 1rem;
+
+          a {
+            color: $white-color;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}

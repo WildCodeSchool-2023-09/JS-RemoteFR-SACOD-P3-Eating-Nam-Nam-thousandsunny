@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Recipe from "./Recipe";
+import "./style/RecipeList.scss";
 
 function RecipeList() {
   const [allRecipe, setAllRecipe] = useState([]);
@@ -9,7 +10,7 @@ function RecipeList() {
   const getData = () => {
     const endpoints = [
       "http://localhost:3310/api/recipes",
-      "http://localhost:3310/api/tag",
+      "http://localhost:3310/api/tags",
     ];
     Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
       ([{ data: recipe }, { data: tag }]) => {
@@ -24,11 +25,11 @@ function RecipeList() {
   }, []);
 
   return (
-    <div className="body-content">
-      <form>
+    <div className="body-content recipe-content">
+      <div className="filter">
         <label htmlFor="select-tag">
           <select id="select-tag" onChange={(e) => setFilters(e.target.value)}>
-            <option value="">----</option>
+            <option value="">Filtrer par :</option>
             {filters.map((filtre) => {
               return (
                 <option key={filtre.id} value={filtre.id}>
@@ -38,10 +39,10 @@ function RecipeList() {
             })}
           </select>
         </label>
-      </form>
-      <ul>
+      </div>
+      <ul className="recipe-list">
         {allRecipe.map((recipe) => (
-          <li key={recipe.ID}>
+          <li key={recipe.ID} className="recipe">
             <Recipe
               id={recipe.ID}
               name={recipe.name}

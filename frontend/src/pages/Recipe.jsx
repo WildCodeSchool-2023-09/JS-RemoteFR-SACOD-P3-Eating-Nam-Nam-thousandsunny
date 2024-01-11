@@ -1,18 +1,27 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import img from "../assets/crepe.jpeg";
 
 function Recipe({ name, prep, nb, difficulty, id, image }) {
+  let test = image;
+  test = img;
   return (
-    <div>
-      <h1>{name}</h1>
-      <img src={image} height={50} width={50} alt="recette" />
-      <p>{prep}</p>
-      <p>{nb}</p>
-      <p>{difficulty}</p>
-      <Link to={`/recipes/${id}`}>
-        <p>En savoir plus</p>
-      </Link>
-    </div>
+    <>
+      <div className="image-recipe-pos">
+        <img src={test} alt="recette" className="image-recipe" />
+      </div>
+      <div className="desc-recipe">
+        <h2>{name}</h2>
+        <p>{prep}</p>
+        <p>{nb}</p>
+        <p>{difficulty}</p>
+        <div className="link-to">
+          <Link to={`/recipes/${id}`}>
+            <p>En savoir plus</p>
+          </Link>
+        </div>
+      </div>
+    </>
   );
 }
 
