@@ -3,10 +3,24 @@
 /* ************************************************************************* */
 
 // Import the manager modules responsible for handling data operations on the tables
-const ItemManager = require("./models/ItemManager");
+const UserManager = require("./models/UserManager");
+const RecipeManager = require("./models/RecipeManager");
+const IngredientManager = require("./models/IngredientManager");
+const MaterialManager = require("./models/MaterialManager");
+const CommentManager = require("./models/CommentManager");
+const InstructionManager = require("./models/InstructionManager");
+const FavManager = require("./models/FavManager");
+const TagManager = require("./models/TagManager");
 
 const managers = [
-  ItemManager,
+  UserManager,
+  RecipeManager,
+  IngredientManager,
+  MaterialManager,
+  CommentManager,
+  InstructionManager,
+  FavManager,
+  TagManager,
   // Add other managers here
 ];
 
