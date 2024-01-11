@@ -39,9 +39,9 @@ VALUES
 
 INSERT INTO instruction (description, recipe_ID)
 VALUES
-    ('Préchauffez la poêle',1),
-    ('rajoutez le beurre dans la poêle',1),
-    ('cassez les oeufs et les versez dans la poêle sans les mélanger',1),
+    ("Préchauffez la poêle",1),
+    ("rajoutez le beurre dans la poêle",1),
+    ("cassez les oeufs et les versez dans la poêle sans les mélanger",1),
     ("Une fois la texture souhaitée, disposez dans l'assiette", 1),
     ("Faites chauffer l'équivalent de 3 volumes d'eau par volume de pâtes dans une casserole en ajoutant du sel",2),
     ("Une fois que l'eau bout, insérez les pâtes dans l'eau frémissante et respectez le temps de cuisson indiquée sur le sachet",2),
@@ -72,13 +72,13 @@ VALUES
 
 INSERT INTO tag (name)
 VALUES
-    ("vegan"),
-    ("végétarien"),
-    ("sans gluten"),
-    ("Japon"),
-    ("Soupe"),
-    ("Burger"),
-    ("dessert")
+    ('vegan'),
+    ('végétarien'),
+    ('sans gluten'),
+    ('Japon'),
+    ('Soupe'),
+    ('Burger'),
+    ('dessert')
 ;
 
 
