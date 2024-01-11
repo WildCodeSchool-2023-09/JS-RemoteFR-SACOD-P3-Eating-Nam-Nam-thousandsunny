@@ -62,9 +62,13 @@
           margin: 0.25rem 0.5rem 0.25rem 0;
         }
 
+        .level-recipe {
+          margin: auto 0.25rem 0.25rem auto;
+        }
+
         .link-to {
           display: flex;
-          margin: auto 0.25rem 0.25rem auto;
+          margin: 0.25rem 0.25rem 0.25rem auto;
           background-color: $orange-color;
           padding-left: 0.5rem;
           border-radius: 1rem;

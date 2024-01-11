@@ -46,7 +46,7 @@ function RecipeList() {
             <Recipe
               id={recipe.ID}
               name={recipe.name}
-              titre={recipe.titre}
+              title={recipe.title}
               difficulty={recipe.difficulty}
               image={recipe.image}
               tag1={recipe.tag1}
