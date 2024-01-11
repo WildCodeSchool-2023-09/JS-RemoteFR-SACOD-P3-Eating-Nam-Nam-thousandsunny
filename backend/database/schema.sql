@@ -18,7 +18,7 @@ CREATE TABLE recipe (
   ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user_ID INT NOT NULL,
     name VARCHAR(80) NOT NULL,
-    titre VARCHAR(100) NOT NULL,
+    title VARCHAR(100) NOT NULL,
     prep_time INT NOT NULL,
     nb_people INT NOT NULL,
     difficulty VARCHAR(30) NOT NULL,
@@ -88,6 +88,6 @@ CREATE TABLE recipe_ingredient
 CREATE TABLE tag
 (
     ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    tag_name VARCHAR(30) NOT NULL
+    name VARCHAR(30) NOT NULL
 )
 
