@@ -26,7 +26,7 @@ function Detail({ name, prep, titre }) {
     <div>
       <h1>{name}</h1>
       <p>{prep} minutes</p>
-      <p>{titre}</p>
+      <p>"{titre}"</p>
       <div>
         {ingredients.map((element) => (
           <li key={element.id}>
@@ -40,7 +40,7 @@ function Detail({ name, prep, titre }) {
       <div>
         {instructions.map((inst) => (
           <li key={inst.id}>
-            <p>{inst.description}</p>
+            <p>-{inst.description}</p>
           </li>
         ))}
       </div>

@@ -27,34 +27,39 @@ function RecipeList() {
     <div className="body-content">
       <form>
         <label htmlFor="select-tag">
-          <select id="select-tag" onChange={(e) => setFilters(e.target.value)}>
+          <select
+            id="select-tag"
+            onChange={(event) => setFilters(event.target.value)}
+          >
             <option value="">----</option>
-            {filters.map((filtre) => {
-              return (
-                <option key={filtre.id} value={filtre.id}>
-                  {filtre.name}
-                </option>
-              );
-            })}
+            {filters.map((filtre) => (
+              <option key={filtre.id} value={filtre.id}>
+                {filtre.name}
+              </option>
+            ))}
+            ;
           </select>
         </label>
       </form>
       <ul>
-        {allRecipe.map((recipe) => (
-          <li key={recipe.ID}>
-            <Recipe
-              id={recipe.ID}
-              name={recipe.name}
-              prep={recipe.prep_time}
-              nb={recipe.nb_people}
-              difficulty={recipe.difficulty}
-              image={recipe.image}
-              tag1={recipe.tag1}
-              tag2={recipe.tag2}
-              tag3={recipe.tag3}
-            />
-          </li>
-        ))}
+        {allRecipe
+          .filter((recipe) => (recipe.tag1 === filters ? recipe.tag1 : filters))
+          .map((recipe) => (
+            <li key={recipe.ID}>
+              <Recipe
+                id={recipe.ID}
+                name={recipe.name}
+                titre={recipe.titre}
+                prep={recipe.prep_time}
+                nb={recipe.nb_people}
+                difficulty={recipe.difficulty}
+                image={recipe.image}
+                tag1={recipe.tag1}
+                tag2={recipe.tag2}
+                tag3={recipe.tag3}
+              />
+            </li>
+          ))}
       </ul>
     </div>
   );
