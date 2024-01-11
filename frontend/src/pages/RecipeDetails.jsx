@@ -4,8 +4,8 @@ import Detail from "./Detail";
 function RecipeDetails() {
   const detail = useLoaderData();
   return (
-    <div>
-      <Detail name={detail.name} prep={detail.prep_time} titre={detail.titre} />
+    <div className="body-content">
+      <Detail name={detail.name} prep={detail.prep_time} />
       <Link to="/recipes">
         <p>retour</p>
       </Link>

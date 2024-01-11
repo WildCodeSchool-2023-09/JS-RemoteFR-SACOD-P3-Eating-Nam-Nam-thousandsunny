@@ -8,26 +8,10 @@
   width: 100%;
   height: 20vh;
   background-size: cover;
-  z-index: 0;
+  z-index: -1;
   object-fit: contain;
 }
 
-.Project {
-  color: #97bf0d;
-  font-size: 2rem;
-  font-weight: 800;
-}
-.mentions {
-  color: black;
-  font-size: 1.8rem;
-  font-weight: 800;
-}
-
-.Contact-button {
-  font-size: 1.8rem;
-  font-weight: bold;
-  background-color: #97bf0d;
-}
 @media screen and (max-width: 800px) {
   .Footer {
     background-image: url(/src/assets/Footerbg.svg);
@@ -37,19 +21,5 @@
     align-items: center;
     height: 30vh;
     gap: 1rem;
-  }
-  .Project {
-    font-size: 1.5rem;
-  }
-
-  .Contact-button {
-    width: 20vh;
-    height: 12vw;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: #97bf0d;
-  }
-  .mentions {
-    font-size: 1rem;
   }
 }

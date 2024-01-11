@@ -11,14 +11,14 @@ VALUES
     ('hugoD','hugo.durand@gmail.com','Hugo','Durand','1989-02-05','test5',0)
 ;
 
-INSERT INTO recipe (name,title, user_ID, prep_time, nb_people, difficulty,tag1, tag2 )
+INSERT INTO recipe (name,title, user_ID, prep_time, nb_people, difficulty,tag1, tag2,tag3 )
 VALUES
-    ('oeufs au plat', 'simple comme bonjour',1, 15, 1, 'facile', 'végétarien', 'sans gluten'),
-    ('pâtes au beurre','la spécialité des étudiants!', 2, 25, 2, 'facile', 'végétarien', NULL),
-    ('religieuse au chocolat','pour les experts en pâtisserie', 5, 90, 2, 'difficile', 'dessert', 'gourmand'),
+    ('oeufs au plat', 'simple comme bonjour',1, 15, 1, 'facile', 'végétarien', 'sans gluten',NULL),
+    ('pâtes au beurre','la spécialité des étudiants!', 2, 25, 2, 'facile', 'végétarien', NULL,NULL),
+    ('religieuse au chocolat','pour les experts en pâtisserie', 5, 90, 2, 'difficile', 'dessert', 'gourmand',NULL),
     ('ramen', 'Comment réussir un vrai ramen maison comme au Japon?', 2, 180, 2, 'difficile', 'japon', 'gourmand', 'soupe'),
-    ('cheeseburger', 'Créez votre propre cheeseburger maison!',3,45,2,facile,'burger','gourmand',NULL),
-    ('Les inimitables crêoes','Rapide et efficace, le tout en quelques étapes!', 5, 20, 4, facile, 'rapide', 'gourmand','dessert')
+    ('cheeseburger', 'Créez votre propre cheeseburger maison!',3,45,2,'facile','burger','gourmand',NULL),
+    ('Les inimitables crêoes','Rapide et efficace, le tout en quelques étapes!', 5, 20, 4, 'facile', 'rapide', 'gourmand','dessert')
     ;
 
 INSERT INTO ingredient (name, unit, kcal)
@@ -27,11 +27,11 @@ VALUES
 ('beurre', 'grammes', 5),
 ('chocolat noir', 'grammes', 3),
 ('farine de blé', 'grammes', 1),
-('pâtes', 'grammes', 2)
-('nouilles udon', grammes,50),
+('pâtes', 'grammes', 2),
+('nouilles udon', 'grammes',50),
 ('steak haché', 'pièce(s)',100),
 ('pain bun','pièce(s)', 40),
-('cheddar', 'grammes', 200)
+('cheddar', 'grammes', 200),
 ('tomate','pièce(s)',10),
 ('lait','centilitres',5),
 ('farine', 'grammes', 0.5)
@@ -39,9 +39,9 @@ VALUES
 
 INSERT INTO instruction (description, recipe_ID)
 VALUES
-    ('Préchauffez la poêle',1),
-    ('rajoutez le beurre dans la poêle',1),
-    ('cassez les oeufs et les versez dans la poêle sans les mélanger',1),
+    ("Préchauffez la poêle",1),
+    ("rajoutez le beurre dans la poêle",1),
+    ("cassez les oeufs et les versez dans la poêle sans les mélanger",1),
     ("Une fois la texture souhaitée, disposez dans l'assiette", 1),
     ("Faites chauffer l'équivalent de 3 volumes d'eau par volume de pâtes dans une casserole en ajoutant du sel",2),
     ("Une fois que l'eau bout, insérez les pâtes dans l'eau frémissante et respectez le temps de cuisson indiquée sur le sachet",2),
@@ -72,13 +72,13 @@ VALUES
 
 INSERT INTO tag (name)
 VALUES
-    ("vegan"),
-    ("végétarien"),
-    ("sans gluten"),
-    ("Japon"),
-    ("Soupe"),
-    ("Burger"),
-    ("dessert")
+    ('vegan'),
+    ('végétarien'),
+    ('sans gluten'),
+    ('Japon'),
+    ('Soupe'),
+    ('Burger'),
+    ('dessert')
 ;
 
 
