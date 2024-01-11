@@ -17,7 +17,7 @@ WHERE ID = 1;
 
 /* FAVS RELATED TO RECIPE ID = 1 */
 SELECT fav.ID FROM fav
-JOIN recipe ON fav.recipe_ID = recipe.ID;
+JOIN recipe ON fav.recipe_ID = recipe.ID
 WHERE recipe.ID = 1;
 
 /* COMMENTS RELATED TO RECIPE ID = 1 */
