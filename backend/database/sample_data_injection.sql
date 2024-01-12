@@ -18,7 +18,7 @@ VALUES
     ('religieuse au chocolat','pour les experts en pâtisserie', 5, 90, 2, 'difficile', 'dessert', 'gourmand',NULL),
     ('ramen', 'Comment réussir un vrai ramen maison comme au Japon?', 2, 180, 2, 'difficile', 'japon', 'gourmand', 'soupe'),
     ('cheeseburger', 'Créez votre propre cheeseburger maison!',3,45,2,'facile','burger','gourmand',NULL),
-    ('Les inimitables crêoes','Rapide et efficace, le tout en quelques étapes!', 5, 20, 4, 'facile', 'rapide', 'gourmand','dessert')
+    ('Les inimitables crêpes','Rapide et efficace, le tout en quelques étapes!', 5, 20, 4, 'facile', 'rapide', 'gourmand','dessert')
     ;
 
 INSERT INTO ingredient (name, unit, kcal)

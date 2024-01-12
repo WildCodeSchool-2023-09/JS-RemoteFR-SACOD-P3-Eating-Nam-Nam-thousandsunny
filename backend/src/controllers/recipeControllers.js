@@ -1,3 +1,4 @@
+const fs = require("fs");
 const tables = require("../tables");
 
 const browse = async (req, res, next) => {
@@ -27,11 +28,15 @@ const add = async (req, res, next) => {
   // Extract the user data from the request body
   const recipe = req.body;
   const image = req.file;
+  fs.renameSync(
+    `${image.destination}/${image.filename}`,
+    `${image.destination}/${image.filename}-${image.originalname}`
+  );
 
   console.info({ recipe, image });
   try {
     // Insert the recipe into the database
-    const insertId = await tables.user.create(recipe);
+    const insertId = await tables.recipe.create(recipe);
     // Respond with HTTP 201 (Created) and the ID of the newly inserted recipe
     res.status(201).json({ insertId });
   } catch (err) {

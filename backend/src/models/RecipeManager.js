@@ -6,7 +6,7 @@ class RecipeManager extends AbstractManager {
   }
 
   async create(recipe) {
-    // Execute the SQL INSERT query to add a new user to the "user" table
+    // Execute the SQL INSERT query to add a new user to the "recipe" table
     const [result] = await this.database.query(
       `insert into ${this.table} (user_ID, name, title, prep_time, nb_people, difficulty, image, tag1, tag2, tag3) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -23,7 +23,7 @@ class RecipeManager extends AbstractManager {
       ]
     );
 
-    // Return the ID of the newly inserted user
+    // Return the ID of the newly inserted recipe
     return result.insertId;
   }
 
