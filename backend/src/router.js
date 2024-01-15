@@ -5,8 +5,8 @@ const express = require("express");
 
 const multer = require("multer");
 
-const upload = multer({ dest: "public/assets/images/uploads" });
-
+const uploadRecipesImages = multer({ dest: "public/assets/recipeUploads" });
+const uploadUsersAvatars = multer({ dest: "public/assets/usersAvatars" });
 const router = express.Router();
 
 /* ************************************************************************* */
@@ -26,7 +26,12 @@ const hashPasswordMiddleware = require("./middleware/hashpassMiddleware");
 
 router.get("/users", UserControllers.browse); // Route to get a list of items
 router.get("/users/:id", UserControllers.read); // Route to get a specific item by ID
-router.post("/users", hashPasswordMiddleware, UserControllers.add);
+router.post(
+  "/users",
+  hashPasswordMiddleware,
+  uploadUsersAvatars.single("avatar"),
+  UserControllers.add
+);
 
 // Route to get specific items and block the register if they exists
 router.get("/username/:username", AuthControllers.readByUsername);
@@ -42,7 +47,11 @@ const RecipeControllers = require("./controllers/recipeControllers");
 
 router.get("/recipes", RecipeControllers.browse); // Route to get a list of items
 router.get("/recipes/:id", RecipeControllers.read); // Route to get a specific item by ID
-router.post("/recipes", upload.single("image"), RecipeControllers.add);
+router.post(
+  "/recipes",
+  uploadRecipesImages.single("image"),
+  RecipeControllers.add
+);
 /* ************************************************************************* */
 // INGREDIENT
 /* ************************************************************************* */
@@ -57,7 +66,7 @@ router.get("/ingredientbyrecipe/:id", IngredientControllers.readByRecipe); // Ro
 // MATERIAL
 /* ************************************************************************* */
 
-// Import rmaterialControllers module for handling item-related operations
+// Import materialControllers module for handling item-related operations
 const MaterialControllers = require("./controllers/materialControllers");
 
 router.get("/material/:id", MaterialControllers.read); // Route to get a specific item by ID

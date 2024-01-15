@@ -33,7 +33,6 @@ const add = async (req, res, next) => {
     `${image.destination}/${image.filename}-${image.originalname}`
   );
 
-  console.info({ recipe, image });
   try {
     // Insert the recipe into the database
     const insertId = await tables.recipe.create(recipe);
