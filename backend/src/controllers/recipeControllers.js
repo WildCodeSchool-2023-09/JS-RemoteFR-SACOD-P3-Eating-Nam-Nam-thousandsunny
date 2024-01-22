@@ -24,6 +24,19 @@ const read = async (req, res, next) => {
   }
 };
 
+const readByUser = async (req, res, next) => {
+  try {
+    const recipe = await tables.recipe.readByUser(+req.params.id);
+
+    if (recipe == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(recipe);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 const add = async (req, res, next) => {
   // Extract the user data from the request body
   const recipe = req.body;
@@ -43,4 +56,4 @@ const add = async (req, res, next) => {
     next(err);
   }
 };
-module.exports = { browse, read, add };
+module.exports = { browse, read, readByUser, add };
