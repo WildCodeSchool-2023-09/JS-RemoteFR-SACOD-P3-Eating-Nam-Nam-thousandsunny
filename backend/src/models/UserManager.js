@@ -11,7 +11,7 @@ class UserManager extends AbstractManager {
 
   async create(user) {
     // Execute the SQL INSERT query to add a new user to the "user" table
-    const defaultAvatar = "defaultavatar.png";
+    const defaultAvatar = "public/assets/usersAvatars/defaultavatar.png";
     const [result] = await this.database.query(
       `insert into ${this.table} (username, email, password, avatar) values (?, ?, ?,?)`,
       [user.username, user.email, user.password, defaultAvatar]
@@ -64,7 +64,24 @@ class UserManager extends AbstractManager {
   }
 
   // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing user
+  async update(user, avatar) {
+    // Execute the SQL SELECT query to retrieve a specific user by its Username
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET firstname = ?, lastname = ?, birthdate = ?, description = ?, avatar = ?
+WHERE ID = ?`,
+      [
+        user.firstname,
+        user.lastname,
+        user.birthdate,
+        user.description,
+        avatar,
+        user.ID,
+      ]
+    );
+
+    // Return the first row of the result, which represents the user
+    return result;
+  }
 
   // async update(user) {
   //   ...

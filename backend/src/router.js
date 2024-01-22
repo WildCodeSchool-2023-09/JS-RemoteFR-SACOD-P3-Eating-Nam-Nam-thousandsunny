@@ -26,6 +26,11 @@ const hashPasswordMiddleware = require("./middleware/hashpassMiddleware");
 
 router.get("/users", UserControllers.browse); // Route to get a list of items
 router.get("/users/:id", UserControllers.read); // Route to get a specific item by ID
+router.put(
+  "/users/:id",
+  uploadUsersAvatars.single("avatar"),
+  UserControllers.edit
+); // Route to update user
 router.post(
   "/users",
   hashPasswordMiddleware,
@@ -47,6 +52,7 @@ const RecipeControllers = require("./controllers/recipeControllers");
 
 router.get("/recipes", RecipeControllers.browse); // Route to get a list of items
 router.get("/recipes/:id", RecipeControllers.read); // Route to get a specific item by ID
+router.get("/recipebyuser/:id", RecipeControllers.readByUser);
 router.post(
   "/recipes",
   uploadRecipesImages.single("image"),

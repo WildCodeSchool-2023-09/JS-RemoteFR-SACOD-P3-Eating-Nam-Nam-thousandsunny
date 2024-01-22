@@ -1,4 +1,5 @@
 // Import access to database tables
+const fs = require("fs");
 const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -35,11 +36,36 @@ const read = async (req, res, next) => {
 };
 
 // The E of BREAD - Edit (Update) operation
+const edit = async (req, res, next) => {
+  const wantedId = parseInt(req.params.id, 10);
+  // Extract the user data from the request body
+  const item = req.body;
+  item.ID = wantedId;
 
+  const avatar = req.file;
+
+  fs.renameSync(
+    `${avatar.destination}/${avatar.filename}`,
+    `${avatar.destination}/${avatar.filename}-${avatar.originalname}`
+  );
+  const newpath = `${avatar.destination}/${avatar.filename}-${avatar.originalname}`;
+
+  console.info({ item, avatar });
+  try {
+    // Insert the recipe into the database
+    const user = await tables.user.update(item, newpath);
+    // Respond with HTTP 201 (Created) and the ID of the newly inserted recipe
+    res.status(200).json(user);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
   // Extract the user data from the request body
   const item = req.body;
+  console.info(item);
 
   const existingUsername = await tables.user.readByUsername(item.username);
   const existingEmail = await tables.user.readByEmail(item.email);
@@ -78,7 +104,7 @@ const add = async (req, res, next) => {
 module.exports = {
   browse,
   read,
-  // edit,
+  edit,
   add,
   // destroy,
 };
