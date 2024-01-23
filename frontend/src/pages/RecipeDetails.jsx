@@ -7,7 +7,7 @@ function RecipeDetails() {
   return (
     <div className="body-content recipe-detail">
       <Detail name={detail.name} prep={detail.prep_time} />
-      <Link to="/keywords">
+      <Link to="/recipes">
         <p>retour</p>
       </Link>
     </div>
