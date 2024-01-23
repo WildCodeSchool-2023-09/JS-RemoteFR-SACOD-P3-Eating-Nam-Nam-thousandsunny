@@ -9,6 +9,7 @@ import Connexion from "./pages/Connexion";
 import RecipeDetails from "./pages/RecipeDetails";
 import RecipeList from "./pages/RecipeList";
 import Profil from "./pages/Profil";
+import CreateRecipe from "./pages/CreateRecipe";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         element: <Profil />,
       },
       { path: "/connexion", element: <Connexion /> },
+      {
+        path: "/createrecipe",
+        element: <CreateRecipe />,
+      },
     ],
   },
 ]);
