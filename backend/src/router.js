@@ -54,7 +54,7 @@ router.post("/login", AuthControllers.login);
 // Import recipeControllers module for handling item-related operations
 const RecipeControllers = require("./controllers/recipeControllers");
 
-router.get("/recipes", AuthMiddleware.verifyToken, RecipeControllers.browse); // Route to get a list of items
+router.get("/recipes", RecipeControllers.browse); // Route to get a list of items
 router.get("/recipes/:id", RecipeControllers.read); // Route to get a specific item by ID
 router.get("/recipebyuser/:id", RecipeControllers.readByUser);
 router.post(
