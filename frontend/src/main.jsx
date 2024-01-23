@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import axios from "axios";
+
 import App from "./App";
 import Accueil from "./pages/Accueil";
 import Connexion from "./pages/Connexion";
@@ -23,7 +25,12 @@ const router = createBrowserRouter([
         path: "/recipes/:id",
         element: <RecipeDetails />,
         loader: ({ params }) => {
-          return fetch(`http://localhost:3310/api/recipes/${params.id}`);
+          return axios.get(
+            `${import.meta.env.VITE_BACKEND_URL}/api/recipes/${params.id}`,
+            {
+              withCredentials: true,
+            }
+          );
         },
       },
       {

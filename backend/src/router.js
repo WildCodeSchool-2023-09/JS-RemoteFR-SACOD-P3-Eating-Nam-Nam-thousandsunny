@@ -40,8 +40,6 @@ router.post(
   UserControllers.add
 );
 
-// lala ceci est un test
-
 // Route to get specific items and block the register if they exists
 router.get("/username/:username", AuthControllers.readByUsername);
 router.get("/email/:email", AuthControllers.readByEmail);
@@ -54,7 +52,7 @@ router.post("/login", AuthControllers.login);
 // Import recipeControllers module for handling item-related operations
 const RecipeControllers = require("./controllers/recipeControllers");
 
-router.get("/recipes", RecipeControllers.browse); // Route to get a list of items
+router.get("/recipes", AuthMiddleware.verifyToken, RecipeControllers.browse); // Route to get a list of items
 router.get("/recipes/:id", RecipeControllers.read); // Route to get a specific item by ID
 router.get("/recipebyuser/:id", RecipeControllers.readByUser);
 router.post(

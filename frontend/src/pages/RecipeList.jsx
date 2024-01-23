@@ -8,22 +8,26 @@ function RecipeList() {
   const [filters, setFilters] = useState([]);
   const [filtersRecipe, setFiltersRecipe] = useState("");
 
-  const getData = () => {
+  useEffect(() => {
     const endpoints = [
       "http://localhost:3310/api/recipes",
       "http://localhost:3310/api/tags",
     ];
-    Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
-      ([{ data: recipe }, { data: tag }]) => {
+    Promise.all(
+      endpoints.map((endpoint) =>
+        axios.get(endpoint, {
+          withCredentials: true,
+        })
+      )
+    )
+      .then(([{ data: recipe }, { data: tag }]) => {
         setAllRecipe(recipe);
         setFilters(tag);
         console.info(recipe, tag);
-      }
-    );
-  };
-
-  useEffect(() => {
-    getData();
+      })
+      .catch(() => {
+        window.location.href = "/";
+      });
   }, []);
 
   return (
