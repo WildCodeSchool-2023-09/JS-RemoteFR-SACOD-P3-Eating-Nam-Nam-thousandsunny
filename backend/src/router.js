@@ -35,7 +35,7 @@ router.put(
 ); // Route to update user
 router.post(
   "/users",
-  hashPasswordMiddleware,
+  AuthMiddleware.hashPwd,
   uploadUsersAvatars.single("avatar"),
   UserControllers.add
 );
