@@ -40,8 +40,6 @@ router.post(
   UserControllers.add
 );
 
-// lala ceci est un test
-
 // Route to get specific items and block the register if they exists
 router.get("/username/:username", AuthControllers.readByUsername);
 router.get("/email/:email", AuthControllers.readByEmail);

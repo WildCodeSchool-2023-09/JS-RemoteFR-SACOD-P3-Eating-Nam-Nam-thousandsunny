@@ -51,10 +51,15 @@ const login = async (req, res, next) => {
         // Create a token for open & keep the user session as logged
         const token = jwt.sign(
           { username: user.username, is_admin: user.is_admin },
-          process.env.APP_SECRET
+          process.env.APP_SECRET,
+          { expiresIn: "1h" }
         );
         // Respond with the Token of the user, in JSON format
-        res.cookie("token_eating_nam_nam_usr", token).json(token);
+        res.cookie("token", token, {
+          httpOnly: true,
+          maxAge: 3600000, // 1h in ms
+        });
+        res.status(200).send(token);
       } else {
         res.sendStatus(422);
       }
