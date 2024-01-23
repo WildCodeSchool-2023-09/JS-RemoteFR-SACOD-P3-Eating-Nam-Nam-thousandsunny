@@ -29,9 +29,9 @@
       list-style: none;
       background-color: $white-color;
       border-radius: 1.5rem;
-      height: 200px;
-      min-width: 300px;
-      max-width: 400px;
+      min-height: 200px;
+      min-width: 380px;
+      max-width: 420px;
       box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
 
       display: flex;
@@ -53,10 +53,18 @@
       }
 
       .desc-recipe {
+        padding: 0.25rem;
         margin: 0.5rem;
         width: 55%;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
+
+        .recipe-bottom {
+          display: flex;
+          justify-content: space-between;
+          align-items: last baseline;
+        }
 
         h2 {
           font-size: medium;
@@ -65,20 +73,20 @@
         }
         p {
           font-size: small;
-          margin: 0.25rem 0.5rem 0.25rem 0;
         }
 
         .level-recipe {
-          margin: auto 0.25rem 0.25rem auto;
+          text-align: right;
         }
 
         .link-to {
           display: flex;
-          margin: 0.25rem 0.25rem 0.25rem auto;
           background-color: $orange-color;
-          padding-left: 0.5rem;
+          padding: 0.5rem;
+          margin: 0.25rem;
           border-radius: 1rem;
           text-align: right;
+          align-items: center;
           &:hover {
             background-color: #db9146;
             cursor: pointer;
