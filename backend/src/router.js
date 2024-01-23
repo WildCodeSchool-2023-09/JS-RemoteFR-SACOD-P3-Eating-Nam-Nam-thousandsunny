@@ -65,6 +65,7 @@ router.post(
 // Import ingredientControllers module for handling item-related operations
 const IngredientControllers = require("./controllers/ingredientControllers");
 
+router.get("/ingredient", IngredientControllers.browse);
 router.get("/ingredient/:id", IngredientControllers.read); // Route to get a specific item by ID
 router.get("/ingredientbyrecipe/:id", IngredientControllers.readByRecipe); // Route to get ingredients for a specific Recipe
 
@@ -75,6 +76,7 @@ router.get("/ingredientbyrecipe/:id", IngredientControllers.readByRecipe); // Ro
 // Import materialControllers module for handling item-related operations
 const MaterialControllers = require("./controllers/materialControllers");
 
+router.get("/material", MaterialControllers.browse);
 router.get("/material/:id", MaterialControllers.read); // Route to get a specific item by ID
 router.get("/materialByRecipe/:id", MaterialControllers.readByRecipe); // Route to get materials for a specific Recipe
 

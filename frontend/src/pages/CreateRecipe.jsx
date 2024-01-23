@@ -1,4 +1,6 @@
+import axios from "axios";
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -24,6 +26,26 @@ export default function CreateRecipe() {
   const handleReset = () => {
     setActiveStep(0);
   };
+  const [ingredient, setIngredient] = useState([]);
+  const [material, setMaterial] = useState([]);
+  console.info(ingredient);
+  console.info(material);
+  const getData = () => {
+    const endpoints = [
+      "http://localhost:3310/api/ingredient",
+      "http://localhost:3310/api/material",
+    ];
+    Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
+      ([{ data: ing }, { data: mat }]) => {
+        setIngredient(ing);
+        setMaterial(mat);
+      }
+    );
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <Box className="body-content" sx={{ width: "100%" }}>

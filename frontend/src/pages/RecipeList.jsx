@@ -17,7 +17,6 @@ function RecipeList() {
       ([{ data: recipe }, { data: tag }]) => {
         setAllRecipe(recipe);
         setFilters(tag);
-        console.info(recipe, tag);
       }
     );
   };
