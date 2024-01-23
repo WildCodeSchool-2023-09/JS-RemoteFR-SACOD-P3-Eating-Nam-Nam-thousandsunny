@@ -3,6 +3,10 @@ const express = require("express");
 
 // const upload = multer({ dest: "uploads/" });
 
+const multer = require("multer");
+
+const uploadRecipesImages = multer({ dest: "public/assets/recipeUploads" });
+const uploadUsersAvatars = multer({ dest: "public/assets/usersAvatars" });
 const router = express.Router();
 
 /* ************************************************************************* */
@@ -22,7 +26,19 @@ const AuthMiddleware = require("./middleware/authMiddleware");
 
 router.get("/users", UserControllers.browse); // Route to get a list of items
 router.get("/users/:id", UserControllers.read); // Route to get a specific item by ID
+
 router.post("/users", AuthMiddleware.hashPwd, UserControllers.add);
+router.put(
+  "/users/:id",
+  uploadUsersAvatars.single("avatar"),
+  UserControllers.edit
+); // Route to update user
+router.post(
+  "/users",
+  hashPasswordMiddleware,
+  uploadUsersAvatars.single("avatar"),
+  UserControllers.add
+);
 
 // Route to get specific items and block the register if they exists
 router.get("/username/:username", AuthControllers.readByUsername);
@@ -38,7 +54,12 @@ const RecipeControllers = require("./controllers/recipeControllers");
 
 router.get("/recipes", AuthMiddleware.verifyToken, RecipeControllers.browse); // Route to get a list of items
 router.get("/recipes/:id", RecipeControllers.read); // Route to get a specific item by ID
-
+router.get("/recipebyuser/:id", RecipeControllers.readByUser);
+router.post(
+  "/recipes",
+  uploadRecipesImages.single("image"),
+  RecipeControllers.add
+);
 /* ************************************************************************* */
 // INGREDIENT
 /* ************************************************************************* */
@@ -53,7 +74,7 @@ router.get("/ingredientbyrecipe/:id", IngredientControllers.readByRecipe); // Ro
 // MATERIAL
 /* ************************************************************************* */
 
-// Import rmaterialControllers module for handling item-related operations
+// Import materialControllers module for handling item-related operations
 const MaterialControllers = require("./controllers/materialControllers");
 
 router.get("/material/:id", MaterialControllers.read); // Route to get a specific item by ID
