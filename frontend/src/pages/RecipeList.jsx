@@ -8,31 +8,6 @@ function RecipeList() {
   const filters = useLoaderData()[1].tags;
   const [filtersRecipe, setFiltersRecipe] = useState("");
 
-  /*
-  useEffect(() => {
-    const endpoints = [
-      "http://localhost:3310/api/recipes",
-      "http://localhost:3310/api/tags",
-    ];
-    Promise.all(
-      endpoints.map((endpoint) =>
-        axios.get(endpoint, {
-          withCredentials: true,
-        })
-      )
-    )
-      .then(([{ data: recipe }, { data: tag }]) => {
-        setAllRecipe(recipe);
-        setFilters(tag);
-        console.info(recipe, tag);
-      })
-      .catch(() => {
-        window.location.href = "/connexion";
-      });
-  }, []);
-
-  */
-
   return (
     <div className="body-content recipe-content">
       <div className="filter">
@@ -44,7 +19,7 @@ function RecipeList() {
             <option value="">Filtrer par :</option>
             {filters &&
               filters.map((filtre) => (
-                <option key={filtre.ID} value={filtre.name}>
+                <option key={filtre.id} value={filtre.name}>
                   {filtre.name}
                 </option>
               ))}
@@ -69,9 +44,9 @@ function RecipeList() {
               return null;
             })
             .map((recipe) => (
-              <li key={recipe.ID} className="recipe">
+              <li key={recipe.id} className="recipe">
                 <Recipe
-                  id={recipe.ID}
+                  id={recipe.id}
                   name={recipe.name}
                   title={recipe.title}
                   difficulty={recipe.difficulty}

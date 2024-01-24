@@ -28,9 +28,8 @@ const verifyToken = async (req, res, next) => {
       res.status(401).json({ error: "No token founded" });
     } else {
       const decoded = jwt.verify(token, process.env.APP_SECRET);
-      console.info(decoded);
       const user = await tables.user.read(decoded.id);
-      console.info(user);
+
       if (user) next();
       else res.status(401).json({ error: "The token is invalid" });
     }

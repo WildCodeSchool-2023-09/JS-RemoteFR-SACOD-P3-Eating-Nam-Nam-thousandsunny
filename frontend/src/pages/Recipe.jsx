@@ -5,6 +5,7 @@ import img from "../assets/crepe.jpeg";
 function Recipe({ name, title, difficulty, id, image, tag1, tag2, tag3 }) {
   let test = image;
   test = img;
+
   return (
     <>
       <div className="image-recipe-pos">
@@ -17,9 +18,9 @@ function Recipe({ name, title, difficulty, id, image, tag1, tag2, tag3 }) {
           <p className="level-recipe">{difficulty}</p>
           <div className="recipe-bottom">
             <div className="recip-tags">
-              <p>{tag1}</p>
-              <p>{tag2}</p>
-              <p>{tag3}</p>
+              {tag1 ? <p>{tag1}</p> : null}
+              {tag2 ? <p>{tag2}</p> : null}
+              {tag3 ? <p>{tag3}</p> : null}
             </div>
             <div className="link-to">
               <Link to={`/recipes/${id}`}>
