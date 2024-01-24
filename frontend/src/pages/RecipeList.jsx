@@ -44,7 +44,7 @@ function RecipeList() {
             <option value="">Filtrer par :</option>
             {filters &&
               filters.map((filtre) => (
-                <option key={filtre.ID} value={filtre.name}>
+                <option key={filtre.id} value={filtre.name}>
                   {filtre.name}
                 </option>
               ))}
@@ -69,13 +69,14 @@ function RecipeList() {
               return null;
             })
             .map((recipe) => (
-              <li key={recipe.ID} className="recipe">
+              <li key={recipe.id} className="recipe">
                 <Recipe
-                  id={recipe.ID}
+                  id={recipe.id}
                   name={recipe.name}
                   title={recipe.title}
                   difficulty={recipe.difficulty}
                   image={recipe.image}
+                  kcal={recipe.total_kcal}
                   tag1={recipe.tag1}
                   tag2={recipe.tag2}
                   tag3={recipe.tag3}
