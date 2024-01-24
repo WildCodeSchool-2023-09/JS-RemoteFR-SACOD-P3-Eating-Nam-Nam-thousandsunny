@@ -1,27 +1,32 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-function Detail({ name, prep }) {
+function Detail({ name, prep, id }) {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
-  const { id } = useParams();
-  const getData = () => {
-    const endpoints = [
-      `http://localhost:3310/api/ingredientbyrecipe/${id}`,
-      `http://localhost:3310/api/instructionbyrecipe/${id}`,
-    ];
-    Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
-      ([{ data: ingredient }, { data: instruction }]) => {
-        setIngredients(ingredient);
-        setInstructions(instruction);
-      }
-    );
-  };
+
   useEffect(() => {
-    getData();
+    const endpoints = [
+      `${import.meta.env.VITE_BACKEND_URL}/api/ingredientbyrecipe/${id}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/instructionbyrecipe/${id}`,
+    ];
+    Promise.all(
+      endpoints.map((endpoint) =>
+        axios.get(endpoint, {
+          withCredentials: true,
+        })
+      )
+    )
+      .then(([ingredientResponse, instructionResponse]) => {
+        setIngredients(ingredientResponse.data);
+        setInstructions(instructionResponse.data);
+      })
+      .catch(() => {
+        window.location.href = "/connexion";
+      });
   }, []);
+
   return (
     <div>
       <h1>{name}</h1>
@@ -46,9 +51,11 @@ function Detail({ name, prep }) {
     </div>
   );
 }
+
 Detail.propTypes = {
   name: PropTypes.string.isRequired,
   prep: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default Detail;

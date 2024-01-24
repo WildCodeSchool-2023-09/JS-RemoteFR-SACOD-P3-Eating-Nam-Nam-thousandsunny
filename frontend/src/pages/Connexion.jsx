@@ -50,11 +50,13 @@ function TypeOfForm({ checkbox, setCheckbox }) {
 
       try {
         // Appel à l'API pour demander une connexion
-        const response = await axios
-          .post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, formData, {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+          formData,
+          {
             withCredentials: true,
-          })
-          .catch((err) => console.error(err));
+          }
+        );
 
         // Redirection vers la page de connexion si la création réussit
 
@@ -72,14 +74,10 @@ function TypeOfForm({ checkbox, setCheckbox }) {
               },
             }
           );
-        } else {
-          toast.error("Erreur d'authentification 😕");
-          loginErrorMsg.innerText =
-            "Nom d'utilisateur ou mot de passe incorrect";
         }
       } catch (err) {
-        // Log des erreurs possibles
-        console.info(err);
+        toast.error("Erreur d'authentification 😕");
+        loginErrorMsg.innerText = "Nom d'utilisateur ou mot de passe incorrect";
       }
     }
   };
@@ -227,7 +225,7 @@ function Connexion() {
   // Affiche l'en-tête du composant du formulaire (bouton switch)
   return (
     <div className="body-content connect-content">
-      <ToastContainer autoClose={2000} pauseOnHover={false} />
+      <ToastContainer autoClose={5000} pauseOnHover={false} />
       <div className="wrapper">
         <div className="form-container">
           <div className="slide-controls">
