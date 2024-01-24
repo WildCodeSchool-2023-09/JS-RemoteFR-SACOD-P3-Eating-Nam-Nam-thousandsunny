@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+
 import {
   isValidUsername,
   isValidEmail,
@@ -13,6 +14,7 @@ import {
   resetErrMsgPassConfSign,
   resetAllErrMsgSign,
 } from "./services/postUserValid";
+
 import "react-toastify/dist/ReactToastify.css";
 import "./style/Connexion.scss";
 

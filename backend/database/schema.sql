@@ -1,4 +1,5 @@
 #Access to DB
+
 USE eating_nam_nam;
 
 #Create tables for eating nam nam DB
@@ -114,18 +115,18 @@ VALUES
 
 INSERT INTO ingredient (name, unit, kcal)
 VALUES
-    ('oeuf', 'pièce(s)', 20),
-    ('beurre', 'grammes', 5),
-    ('chocolat noir', 'grammes', 3),
-    ('farine de blé', 'grammes', 1),
-    ('pâtes', 'grammes', 2),
-    ('nouilles udon', 'grammes',50),
-    ('steak haché', 'pièce(s)',100),
-    ('pain bun','pièce(s)', 40),
-    ('cheddar', 'grammes', 200),
-    ('tomate','pièce(s)',10),
-    ('lait','centilitres',5),
-    ('farine', 'grammes', 0.5)
+('oeuf', 'pièce(s)', 20),
+('beurre', 'grammes', 5),
+('chocolat noir', 'grammes', 3),
+('farine de blé', 'grammes', 1),
+('pâtes', 'grammes', 2),
+('nouilles udon', 'grammes',50),
+('steak haché', 'pièce(s)',100),
+('pain bun','pièce(s)', 40),
+('cheddar', 'grammes', 200),
+('tomate','pièce(s)',10),
+('lait','centilitres',5),
+('farine', 'grammes', 0.5)
 ;
 
 INSERT INTO instruction (description, recipe_id)

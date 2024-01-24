@@ -1,13 +1,14 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import Recipe from "./Recipe";
 import "./style/RecipeList.scss";
 
 function RecipeList() {
-  const [allRecipe, setAllRecipe] = useState([]);
-  const [filters, setFilters] = useState([]);
+  const allRecipe = useLoaderData()[0].recipe;
+  const filters = useLoaderData()[1].tags;
   const [filtersRecipe, setFiltersRecipe] = useState("");
 
+  /*
   useEffect(() => {
     const endpoints = [
       "http://localhost:3310/api/recipes",
@@ -26,9 +27,11 @@ function RecipeList() {
         console.info(recipe, tag);
       })
       .catch(() => {
-        window.location.href = "/";
+        window.location.href = "/connexion";
       });
   }, []);
+
+  */
 
   return (
     <div className="body-content recipe-content">
