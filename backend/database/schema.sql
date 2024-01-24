@@ -16,7 +16,7 @@ CREATE TABLE user (
     avatar VARCHAR(200)
 );
 CREATE TABLE recipe (
-  ID INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
     name VARCHAR(80) NOT NULL,
     title VARCHAR(150) NOT NULL,
@@ -27,8 +27,8 @@ CREATE TABLE recipe (
     tag1 VARCHAR(30),
     tag2 VARCHAR(30),
     tag3 VARCHAR(30),
-    is_verified BIT DEFAULT 0,
-    total_kcal INT NOT NULL,
+  is_verified BIT DEFAULT 0,
+  total_kcal INT NOT NULL,
 FOREIGN KEY (user_id) REFERENCES user(id)
 );
 CREATE TABLE ingredient

@@ -25,23 +25,28 @@ export default function CreateRecipe() {
   const [allIngredients, setAllIngredients] = React.useState([]);
   const [allMaterials, setAllMaterials] = React.useState([]);
   const [allTags, setAllTags] = React.useState([]);
-  const getData = () => {
-    const endpoints = [
-      "http://localhost:3310/api/ingredients",
-      "http://localhost:3310/api/materials",
-      "http://localhost:3310/api/tags",
-    ];
-    Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
-      ([{ data: ingredients }, { data: materials }, { data: tags }]) => {
-        setAllIngredients(ingredients);
-        setAllMaterials(materials);
-        setAllTags(tags);
-      }
-    );
-  };
 
   useEffect(() => {
-    getData();
+    const endpoints = [
+      "http://localhost:3310/api/ingredients",
+      "http://localhost:3310/api/tags",
+      "http://localhost:3310/api/materials",
+    ];
+    Promise.all(
+      endpoints.map((endpoint) =>
+        axios.get(endpoint, {
+          withCredentials: true,
+        })
+      )
+    )
+      .then(([{ data: ingredient }, { data: tag }, { data: material }]) => {
+        setAllIngredients(ingredient);
+        setAllTags(tag);
+        setAllMaterials(material);
+      })
+      .catch(() => {
+        window.location.href = "/";
+      });
   }, []);
 
   const handleNext = () => {
@@ -101,14 +106,14 @@ export default function CreateRecipe() {
             </Box>
           </>
         )}
-        if (activeStep === 0)
-        <Step1 tag={allTags} />
-        else if (activeStep === 1)
-        <Step2 ingredient={allIngredients} material={allMaterials} />
-        else if (activeStep === 2)
-        <Step3 />
-        else if (activeStep === 3)
-        <Step4 />;
+        <div className="steps">
+          {activeStep === 0 && <Step1 tag={allTags} />}
+          {activeStep === 1 && (
+            <Step2 ingredient={allIngredients} material={allMaterials} />
+          )}
+          {activeStep === 2 && <Step3 />}
+          {activeStep === 3 && <Step4 />}
+        </div>
       </Box>
     </div>
   );
