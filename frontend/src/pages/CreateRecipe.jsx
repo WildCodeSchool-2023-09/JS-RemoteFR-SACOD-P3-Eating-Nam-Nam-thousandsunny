@@ -23,14 +23,12 @@ const steps = [
 export default function CreateRecipe() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [allIngredients, setAllIngredients] = React.useState([]);
-  const [allMaterials, setAllMaterials] = React.useState([]);
   const [allTags, setAllTags] = React.useState([]);
 
   useEffect(() => {
     const endpoints = [
       "http://localhost:3310/api/ingredients",
       "http://localhost:3310/api/tags",
-      "http://localhost:3310/api/materials",
     ];
     Promise.all(
       endpoints.map((endpoint) =>
@@ -39,10 +37,9 @@ export default function CreateRecipe() {
         })
       )
     )
-      .then(([{ data: ingredient }, { data: tag }, { data: material }]) => {
+      .then(([{ data: ingredient }, { data: tag }]) => {
         setAllIngredients(ingredient);
         setAllTags(tag);
-        setAllMaterials(material);
       })
       .catch(() => {
         window.location.href = "/";
@@ -108,9 +105,7 @@ export default function CreateRecipe() {
         )}
         <div className="steps">
           {activeStep === 0 && <Step1 tag={allTags} />}
-          {activeStep === 1 && (
-            <Step2 ingredient={allIngredients} material={allMaterials} />
-          )}
+          {activeStep === 1 && <Step2 ingredient={allIngredients} />}
           {activeStep === 2 && <Step3 />}
           {activeStep === 3 && <Step4 />}
         </div>

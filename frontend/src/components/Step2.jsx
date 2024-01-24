@@ -3,8 +3,16 @@ import PropTypes from "prop-types";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
+import { useRecipeCreation } from "../contexts/RecipeCreationContext";
+import { useIngredientCreation } from "../contexts/IngredientCreationContext";
 
 function Step2({ ingredient }) {
+  const { recipeCreation } = useRecipeCreation();
+  console.info(recipeCreation);
+
+  const { ingredientCreation, handleChangeCreation } = useIngredientCreation();
+  console.info(ingredientCreation);
+
   const [ingredientsFields, setIngredientsFields] = React.useState([]);
   const handleAddIngredient = () => {
     const ingredientsArray = [...ingredientsFields, []];
@@ -26,7 +34,9 @@ function Step2({ ingredient }) {
             select
             helperText="Choisissez un ingrédient"
             variant="filled"
-            name="Ingrédient"
+            value={ingredientCreation.ingredientName}
+            onChange={handleChangeCreation}
+            name="ingredientName"
           >
             {ingredient.map((option) => (
               <MenuItem key={option.id} value={option.name}>
@@ -39,6 +49,8 @@ function Step2({ ingredient }) {
             label="Quantité"
             helperText="Quantité requise pour la recette"
             variant="filled"
+            value={ingredientCreation.quantity}
+            onChange={handleChangeCreation}
             name="quantity"
           />
           <p> {ingredient.unit}</p>
@@ -51,6 +63,7 @@ Step2.propTypes = {
   ingredient: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       unit: PropTypes.string.isRequired,
     })
   ).isRequired,

@@ -1,6 +1,9 @@
-import PropTypes from "prop-types";
+import { useInstructionCreation } from "../contexts/InstructionCreationContext";
 
-function Step3({ instruction }) {
+function Step3() {
+  const { instructionCreation, handleChangeCreation } =
+    useInstructionCreation();
+  console.info(instructionCreation);
   return (
     <div>
       <h1>Step 3</h1>
@@ -9,16 +12,14 @@ function Step3({ instruction }) {
         <input
           id="instructtionInput"
           type="text"
-          name="instruction"
+          name="description"
           placeholder="instructions"
-          value={instruction}
+          value={instructionCreation.description}
+          onChange={handleChangeCreation}
         />
       </form>
     </div>
   );
 }
-Step3.propTypes = {
-  instruction: PropTypes.string.isRequired,
-};
 
 export default Step3;
