@@ -13,6 +13,8 @@ import RecipeList from "./pages/RecipeList";
 import Profil from "./pages/Profil";
 import CreateRecipe from "./pages/CreateRecipe";
 import { RecipeProvider } from "./contexts/RecipeCreationContext";
+import { IngredientProvider } from "./contexts/IngredientCreationContext";
+import { InstructionProvider } from "./contexts/InstructionCreationContext";
 
 const router = createBrowserRouter([
   {
@@ -78,8 +80,12 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <RecipeProvider>
-      <RouterProvider router={router} />
-    </RecipeProvider>
+    <InstructionProvider>
+      <IngredientProvider>
+        <RecipeProvider>
+          <RouterProvider router={router} />
+        </RecipeProvider>
+      </IngredientProvider>
+    </InstructionProvider>
   </React.StrictMode>
 );
