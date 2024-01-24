@@ -21,17 +21,40 @@ const router = createBrowserRouter([
       {
         path: "/recipes",
         element: <RecipeList />,
+        loader: () => {
+          return Promise.all([
+            axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/recipes`, {
+              withCredentials: true,
+            }),
+            axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/tags`, {
+              withCredentials: true,
+            }),
+          ])
+            .then(([recipeResponse, tagsResponse]) => {
+              const recipe = recipeResponse.data; // Accédez aux données de la réponse
+              const tags = tagsResponse.data; // Accédez aux données de la réponse
+              return Promise.all([{ recipe }, { tags }]);
+            })
+            .catch(() => {
+              // Gérez l'erreur ici (redirection vers "/connexion" par exemple)
+              window.location.href = "/connexion";
+            });
+        },
       },
       {
         path: "/recipes/:id",
         element: <RecipeDetails />,
         loader: ({ params }) => {
-          return axios.get(
-            `${import.meta.env.VITE_BACKEND_URL}/api/recipes/${params.id}`,
-            {
-              withCredentials: true,
-            }
-          );
+          return axios
+            .get(
+              `${import.meta.env.VITE_BACKEND_URL}/api/recipes/${params.id}`,
+              {
+                withCredentials: true,
+              }
+            )
+            .catch(() => {
+              window.location.href = "/connexion";
+            });
         },
       },
       {

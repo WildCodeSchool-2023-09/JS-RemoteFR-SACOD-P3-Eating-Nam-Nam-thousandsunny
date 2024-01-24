@@ -24,20 +24,18 @@ const verifyToken = async (req, res, next) => {
   try {
     const { token } = req.cookies;
 
-    console.info(req.cookies);
-
-    console.info(token);
-
     if (!token) {
       res.status(401).json({ error: "No token founded" });
     } else {
       const decoded = jwt.verify(token, process.env.APP_SECRET);
+      console.info(decoded);
       const user = await tables.user.read(decoded.id);
-      console.info({ user });
-      next();
+      console.info(user);
+      if (user) next();
+      else res.status(401).json({ error: "The token is invalid" });
     }
   } catch (err) {
-    res.status(401).json({ error: "The token is invalid" });
+    res.status(401).json({ error: "Internal error" });
   }
 };
 
