@@ -8,31 +8,6 @@ function RecipeList() {
   const filters = useLoaderData()[1].tags;
   const [filtersRecipe, setFiltersRecipe] = useState("");
 
-  /*
-  useEffect(() => {
-    const endpoints = [
-      "http://localhost:3310/api/recipes",
-      "http://localhost:3310/api/tags",
-    ];
-    Promise.all(
-      endpoints.map((endpoint) =>
-        axios.get(endpoint, {
-          withCredentials: true,
-        })
-      )
-    )
-      .then(([{ data: recipe }, { data: tag }]) => {
-        setAllRecipe(recipe);
-        setFilters(tag);
-        console.info(recipe, tag);
-      })
-      .catch(() => {
-        window.location.href = "/connexion";
-      });
-  }, []);
-
-  */
-
   return (
     <div className="body-content recipe-content">
       <div className="filter">

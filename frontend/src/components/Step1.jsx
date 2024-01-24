@@ -27,7 +27,6 @@ function Step1({ tag }) {
       label: "Difficile",
     },
   ];
-
   return (
     <div>
       <h3> Votre recette commence ici... </h3>
@@ -119,7 +118,6 @@ function Step1({ tag }) {
         id="Tag1"
         select
         label="Tag 1"
-        defaultValue={tag[0]}
         name="tag1"
         helperText="Choisissez un tag parmi la liste"
         variant="filled"
@@ -138,7 +136,6 @@ function Step1({ tag }) {
         select
         label="Tag 2"
         name="tag2"
-        defaultValue={tag[0]}
         helperText="Choisissez un tag parmi la liste"
         variant="filled"
         onChange={handleChangeCreation}
@@ -155,7 +152,6 @@ function Step1({ tag }) {
         select
         label="Tag 3"
         name="tag3"
-        defaultValue={tag[0]}
         helperText="Choisissez un tag parmi la liste"
         variant="filled"
         onChange={handleChangeCreation}

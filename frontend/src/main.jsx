@@ -32,12 +32,11 @@ const router = createBrowserRouter([
             }),
           ])
             .then(([recipeResponse, tagsResponse]) => {
-              const recipe = recipeResponse.data; // Accédez aux données de la réponse
-              const tags = tagsResponse.data; // Accédez aux données de la réponse
+              const recipe = recipeResponse.data;
+              const tags = tagsResponse.data;
               return Promise.all([{ recipe }, { tags }]);
             })
             .catch(() => {
-              // Gérez l'erreur ici (redirection vers "/connexion" par exemple)
               window.location.href = "/connexion";
             });
         },
@@ -53,6 +52,10 @@ const router = createBrowserRouter([
                 withCredentials: true,
               }
             )
+            .then((recipeResponse) => {
+              const recipe = recipeResponse.data;
+              return { recipe };
+            })
             .catch(() => {
               window.location.href = "/connexion";
             });

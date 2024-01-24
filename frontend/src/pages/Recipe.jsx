@@ -15,6 +15,7 @@ function Recipe({
 }) {
   let test = image;
   test = img;
+
   return (
     <>
       <div className="image-recipe-pos">
@@ -28,9 +29,9 @@ function Recipe({
           <div className="recipe-bottom">
             <div className="recip-tags">
               <p>{kcal} kcal par personne</p>
-              <p>{tag1}</p>
-              <p>{tag2}</p>
-              <p>{tag3}</p>
+              {tag1 ? <p>{tag1}</p> : null}
+              {tag2 ? <p>{tag2}</p> : null}
+              {tag3 ? <p>{tag3}</p> : null}
             </div>
             <div className="link-to">
               <Link to={`/recipes/${id}`}>

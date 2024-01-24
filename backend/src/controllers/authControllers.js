@@ -42,7 +42,6 @@ const login = async (req, res, next) => {
   try {
     // Verify if the username exist in the database
     const user = await tables.user.readByUsername(req.body.username);
-    console.info(user);
 
     if (user) {
       // Verify if the password match with the hashed in the database
