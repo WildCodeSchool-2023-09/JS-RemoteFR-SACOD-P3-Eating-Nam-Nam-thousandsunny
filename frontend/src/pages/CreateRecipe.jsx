@@ -48,6 +48,7 @@ export default function CreateRecipe() {
         window.location.href = "/";
       });
   }, []);
+
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -106,7 +107,7 @@ export default function CreateRecipe() {
           </>
         )}
         <div className="steps">
-          {activeStep === 0 && <Step1 tag={allTags.data} />}
+          {activeStep === 0 && <Step1 tag={allTags} />}
           {activeStep === 1 && (
             <Step2 ingredient={allIngredients} material={allMaterials} />
           )}

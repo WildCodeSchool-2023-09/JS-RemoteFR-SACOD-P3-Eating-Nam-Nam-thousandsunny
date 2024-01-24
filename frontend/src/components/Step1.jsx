@@ -1,12 +1,19 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
+import PropTypes from "prop-types";
 
-function Step1() {
+function Step1({ tag }) {
   const [recipename, setRecipename] = React.useState("");
   const [recipedescription, setRecipedescription] = React.useState("");
   const [prepTime, setPrepTime] = React.useState("");
   const [nbPeople, setNbPeople] = React.useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [tag1, setTag1] = React.useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [tag2, setTag2] = React.useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [tag3, setTag3] = React.useState("");
   // eslint-disable-next-line no-unused-vars
   const [difficulty, setDifficulty] = React.useState("easy");
   const difficulties = [
@@ -23,23 +30,9 @@ function Step1() {
       label: "Difficile",
     },
   ];
-  const handleNbPeopleChange = (event) => {
-    setNbPeople(event.target.value);
-  };
-  const handleRecipeNameChange = (event) => {
-    setRecipename(event.target.value);
-  };
-
-  const handleRecipeDescriptionChange = (event) => {
-    setRecipedescription(event.target.value);
-  };
-
-  const handlePrepTimeChange = (event) => {
-    setPrepTime(event.target.value);
-  };
-
-  const handleDifficultyChange = (event) => {
-    setDifficulty(event.target.value);
+  console.info(tag);
+  const handleInputChange = (callback) => (event) => {
+    callback(event.target.value);
   };
 
   return (
@@ -48,13 +41,13 @@ function Step1() {
       <TextField
         label="Nom de votre recette"
         value={recipename}
-        onChange={handleRecipeNameChange}
+        onChange={handleInputChange(setRecipename)}
         variant="filled"
       />
       <TextField
         label="Description"
         value={recipedescription}
-        onChange={handleRecipeDescriptionChange}
+        onChange={handleInputChange(setRecipedescription)}
         variant="filled"
         multiline
         maxRows={4}
@@ -62,13 +55,13 @@ function Step1() {
       <TextField
         label="Temps de préparation (en minutes)"
         value={prepTime}
-        onChange={handlePrepTimeChange}
+        onChange={handleInputChange(setPrepTime)}
         variant="filled"
       />
       <TextField
         label="Nombre de personnes"
         value={nbPeople}
-        onChange={handleNbPeopleChange}
+        onChange={handleInputChange(setNbPeople)}
         variant="filled"
       />
       <TextField
@@ -78,7 +71,7 @@ function Step1() {
         defaultValue={difficulties[0].value}
         helperText="Choisissez la difficulté de votre recette"
         variant="filled"
-        onChange={handleDifficultyChange}
+        onChange={handleInputChange(setDifficulty)}
       >
         {difficulties.map((option) => (
           <MenuItem key={option.value} value={option.value}>
@@ -86,8 +79,63 @@ function Step1() {
           </MenuItem>
         ))}
       </TextField>
+      <TextField
+        key={tag.id}
+        id="Tag1"
+        select
+        label="Tag 1"
+        defaultValue={tag[0]}
+        helperText="Choisissez un tag parmi la liste"
+        variant="filled"
+        onChange={handleInputChange(setTag1)}
+      >
+        {tag.map((option) => (
+          <MenuItem key={option.id} value={option.name}>
+            {option.name}
+          </MenuItem>
+        ))}
+      </TextField>
+      <TextField
+        key={tag.id}
+        id="Tag2"
+        select
+        label="Tag 2"
+        defaultValue={tag[0]}
+        helperText="Choisissez un tag parmi la liste"
+        variant="filled"
+        onChange={handleInputChange(setTag2)}
+      >
+        {tag.map((option) => (
+          <MenuItem key={option.id} value={option.name}>
+            {option.name}
+          </MenuItem>
+        ))}
+      </TextField>
+      <TextField
+        key={tag.id}
+        id="Tag3"
+        select
+        label="Tag 3"
+        defaultValue={tag[0]}
+        helperText="Choisissez un tag parmi la liste"
+        variant="filled"
+        onChange={handleInputChange(setTag3)}
+      >
+        {tag.map((option) => (
+          <MenuItem key={option.id} value={option.name}>
+            {option.name}
+          </MenuItem>
+        ))}
+      </TextField>
     </div>
   );
 }
 
+Step1.propTypes = {
+  tag: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 export default Step1;
