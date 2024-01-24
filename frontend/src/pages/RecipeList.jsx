@@ -51,6 +51,7 @@ function RecipeList() {
                   title={recipe.title}
                   difficulty={recipe.difficulty}
                   image={recipe.image}
+                  kcal={recipe.total_kcal}
                   tag1={recipe.tag1}
                   tag2={recipe.tag2}
                   tag3={recipe.tag3}

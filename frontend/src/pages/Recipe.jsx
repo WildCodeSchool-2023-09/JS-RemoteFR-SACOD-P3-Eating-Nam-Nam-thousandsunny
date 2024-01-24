@@ -2,7 +2,17 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import img from "../assets/crepe.jpeg";
 
-function Recipe({ name, title, difficulty, id, image, tag1, tag2, tag3 }) {
+function Recipe({
+  name,
+  title,
+  difficulty,
+  id,
+  image,
+  kcal,
+  tag1,
+  tag2,
+  tag3,
+}) {
   let test = image;
   test = img;
 
@@ -18,6 +28,7 @@ function Recipe({ name, title, difficulty, id, image, tag1, tag2, tag3 }) {
           <p className="level-recipe">{difficulty}</p>
           <div className="recipe-bottom">
             <div className="recip-tags">
+              <p>{kcal} kcal par personne</p>
               {tag1 ? <p>{tag1}</p> : null}
               {tag2 ? <p>{tag2}</p> : null}
               {tag3 ? <p>{tag3}</p> : null}
@@ -40,6 +51,7 @@ Recipe.propTypes = {
   difficulty: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
+  kcal: PropTypes.number.isRequired,
   tag1: PropTypes.string.isRequired,
   tag2: PropTypes.string.isRequired,
   tag3: PropTypes.string.isRequired,

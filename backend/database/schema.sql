@@ -63,20 +63,6 @@ CREATE TABLE instruction
     recipe_id INT NOT NULL,
     FOREIGN KEY (recipe_id) REFERENCES recipe(id)
 );
-CREATE TABLE material
-(
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    name VARCHAR(50)
-);
-
-CREATE TABLE recipe_material
-(
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    recipe_id INT NOT NULL,
-    material_id INT NOT NULL,
-    FOREIGN KEY (recipe_id) REFERENCES recipe(id),
-    FOREIGN KEY (material_id) REFERENCES material(id)
-);
 
 CREATE TABLE recipe_ingredient
 (
@@ -145,22 +131,6 @@ VALUES
     ("Disposez la pâte sur une poêle chaude",6)
 ;
 
-INSERT INTO material (name)
-VALUES
-    ("Poêle"),
-    ("Casserole"),
-    ("Spatule en bois"),
-    ("Egouttoir")
-;
-
-INSERT INTO recipe_material (recipe_id,material_id)
-VALUES
-    (1,1),
-    (1,3),
-    (2,2),
-    (2,3),
-    (2,4)
-;
 
 INSERT INTO tag (name)
 VALUES

@@ -12,6 +12,7 @@ import RecipeDetails from "./pages/RecipeDetails";
 import RecipeList from "./pages/RecipeList";
 import Profil from "./pages/Profil";
 import CreateRecipe from "./pages/CreateRecipe";
+import { RecipeProvider } from "./contexts/RecipeCreationContext";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RecipeProvider>
+      <RouterProvider router={router} />
+    </RecipeProvider>
   </React.StrictMode>
 );
