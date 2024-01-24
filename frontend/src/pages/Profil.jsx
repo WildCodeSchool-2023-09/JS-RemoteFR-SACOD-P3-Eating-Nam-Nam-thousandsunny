@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import addimage from "../assets/addimage.svg";
 import "./style/Profil.scss";
 
 function Profil() {
   const [editing, setEditing] = useState(false);
   const [userData, setUserData] = useState({
-    age: "...Mon Age",
-    recipes: 0,
-    comments: 0,
-    average: 0,
-    description: "Description: ...",
+    age: null,
+    recipes: null,
+    comments: null,
+    average: null,
+    description: null,
   });
 
   const handleEditClick = () => {
@@ -29,6 +30,23 @@ function Profil() {
     }));
   };
 
+  useEffect(() => {
+    const endpoints = [`${import.meta.env.VITE_BACKEND_URL}/api/users`];
+    Promise.all(
+      endpoints.map((endpoint) =>
+        axios.get(endpoint, {
+          withCredentials: true,
+        })
+      )
+    )
+      .then(([{ data: user }]) => {
+        setUserData(user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   return (
     <div className="body-content">
       <div className="Profil_container">
@@ -44,15 +62,31 @@ function Profil() {
                   <input
                     type="text"
                     name="age"
-                    value={userData.age}
+                    value={userData.age || ""}
                     onChange={handleChange}
                   />
                 ) : (
-                  userData.age
+                  userData.age || "...Mon Age"
                 )}
               </label>
               <p className="recipes">Mes recettes : {userData.recipes}</p>
               <p className="comments">Commentaires: {userData.comments}</p>
+            </div>
+          </div>
+          <div className="second">
+            <div className="Stats">
+              <label className="description">
+                {editing ? (
+                  <input
+                    type="text"
+                    name="description"
+                    value={userData.description || ""}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  userData.description || "...Ma Description"
+                )}
+              </label>
             </div>
           </div>
 
@@ -64,22 +98,6 @@ function Profil() {
             >
               {editing ? "Save" : "Edit"}
             </button>
-          </div>
-        </div>
-        <div className="second">
-          <div className="Stats">
-            <label className="description">
-              {editing ? (
-                <input
-                  type="text"
-                  name="description"
-                  value={userData.description}
-                  onChange={handleChange}
-                />
-              ) : (
-                userData.description
-              )}
-            </label>
           </div>
         </div>
       </div>
