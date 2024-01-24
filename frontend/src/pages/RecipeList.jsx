@@ -1,30 +1,37 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import Recipe from "./Recipe";
 import "./style/RecipeList.scss";
 
 function RecipeList() {
-  const [allRecipe, setAllRecipe] = useState([]);
-  const [filters, setFilters] = useState([]);
+  const allRecipe = useLoaderData()[0].recipe;
+  const filters = useLoaderData()[1].tags;
   const [filtersRecipe, setFiltersRecipe] = useState("");
 
-  const getData = () => {
+  /*
+  useEffect(() => {
     const endpoints = [
       "http://localhost:3310/api/recipes",
       "http://localhost:3310/api/tags",
     ];
-    Promise.all(endpoints.map((endpoint) => axios.get(endpoint))).then(
-      ([{ data: recipe }, { data: tag }]) => {
+    Promise.all(
+      endpoints.map((endpoint) =>
+        axios.get(endpoint, {
+          withCredentials: true,
+        })
+      )
+    )
+      .then(([{ data: recipe }, { data: tag }]) => {
         setAllRecipe(recipe);
         setFilters(tag);
         console.info(recipe, tag);
-      }
-    );
-  };
-
-  useEffect(() => {
-    getData();
+      })
+      .catch(() => {
+        window.location.href = "/connexion";
+      });
   }, []);
+
+  */
 
   return (
     <div className="body-content recipe-content">

@@ -41,9 +41,7 @@ const edit = async (req, res, next) => {
   // Extract the user data from the request body
   const item = req.body;
   item.ID = wantedId;
-
   const avatar = req.file;
-
   fs.renameSync(
     `${avatar.destination}/${avatar.filename}`,
     `${avatar.destination}/${avatar.filename}-${avatar.originalname}`
@@ -65,7 +63,6 @@ const edit = async (req, res, next) => {
 const add = async (req, res, next) => {
   // Extract the user data from the request body
   const item = req.body;
-  console.info(item);
 
   const existingUsername = await tables.user.readByUsername(item.username);
   const existingEmail = await tables.user.readByEmail(item.email);

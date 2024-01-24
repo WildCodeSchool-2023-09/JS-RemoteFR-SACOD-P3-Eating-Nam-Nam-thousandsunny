@@ -21,20 +21,21 @@ const hashPwd = async (req, res, next) => {
 };
 
 const verifyToken = async (req, res, next) => {
-  const token = req.body.cookies;
+  try {
+    const { token } = req.cookies;
 
-  console.info(token);
-  if (!token) {
-    res.status(401).json({ error: "No token founded" });
-  } else {
-    try {
+    if (!token) {
+      res.status(401).json({ error: "No token founded" });
+    } else {
       const decoded = jwt.verify(token, process.env.APP_SECRET);
+      console.info(decoded);
       const user = await tables.user.read(decoded.id);
-      console.info({ user });
-      next();
-    } catch (err) {
-      res.status(401).json({ error: "The token is invalid" });
+      console.info(user);
+      if (user) next();
+      else res.status(401).json({ error: "The token is invalid" });
     }
+  } catch (err) {
+    res.status(401).json({ error: "Internal error" });
   }
 };
 

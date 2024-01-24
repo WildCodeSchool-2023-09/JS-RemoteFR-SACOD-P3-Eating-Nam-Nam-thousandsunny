@@ -3,12 +3,15 @@ import ReactDOM from "react-dom/client";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import axios from "axios";
+
 import App from "./App";
 import Accueil from "./pages/Accueil";
 import Connexion from "./pages/Connexion";
 import RecipeDetails from "./pages/RecipeDetails";
 import RecipeList from "./pages/RecipeList";
 import Profil from "./pages/Profil";
+import CreateRecipe from "./pages/CreateRecipe";
 
 const router = createBrowserRouter([
   {
@@ -18,12 +21,40 @@ const router = createBrowserRouter([
       {
         path: "/recipes",
         element: <RecipeList />,
+        loader: () => {
+          return Promise.all([
+            axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/recipes`, {
+              withCredentials: true,
+            }),
+            axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/tags`, {
+              withCredentials: true,
+            }),
+          ])
+            .then(([recipeResponse, tagsResponse]) => {
+              const recipe = recipeResponse.data; // Accédez aux données de la réponse
+              const tags = tagsResponse.data; // Accédez aux données de la réponse
+              return Promise.all([{ recipe }, { tags }]);
+            })
+            .catch(() => {
+              // Gérez l'erreur ici (redirection vers "/connexion" par exemple)
+              window.location.href = "/connexion";
+            });
+        },
       },
       {
         path: "/recipes/:id",
         element: <RecipeDetails />,
         loader: ({ params }) => {
-          return fetch(`http://localhost:3310/api/recipes/${params.id}`);
+          return axios
+            .get(
+              `${import.meta.env.VITE_BACKEND_URL}/api/recipes/${params.id}`,
+              {
+                withCredentials: true,
+              }
+            )
+            .catch(() => {
+              window.location.href = "/connexion";
+            });
         },
       },
       {
@@ -31,6 +62,10 @@ const router = createBrowserRouter([
         element: <Profil />,
       },
       { path: "/connexion", element: <Connexion /> },
+      {
+        path: "/createrecipe",
+        element: <CreateRecipe />,
+      },
     ],
   },
 ]);

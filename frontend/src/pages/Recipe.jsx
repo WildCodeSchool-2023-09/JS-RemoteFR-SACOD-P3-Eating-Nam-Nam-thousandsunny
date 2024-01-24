@@ -13,14 +13,20 @@ function Recipe({ name, title, difficulty, id, image, tag1, tag2, tag3 }) {
       <div className="desc-recipe">
         <h2>{name}</h2>
         <p>{title}</p>
-        <p className="level-recipe">{difficulty}</p>
-        <p>{tag1}</p>
-        <p>{tag2}</p>
-        <p>{tag3}</p>
-        <div className="link-to">
-          <Link to={`/recipes/${id}`}>
-            <p>En savoir plus</p>
-          </Link>
+        <div className="recipe-difficult">
+          <p className="level-recipe">{difficulty}</p>
+          <div className="recipe-bottom">
+            <div className="recip-tags">
+              <p>{tag1}</p>
+              <p>{tag2}</p>
+              <p>{tag3}</p>
+            </div>
+            <div className="link-to">
+              <Link to={`/recipes/${id}`}>
+                <p>En savoir plus</p>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </>

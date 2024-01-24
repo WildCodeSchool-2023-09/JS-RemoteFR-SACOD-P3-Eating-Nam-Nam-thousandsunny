@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+
 import {
   isValidUsername,
   isValidEmail,
@@ -13,6 +14,7 @@ import {
   resetErrMsgPassConfSign,
   resetAllErrMsgSign,
 } from "./services/postUserValid";
+
 import "react-toastify/dist/ReactToastify.css";
 import "./style/Connexion.scss";
 
@@ -45,12 +47,13 @@ function TypeOfForm({ checkbox, setCheckbox }) {
         username,
         password,
       };
-      console.info(formData);
 
       try {
         // Appel à l'API pour demander une connexion
         const response = await axios
-          .post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, formData)
+          .post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, formData, {
+            withCredentials: true,
+          })
           .catch((err) => console.error(err));
 
         // Redirection vers la page de connexion si la création réussit
@@ -123,7 +126,6 @@ function TypeOfForm({ checkbox, setCheckbox }) {
             // Redirection sur le login en gardant la valeur de username
             document.getElementsByTagName("form")[2].email.value = "";
             if (!checkbox) setCheckbox(true);
-            console.info("response =", res);
           }
         })
         .catch((err) => {

@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import addimage from "../assets/addimage.svg";
+
 import "./style/Profil.scss";
 
 function Profil() {
@@ -28,6 +30,23 @@ function Profil() {
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    const endpoints = [`${import.meta.env.VITE_BACKEND_URL}/api/users`];
+    Promise.all(
+      endpoints.map((endpoint) =>
+        axios.get(endpoint, {
+          withCredentials: true,
+        })
+      )
+    )
+      .then(([{ data: user }]) => {
+        setUserData(user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <div className="body-content">

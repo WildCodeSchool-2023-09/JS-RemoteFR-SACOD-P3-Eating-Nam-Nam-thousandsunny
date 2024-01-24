@@ -42,6 +42,7 @@ const login = async (req, res, next) => {
   try {
     // Verify if the username exist in the database
     const user = await tables.user.readByUsername(req.body.username);
+    console.info(user);
 
     if (user) {
       // Verify if the password match with the hashed in the database
@@ -50,11 +51,16 @@ const login = async (req, res, next) => {
       if (verified) {
         // Create a token for open & keep the user session as logged
         const token = jwt.sign(
-          { username: user.username, is_admin: user.is_admin },
-          process.env.APP_SECRET
+          { id: user.id, username: user.username, is_admin: user.is_admin },
+          process.env.APP_SECRET,
+          { expiresIn: "1h" }
         );
         // Respond with the Token of the user, in JSON format
-        res.cookie("token_eating_nam_nam_usr", token).json(token);
+        res.cookie("token", token, {
+          httpOnly: true,
+          maxAge: 3600000, // 1h in ms
+        });
+        res.status(200).send(token);
       } else {
         res.sendStatus(422);
       }
@@ -67,11 +73,37 @@ const login = async (req, res, next) => {
   }
 };
 
+const verifyToken = async (req, res, next) => {
+  try {
+    const { token } = req.cookies;
+
+    if (!token) {
+      res.status(401).json({ error: "No token founded" });
+    } else {
+      const decoded = jwt.verify(token, process.env.APP_SECRET);
+      const user = await tables.user.read(decoded.id);
+      if (user)
+        res.status(200).json({
+          success: "User is valid",
+          is_loggin: true,
+          is_admin: decoded.is_admin,
+        });
+      else
+        res
+          .status(401)
+          .json({ error: "The token is invalid", is_loggin: false });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   // browse,
   readByUsername,
   readByEmail,
   login,
+  verifyToken,
   // edit,
   // add,
   // destroy,
