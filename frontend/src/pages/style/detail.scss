@@ -1,0 +1,43 @@
+@import "../../vars.scss";
+
+.lists-style {
+  list-style: none;
+}
+
+.detail-steps {
+  margin-top: 3rem;
+}
+
+.detail-ingrédients {
+  margin-top: 3rem;
+}
+
+.detail-image {
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  margin-top: 1rem;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.detail-button {
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  background: $orange-color;
+  color: $white-color;
+}
+
+@media screen and (max-width: 400px) {
+  .detail-title {
+    font-size: 1.2rem;
+  }
+  .detail-prep {
+    font-size: 1.2rem;
+  }
+}

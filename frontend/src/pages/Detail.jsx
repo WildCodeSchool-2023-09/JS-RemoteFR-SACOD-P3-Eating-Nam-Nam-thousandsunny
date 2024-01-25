@@ -1,10 +1,19 @@
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 
+import Button from "@mui/material/Button";
+
+import img from "../assets/crepe.jpeg";
+
+import "./style/detail.scss";
+
 function Detail({ name, prep, id }) {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
+
+  const test = img;
 
   useEffect(() => {
     const endpoints = [
@@ -28,25 +37,47 @@ function Detail({ name, prep, id }) {
   }, []);
 
   return (
-    <div>
-      <h1>{name}</h1>
-      <p>{prep} minutes</p>
-      <div>
+    <div className="body-content">
+      <div className="recipe-detail">
+        <div className="detail-header">
+          <h1 className="detail-title">{name}</h1>
+          <Button
+            component={Link}
+            to="/recipes"
+            sx={{
+              marginLeft: "2rem",
+              background: "#d56c06",
+              color: "#f8f7f2",
+              borderRadius: "12px",
+              transition: "transform 250ms",
+              "&:hover": {
+                backgroundColor: "rgb(213,	108,	6, 0.8)",
+                transform: "scale(0.90)",
+              },
+            }}
+          >
+            Retour
+          </Button>
+        </div>
+        <img src={test} alt="recette" className="detail-image" />
+        <h2 className="detail-prep">Préparation : {prep} minutes</h2>
+        <h3 className="detail-ingrédients">Ingrédients :</h3>
         {ingredients.map((element) => (
-          <li key={element.id}>
+          <li key={id} className="lists-style">
             <p>
               {element.name} : {element.quantity}
               {element.unit} de {element.kcal} kcal
             </p>
           </li>
         ))}
-      </div>
-      <div>
-        {instructions.map((inst) => (
-          <li key={inst.id}>
-            <p>{inst.description}</p>
-          </li>
-        ))}
+        <div className="detail-steps">
+          {instructions.map((inst, index) => (
+            <li key={id} className="lists-style">
+              <h4>Étape {index + 1} :</h4>
+              <p>{inst.description}</p>
+            </li>
+          ))}
+        </div>
       </div>
     </div>
   );
