@@ -22,22 +22,24 @@ function Recipe({
         <img src={test} alt="recette" className="image-recipe" />
       </div>
       <div className="desc-recipe">
-        <h2>{name}</h2>
-        <p>{title}</p>
+        <div className="recipe-header">
+          <h2>{name}</h2>
+          <p>{title}</p>
+        </div>
         <div className="recipe-difficult">
+          <p>{kcal} kcal / portion</p>
           <p className="level-recipe">{difficulty}</p>
-          <div className="recipe-bottom">
-            <div className="recip-tags">
-              <p>{kcal} kcal par personne</p>
-              {tag1 ? <p>{tag1}</p> : null}
-              {tag2 ? <p>{tag2}</p> : null}
-              {tag3 ? <p>{tag3}</p> : null}
-            </div>
-            <div className="link-to">
-              <Link to={`/recipes/${id}`}>
-                <p>En savoir plus</p>
-              </Link>
-            </div>
+        </div>
+        <div className="recipe-bottom">
+          <div className="recip-tags">
+            {tag1 ? <p>{tag1}</p> : null}
+            {tag2 ? <p>{tag2}</p> : null}
+            {tag3 ? <p>{tag3}</p> : null}
+          </div>
+          <div className="link-to">
+            <Link to={`/recipes/${id}`}>
+              <p>En savoir plus</p>
+            </Link>
           </div>
         </div>
       </div>
