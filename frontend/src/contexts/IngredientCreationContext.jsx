@@ -7,23 +7,42 @@ export const useIngredientCreation = () =>
 
 export function IngredientProvider({ children }) {
   const [ingredientCreation, setIngredientCreation] = useState({
-    ingredientName: "",
-    kcal: "",
-    unit: "",
+    name: "",
     quantity: "",
   });
+  const [ingredientsFields, setIngredientsFields] = useState([]);
 
   const handleChangeCreation = (e) => {
-    setIngredientCreation({
-      ...ingredientCreation,
+    setIngredientCreation(...ingredientCreation, {
       [e.target.name]: e.target.value,
+      [e.target.quantity]: e.target.value,
     });
+  };
+  const handleAddIngredient = () => {
+    const ingredientsArray = [...ingredientsFields, []];
+    setIngredientsFields(ingredientsArray);
+  };
+  const handleChangeIngredient = (onChangeValue, i) => {
+    const inputdata = [...ingredientsFields];
+    inputdata[i] = onChangeValue.target.value;
+    setIngredientsFields(inputdata);
   };
 
   const value = useMemo(() => {
-    return { ingredientCreation, handleChangeCreation };
-  }, [ingredientCreation, handleChangeCreation]);
-
+    return {
+      ingredientCreation,
+      ingredientsFields,
+      handleChangeCreation,
+      handleChangeIngredient,
+      handleAddIngredient,
+    };
+  }, [
+    ingredientCreation,
+    ingredientsFields,
+    handleChangeCreation,
+    handleChangeIngredient,
+    handleAddIngredient,
+  ]);
   return (
     <IngredientCreationContext.Provider value={value}>
       {children}

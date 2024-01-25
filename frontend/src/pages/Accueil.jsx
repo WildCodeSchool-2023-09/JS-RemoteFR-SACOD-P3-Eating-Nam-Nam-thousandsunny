@@ -13,6 +13,9 @@ function Accueil() {
       <Link to="/Profil">
         <p>Profil</p>
       </Link>
+      <Link to="/createRecipe">
+        <p>Créer une recette</p>
+      </Link>
     </div>
   );
 }

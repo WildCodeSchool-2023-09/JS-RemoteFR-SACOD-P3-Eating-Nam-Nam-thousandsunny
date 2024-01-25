@@ -1,72 +1,63 @@
 import React from "react";
 import PropTypes from "prop-types";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-import { useRecipeCreation } from "../contexts/RecipeCreationContext";
-import { useIngredientCreation } from "../contexts/IngredientCreationContext";
+import Ingredient from "./Ingredient";
 
 function Step2({ ingredient }) {
-  const { recipeCreation } = useRecipeCreation();
-  console.info(recipeCreation);
+  const [ingredientsList, setIngredientsList] = React.useState([]);
+  const [addIngredient, setAddIngredientItem] = React.useState({});
 
-  const { ingredientCreation, handleChangeCreation } = useIngredientCreation();
-  console.info(ingredientCreation);
-
-  const [ingredientsFields, setIngredientsFields] = React.useState([]);
-  const handleAddIngredient = () => {
-    const ingredientsArray = [...ingredientsFields, []];
-    setIngredientsFields(ingredientsArray);
+  const handleFinal = () => {
+    setAddIngredientItem(addIngredient);
   };
+  const handleAdd = () => {
+    setIngredientsList([...ingredientsList, addIngredient]);
+  };
+
+  console.info(ingredientsList);
 
   return (
     <div>
       <h1>Step 2</h1>
-      <Button onClick={() => handleAddIngredient()}>
-        {" "}
-        Ajouter un ingrédient
-      </Button>
-      {ingredientsFields.map((ingredientField, index) => (
+      <Button onClick={() => handleAdd()}> Ajouter un ingrédient</Button>{" "}
+      <Ingredient
+        ingredient={ingredient}
+        i={0}
+        setAddIngredientItem={setAddIngredientItem}
+      />
+      {ingredientsList.map((data, i) => (
         <>
-          <TextField
-            id={index}
-            label="Ingrédient"
-            select
-            helperText="Choisissez un ingrédient"
-            variant="filled"
-            value={ingredientCreation.ingredientName}
-            onChange={handleChangeCreation}
-            name="ingredientName"
-          >
-            {ingredient.map((option) => (
-              <MenuItem key={option.id} value={option.name}>
-                {option.name}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            id="Quantité"
-            label="Quantité"
-            helperText="Quantité requise pour la recette"
-            variant="filled"
-            value={ingredientCreation.quantity}
-            onChange={handleChangeCreation}
-            name="quantity"
+          <Ingredient
+            ingredient={ingredient}
+            i={i}
+            setAddIngredientItem={setAddIngredientItem}
           />
           <p> {ingredient.unit}</p>
         </>
       ))}
+      <button type="button" onClick={() => handleFinal()}>
+        Avez vous fini 🧑‍🍳 ?
+      </button>
     </div>
   );
 }
+
 Step2.propTypes = {
   ingredient: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
       unit: PropTypes.string.isRequired,
     })
   ).isRequired,
 };
 
+// eslint-disable-next-line react/no-typos
+Step2.PropTypes = {
+  ingredient: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      unit: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 export default Step2;
