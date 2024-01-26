@@ -86,6 +86,7 @@ const verifyToken = async (req, res, next) => {
           success: "User is valid",
           is_loggin: true,
           is_admin: decoded.is_admin,
+          description: user.description,
         });
       else
         res
