@@ -10,20 +10,30 @@ function Step4() {
   console.info(ingredientList);
   console.info(instructionList);
   console.info(recipeCreation);
+  const {
+    recipeName,
+    recipeDesc,
+    prepTime,
+    nbPeople,
+    tag1,
+    tag2,
+    tag3,
+    difficulty,
+  } = recipeCreation;
 
   const Post = () => {
     axios
       .post(
         `${import.meta.env.VITE_BACKEND_URL}/api/recipes`,
         {
-          name: recipeCreation.recipeName,
-          title: recipeCreation.recipeDesc,
-          prep_time: recipeCreation.prepTime,
-          nb_people: recipeCreation.nbPeople,
-          tag1: recipeCreation.tag1,
-          tag2: recipeCreation.tag2,
-          tag3: recipeCreation.tag3,
-          difficulty: recipeCreation.difficulty,
+          name: recipeName,
+          title: recipeDesc,
+          prep_time: prepTime,
+          nb_people: nbPeople,
+          tag1,
+          tag2,
+          tag3,
+          difficulty,
         },
         {
           withCredentials: true,

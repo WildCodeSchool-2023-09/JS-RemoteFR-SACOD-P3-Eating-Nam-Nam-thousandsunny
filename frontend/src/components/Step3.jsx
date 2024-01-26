@@ -6,6 +6,7 @@ import { useInstructionCreation } from "../contexts/InstructionCreationContext";
 export default function Step3() {
   const { setInstructionList, instructionList } = useInstructionCreation();
 
+  // eslint-disable-next-line no-unused-vars
   const [addInstruction, setAddInstruction] = React.useState([]);
   const [description, setDescription] = React.useState("");
   const handleAddingInstruction = () => {
@@ -15,7 +16,15 @@ export default function Step3() {
     setAddInstruction((prev) => [...prev, instructionToAdd]);
     setInstructionList((prev) => [...prev, instructionToAdd]);
   };
-  console.info(addInstruction);
+  const handleReset = () => {
+    setDescription("");
+  };
+
+  const combineHandler = async () => {
+    handleReset();
+    await handleAddingInstruction();
+  };
+
   return (
     <div>
       <h1>Step 3</h1>
@@ -30,7 +39,11 @@ export default function Step3() {
         onChange={(e) => setDescription(e.target.value)}
         name="quantity"
       />
-      <Button onClick={() => handleAddingInstruction()}>
+      <Button
+        onClick={() => {
+          combineHandler();
+        }}
+      >
         Ajouter une instruction
       </Button>
       <div className="instruction-list">

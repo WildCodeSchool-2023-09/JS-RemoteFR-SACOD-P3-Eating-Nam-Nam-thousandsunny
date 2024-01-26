@@ -9,9 +9,11 @@ export function InstructionProvider({ children }) {
   const [instructionList, setInstructionList] = useState([]);
 
   const value = useMemo(() => {
-    return { instructionList, setInstructionList };
+    return {
+      instructionList,
+      setInstructionList,
+    };
   }, [instructionList, setInstructionList]);
-
   return (
     <InstructionCreationContext.Provider value={value}>
       {children}

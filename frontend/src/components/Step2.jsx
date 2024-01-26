@@ -8,6 +8,7 @@ import { useIngredientCreation } from "../contexts/IngredientCreationContext";
 export default function Step2({ ingredient }) {
   const { setIngredientList, ingredientList } = useIngredientCreation();
 
+  // eslint-disable-next-line no-unused-vars
   const [addIngredient, setAddIngredient] = React.useState([]);
   const [ingredientName, setIngredientName] = React.useState("");
   const [quantity, setQuantity] = React.useState("");
@@ -21,7 +22,17 @@ export default function Step2({ ingredient }) {
     setAddIngredient((prev) => [...prev, ingredientToAdd]);
     setIngredientList((prev) => [...prev, ingredientToAdd]);
   };
-  console.info(addIngredient);
+  const handleReset = () => {
+    setIngredientName("");
+    setQuantity("");
+    setUnit("");
+  };
+
+  const combineHandler = async () => {
+    handleReset();
+    await handleAddIngredient();
+  };
+
   return (
     <div>
       <h1>Step 2</h1>
@@ -62,10 +73,7 @@ export default function Step2({ ingredient }) {
           </MenuItem>
         ))}
       </TextField>
-      <Button onClick={() => handleAddIngredient()}>
-        {" "}
-        Ajouter l'ingrédient
-      </Button>
+      <Button onClick={() => combineHandler()}> Ajouter l'ingrédient</Button>
       <div className="ingredient-list">
         {ingredientList.map((item) => (
           <div key={item.id}>
