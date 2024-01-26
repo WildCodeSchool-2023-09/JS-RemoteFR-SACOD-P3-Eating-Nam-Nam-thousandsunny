@@ -68,15 +68,8 @@ class UserManager extends AbstractManager {
     // Execute the SQL SELECT query to retrieve a specific user by its Username
     const [result] = await this.database.query(
       `UPDATE ${this.table} SET firstname = ?, lastname = ?, birthdate = ?, description = ?, avatar = ?
-WHERE ID = ?`,
-      [
-        user.firstname,
-        user.lastname,
-        user.birthdate,
-        user.description,
-        avatar,
-        user.ID,
-      ]
+WHERE username = ?`,
+      [user.firstname, user.lastname, user.birthdate, user.description, avatar]
     );
 
     // Return the first row of the result, which represents the user
