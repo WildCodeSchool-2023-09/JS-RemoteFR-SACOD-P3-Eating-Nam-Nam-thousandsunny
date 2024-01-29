@@ -15,6 +15,7 @@ export default function Step2({ ingredient }) {
   const [unit, setUnit] = React.useState("");
   const handleAddIngredient = () => {
     const ingredientToAdd = {
+      id: ingredientList.length,
       name: ingredientName,
       quantity,
       unit,
@@ -28,6 +29,11 @@ export default function Step2({ ingredient }) {
     setUnit("");
   };
 
+  const handleDeleteIngredient = (id) => {
+    setIngredientList(ingredientList.filter((object) => object.id !== id));
+  };
+
+  console.info(ingredientList);
   const combineHandler = async () => {
     handleReset();
     await handleAddIngredient();
@@ -80,7 +86,12 @@ export default function Step2({ ingredient }) {
             <span>{item.name}</span>
             <span style={{ margin: "0 10px" }}>{item.quantity}</span>
             <span>{item.unit}</span>
-            <button type="button">❌</button>
+            <button
+              type="button"
+              onClick={() => handleDeleteIngredient(item.id)}
+            >
+              ❌
+            </button>
           </div>
         ))}
       </div>

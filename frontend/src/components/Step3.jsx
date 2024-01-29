@@ -11,6 +11,7 @@ export default function Step3() {
   const [description, setDescription] = React.useState("");
   const handleAddingInstruction = () => {
     const instructionToAdd = {
+      id: instructionList.length,
       name: description,
     };
     setAddInstruction((prev) => [...prev, instructionToAdd]);
@@ -18,6 +19,12 @@ export default function Step3() {
   };
   const handleReset = () => {
     setDescription("");
+  };
+
+  const handleDeleteInstruction = (id) => {
+    setInstructionList(
+      instructionList.filter((instruction) => instruction.id !== id)
+    );
   };
 
   const combineHandler = async () => {
@@ -50,7 +57,12 @@ export default function Step3() {
         {instructionList.map((item) => (
           <div key={item.id}>
             <span>{item.name}</span>
-            <button type="button">❌</button>
+            <button
+              type="button"
+              onClick={() => handleDeleteInstruction(item.id)}
+            >
+              ❌
+            </button>
           </div>
         ))}
       </div>

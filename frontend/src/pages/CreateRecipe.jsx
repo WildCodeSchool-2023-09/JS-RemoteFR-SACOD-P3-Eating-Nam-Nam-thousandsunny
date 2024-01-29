@@ -15,7 +15,7 @@ import Step4 from "../components/Step4";
 
 const steps = [
   "Nom, photo et description",
-  "Ingrédients et matériel",
+  "Ingrédients",
   "Instructions",
   "Confirmation",
 ];
@@ -103,7 +103,7 @@ export default function CreateRecipe() {
         </Button>
         <Box sx={{ flex: "1 1 auto" }} />
         {activeStep === steps.length - 1 ? (
-          <Button onClick={handleNext}>GO NAM NAM !</Button>
+          ""
         ) : (
           <Button onClick={handleNext}>SUIVANT</Button>
         )}

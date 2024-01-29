@@ -15,15 +15,15 @@ function Step1({ tag }) {
 
   const difficulties = [
     {
-      value: "easy",
+      value: "Facile",
       label: "Facile",
     },
     {
-      value: "medium",
+      value: "Moyen",
       label: "Moyen",
     },
     {
-      value: "hard",
+      value: "Difficile",
       label: "Difficile",
     },
   ];
