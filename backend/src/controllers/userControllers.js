@@ -40,7 +40,7 @@ const edit = async (req, res, next) => {
   const wantedId = parseInt(req.params.id, 10);
   // Extract the user data from the request body
   const item = req.body;
-  item.ID = wantedId;
+  item.id = wantedId;
   const avatar = req.file;
   fs.renameSync(
     `${avatar.destination}/${avatar.filename}`,
@@ -48,7 +48,6 @@ const edit = async (req, res, next) => {
   );
   const newpath = `${avatar.destination}/${avatar.filename}-${avatar.originalname}`;
 
-  console.info({ item, avatar });
   try {
     // Insert the recipe into the database
     const user = await tables.user.update(item, newpath);

@@ -15,7 +15,7 @@ import Step4 from "../components/Step4";
 
 const steps = [
   "Nom, photo et description",
-  "Ingrédients et matériel",
+  "Ingrédients",
   "Instructions",
   "Confirmation",
 ];
@@ -83,32 +83,30 @@ export default function CreateRecipe() {
             </Box>
           </>
         ) : (
-          <>
-            <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                RETOUR
-              </Button>
-              <Box sx={{ flex: "1 1 auto" }} />
-              {activeStep === steps.length - 1 ? (
-                <Button onClick={handleNext}>GO NAM NAM !</Button>
-              ) : (
-                <Button onClick={handleNext}>SUIVANT</Button>
-              )}
-            </Box>
-          </>
+          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
         )}
-        <div className="steps">
-          {activeStep === 0 && <Step1 tag={allTags} />}
-          {activeStep === 1 && <Step2 ingredient={allIngredients} />}
-          {activeStep === 2 && <Step3 />}
-          {activeStep === 3 && <Step4 />}
-        </div>
+      </Box>
+      <div className="steps">
+        {activeStep === 0 && <Step1 tag={allTags} />}
+        {activeStep === 1 && <Step2 ingredient={allIngredients} />}
+        {activeStep === 2 && <Step3 />}
+        {activeStep === 3 && <Step4 />}
+      </div>
+      <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+        <Button
+          color="inherit"
+          disabled={activeStep === 0}
+          onClick={handleBack}
+          sx={{ mr: 1 }}
+        >
+          RETOUR
+        </Button>
+        <Box sx={{ flex: "1 1 auto" }} />
+        {activeStep === steps.length - 1 ? (
+          ""
+        ) : (
+          <Button onClick={handleNext}>SUIVANT</Button>
+        )}
       </Box>
     </div>
   );

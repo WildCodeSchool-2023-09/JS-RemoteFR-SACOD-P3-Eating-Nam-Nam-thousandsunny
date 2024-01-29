@@ -6,21 +6,14 @@ export const useInstructionCreation = () =>
   useContext(InstructionCreationContext);
 
 export function InstructionProvider({ children }) {
-  const [instructionCreation, setInstructionCreation] = useState({
-    description: "",
-  });
-
-  const handleChangeCreation = (e) => {
-    setInstructionCreation({
-      ...instructionCreation,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const [instructionList, setInstructionList] = useState([]);
 
   const value = useMemo(() => {
-    return { instructionCreation, handleChangeCreation };
-  }, [instructionCreation, handleChangeCreation]);
-
+    return {
+      instructionList,
+      setInstructionList,
+    };
+  }, [instructionList, setInstructionList]);
   return (
     <InstructionCreationContext.Provider value={value}>
       {children}
