@@ -1,4 +1,5 @@
 // Import access to database tables
+const jwt = require("jsonwebtoken");
 const tables = require("../tables");
 
 // BROWSE
@@ -11,14 +12,18 @@ const browse = async (req, res, next) => {
   }
 };
 
-// READ
-const readByRecipe = async (req, res, next) => {
+const readByUser = async (req, res, next) => {
   try {
-    const fav = await tables.fav.readByRecipe(req.params.id);
-    if (fav == null) {
-      res.sendStatus(404);
-    } else {
-      res.json(fav);
+    const { id } = req.params;
+    const { token } = req.cookies;
+    if (token) {
+      const user = jwt.verify(token, process.env.APP_SECRET);
+      const [result] = await tables.fav.readUserFav(id, user.id);
+      if (!result) {
+        res.sendStatus(404);
+      } else {
+        res.json(result);
+      }
     }
   } catch (err) {
     next(err);
@@ -31,24 +36,45 @@ const readByRecipe = async (req, res, next) => {
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
   // Extract the user data from the request body
-  const fav = req.body;
-
   try {
-    const insertId = await tables.fav.create(fav);
-    res.status(201).json({ insertId });
+    const { id } = req.body;
+    const { token } = req.cookies;
+    if (token) {
+      const user = jwt.verify(token, process.env.APP_SECRET);
+      const insertId = await tables.fav.create(id, user.id);
+      res.status(201).json({ insertId });
+    } else {
+      res.status(401);
+    }
   } catch (err) {
     next(err);
   }
 };
 
 // The D of BREAD - Destroy (Delete) operation
-// This operation is not yet implemented
+
+const destroy = async (req, res, next) => {
+  // Extract the item data from the request body
+  try {
+    const { id } = req.params;
+    const { token } = req.cookies;
+    if (token) {
+      const user = jwt.verify(token, process.env.APP_SECRET);
+      const affectedRows = await tables.fav.delete(id, user.id);
+      res.status(201).json({ affectedRows });
+    } else {
+      res.status(401);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
 
 // Ready to export the controller functions
 module.exports = {
   browse,
-  readByRecipe,
+  readByUser,
   // edit,
   add,
-  // destroy,
+  destroy,
 };
