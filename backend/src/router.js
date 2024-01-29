@@ -30,14 +30,13 @@ router.get("/verify-token", AuthControllers.verifyToken);
 
 router.use(AuthMiddleware.verifyToken);
 
-router.get("/users", UserControllers.browse); // Route to get a list of items
-router.get("/users/:id", UserControllers.read); // Route to get a specific item by ID
-
 router.put(
   "/users/:id",
   uploadUsersAvatars.single("avatar"),
   UserControllers.edit
 );
+router.get("/users", UserControllers.browse); // Route to get a list of items
+router.get("/users/:id", UserControllers.read); // Route to get a specific item by ID
 
 // Route to update user
 router.post(
