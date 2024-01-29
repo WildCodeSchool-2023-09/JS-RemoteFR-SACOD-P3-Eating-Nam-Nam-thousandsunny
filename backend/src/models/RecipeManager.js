@@ -5,10 +5,10 @@ class RecipeManager extends AbstractManager {
     super({ table: "recipe" });
   }
 
-  async create(recipe) {
+  async create(recipe, image) {
     // Execute the SQL INSERT query to add a new user to the "recipe" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (user_ID, name, title, prep_time, nb_people, difficulty, image, tag1, tag2, tag3) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (user_ID, name, title, prep_time, nb_people, difficulty, image, tag1, tag2, tag3,total_kcal) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)`,
       [
         recipe.user_ID,
         recipe.name,
@@ -16,10 +16,11 @@ class RecipeManager extends AbstractManager {
         recipe.prep_time,
         recipe.nb_people,
         recipe.difficulty,
-        recipe.image,
+        image,
         recipe.tag1,
         recipe.tag2,
         recipe.tag3,
+        recipe.total_kcal,
       ]
     );
 

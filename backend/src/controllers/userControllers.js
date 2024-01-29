@@ -42,15 +42,18 @@ const edit = async (req, res, next) => {
   const item = req.body;
   item.id = wantedId;
   const avatar = req.file;
-  fs.renameSync(
-    `${avatar.destination}/${avatar.filename}`,
-    `${avatar.destination}/${avatar.filename}-${avatar.originalname}`
-  );
-  const newpath = `${avatar.destination}/${avatar.filename}-${avatar.originalname}`;
-
+  let newPath;
+  if (!avatar) {
+    newPath = "public/assets/usersAvatars/defaultavatar.png";
+  } else {
+    fs.renameSync(
+      `${avatar.destination}/${avatar.filename}`,
+      `${avatar.destination}/${avatar.filename}-${avatar.originalname}`
+    );
+    newPath = `${avatar.destination}/${avatar.filename}-${avatar.originalname}`;
+  }
   try {
-    // Insert the recipe into the database
-    const user = await tables.user.update(item, newpath);
+    const user = await tables.user.update(item, newPath);
     // Respond with HTTP 201 (Created) and the ID of the newly inserted recipe
     res.status(200).json(user);
   } catch (err) {
@@ -58,6 +61,7 @@ const edit = async (req, res, next) => {
     next(err);
   }
 };
+
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
   // Extract the user data from the request body
