@@ -64,7 +64,7 @@ function Detail({ name, prep, id }) {
         <h2 className="detail-prep">Préparation : {prep} minutes</h2>
         <h3 className="detail-ingrédients">Ingrédients :</h3>
         {ingredients.map((element) => (
-          <li key={id} className="lists-style">
+          <li key={element.id} className="lists-style">
             <p>
               {element.name} : {element.quantity}
               {element.unit} de {element.kcal} kcal
@@ -73,7 +73,7 @@ function Detail({ name, prep, id }) {
         ))}
         <div className="detail-steps">
           {instructions.map((inst, index) => (
-            <li key={id} className="lists-style">
+            <li key={inst.id} className="lists-style">
               <h4>Étape {index + 1} :</h4>
               <p>{inst.description}</p>
             </li>
