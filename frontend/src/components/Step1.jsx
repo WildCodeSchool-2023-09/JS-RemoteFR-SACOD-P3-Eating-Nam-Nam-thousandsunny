@@ -96,6 +96,7 @@ function Step1({ tag }) {
         name="nbPeople"
         onChange={handleChangeCreation}
         variant="filled"
+        type="number"
       />
       <TextField
         id="Difficulty"
