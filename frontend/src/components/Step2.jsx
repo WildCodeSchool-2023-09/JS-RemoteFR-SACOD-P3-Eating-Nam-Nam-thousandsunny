@@ -13,27 +13,41 @@ export default function Step2({ ingredient }) {
   const [ingredientName, setIngredientName] = React.useState("");
   const [quantity, setQuantity] = React.useState("");
   const [unit, setUnit] = React.useState("");
+  const [kcal, setKcal] = React.useState("");
   const handleAddIngredient = () => {
     const ingredientToAdd = {
-      id: ingredientList.length,
+      index: ingredientList.length,
       name: ingredientName,
       quantity,
       unit,
+      kcal,
+      totalKcal: quantity * kcal,
+      id: ingredient.find((i) => i.name === ingredientName)?.id,
     };
     setAddIngredient((prev) => [...prev, ingredientToAdd]);
     setIngredientList((prev) => [...prev, ingredientToAdd]);
+  };
+
+  const handleInputChange = (e) => {
+    setIngredientName(e.target.value);
+    const ingredientItem = ingredient.find(
+      (item) => item.name === e.target.value
+    );
+    if (ingredientItem) {
+      setKcal(ingredientItem.kcal);
+    }
   };
   const handleReset = () => {
     setIngredientName("");
     setQuantity("");
     setUnit("");
+    setKcal("");
   };
 
   const handleDeleteIngredient = (id) => {
     setIngredientList(ingredientList.filter((object) => object.id !== id));
   };
 
-  console.info(ingredientList);
   const combineHandler = async () => {
     handleReset();
     await handleAddIngredient();
@@ -70,7 +84,7 @@ export default function Step2({ ingredient }) {
         helperText="Choisissez un ingrédient"
         variant="filled"
         value={ingredientName}
-        onChange={(e) => setIngredientName(e.target.value)}
+        onChange={handleInputChange}
         name="ingredient"
       >
         {ingredient.map((option) => (
@@ -79,10 +93,18 @@ export default function Step2({ ingredient }) {
           </MenuItem>
         ))}
       </TextField>
+      <TextField
+        className="kcal"
+        id="Kcal"
+        label="Kcal"
+        variant="filled"
+        value={kcal}
+        name="kcal"
+      />
       <Button onClick={() => combineHandler()}> Ajouter l'ingrédient</Button>
       <div className="ingredient-list">
         {ingredientList.map((item) => (
-          <div key={item.id}>
+          <div key={item.index}>
             <span>{item.name}</span>
             <span style={{ margin: "0 10px" }}>{item.quantity}</span>
             <span>{item.unit}</span>
@@ -104,6 +126,7 @@ Step2.propTypes = {
       name: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
       unit: PropTypes.string.isRequired,
+      totalKcal: PropTypes.number.isRequired,
     })
   ).isRequired,
 };

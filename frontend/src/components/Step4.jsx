@@ -8,9 +8,10 @@ function Step4() {
   const { ingredientList } = useIngredientCreation();
   const { instructionList } = useInstructionCreation();
   const { recipeCreation } = useRecipeCreation();
-  console.info(ingredientList);
-  console.info(instructionList);
-  console.info(recipeCreation);
+  const [insertId, setInsertId] = React.useState(null);
+
+  console.info({ ingredientList, instructionList, recipeCreation, insertId });
+
   const {
     recipeName,
     recipeDesc,
@@ -22,30 +23,90 @@ function Step4() {
     difficulty,
   } = recipeCreation;
 
-  const handlePost = async () => {
+  let calculatedKcal = 0;
+  ingredientList.forEach((item) => {
+    calculatedKcal += item.totalKcal;
+  });
+  const totalKcalPerPerson = calculatedKcal / recipeCreation.nbPeople;
+  recipeCreation.total_kcal = totalKcalPerPerson;
+
+  const handlePostRecipe = async () => {
     try {
-      const response = await axios
+      await axios
         .post(
           `${import.meta.env.VITE_BACKEND_URL}/api/recipes`,
           {
             name: recipeCreation.recipeName,
             title: recipeCreation.recipeDesc,
-            prep_time: recipeCreation.prepTime,
-            nb_people: recipeCreation.nbPeople,
+            prep_time: Number(recipeCreation.prepTime),
+            nb_people: Number(recipeCreation.nbPeople),
             difficulty: recipeCreation.difficulty,
             tag1: recipeCreation.tag1,
             tag2: recipeCreation.tag2,
             tag3: recipeCreation.tag3,
+            image: recipeCreation.media,
+            total_kcal: recipeCreation.total_kcal,
           },
           {
             withCredentials: true,
           }
         )
-        .then(() => console.info(response));
+        .then((response) => {
+          const newInsertId = response.data.insertId;
+          setInsertId(newInsertId);
+        });
     } catch (error) {
       console.error(error);
     }
   };
+  const handlePostIngredient = () => {
+    for (const item of ingredientList) {
+      try {
+        axios
+          .post(
+            `${import.meta.env.VITE_BACKEND_URL}/api/recipe_ingredient`,
+            {
+              ingredient_id: item.id,
+              recipe_id: insertId,
+              quantity: item.quantity,
+            },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((response) => console.info(response));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+  const handlePostInstruction = () => {
+    for (const item of instructionList) {
+      try {
+        axios
+          .post(
+            `${import.meta.env.VITE_BACKEND_URL}/api/instruction`,
+            {
+              id: item.id,
+              recipeId: insertId,
+              description: item.name,
+            },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((response) => console.info(response));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+  const combineHandler = async () => {
+    await handlePostRecipe();
+    await handlePostIngredient();
+    await handlePostInstruction();
+  };
+
   return (
     <div>
       <h1>Step 4</h1>
@@ -72,7 +133,7 @@ function Step4() {
           </div>
         ))}
       </div>
-      <button type="submit" onClick={() => handlePost()}>
+      <button type="submit" onClick={() => combineHandler()}>
         Poster la recette
       </button>
     </div>

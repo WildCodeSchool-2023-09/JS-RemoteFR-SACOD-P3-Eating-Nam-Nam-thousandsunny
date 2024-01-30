@@ -7,11 +7,11 @@ import "./style/Profil.scss";
 function Profil() {
   const [editing, setEditing] = useState(false);
   const [userData, setUserData] = useState({
-    description: null,
     username: null,
     firstname: null,
     lastname: null,
     birthdate: null,
+    description: null,
   });
 
   const handleEditClick = () => {
@@ -20,18 +20,18 @@ function Profil() {
   const handleSaveClick = () => {
     axios
       .put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/8`,
         {
           username: userData.username,
-          lastname: userData.lastname,
-          firstname: userData.firstname,
-          birthdate: userData.birthdate,
           description: userData.description,
+          firstname: userData.firstname,
+          lastname: userData.lastname,
+          birthdate: userData.birthdate,
         },
         { withCredentials: true }
       )
       .then((res) => {
-        console.info(res.data.description);
+        console.info(res.data.firstname);
         setEditing(false);
       })
       .catch((error) => {
@@ -72,40 +72,90 @@ function Profil() {
           <div className="left-bloc">
             <img className="No-photo" src={addimage} alt="No Photos" />
           </div>
-          <div className="mid-bloc">
-            <div className="Stats">
-              <p className="pseudo">Flavito</p>
-
-              <p className="recipes">Mes recettes : {userData.recipes}</p>
-              <p className="comments">Commentaires: {userData.comments}</p>
-            </div>
+          <div className="right-bloc">
+            <label className="stats-label">
+              {editing ? (
+                <input
+                  type="text"
+                  name="username"
+                  value={userData.username || ""}
+                  onChange={handleChange}
+                  className="username-input"
+                  placeholder="Votre nom d'utilisateur..."
+                />
+              ) : (
+                userData.username || "Nom d'utilisateur..."
+              )}
+              <br />
+              <br />
+            </label>
+            {editing ? (
+              <input
+                type="text"
+                name="firstname"
+                value={userData.firstname || ""}
+                onChange={handleChange}
+                className="firstname-input"
+                placeholder="Votre prénom..."
+              />
+            ) : (
+              <label>{userData.firstname || "Mon prénom..."}</label>
+            )}
+            <br />
+            <br />
+            {editing ? (
+              <input
+                type="text"
+                name="lastname"
+                value={userData.lastname || ""}
+                onChange={handleChange}
+                className="lastname-input"
+                placeholder="Votre nom de famille..."
+              />
+            ) : (
+              <label>{userData.lastname || "Nom de Famille..."}</label>
+            )}
+            <br />
+            <br />
+            {editing ? (
+              <input
+                type="text"
+                name="birthdate"
+                value={userData.birthdate || ""}
+                onChange={handleChange}
+                className="birthdate-input"
+                placeholder="Votre date de naissance..."
+              />
+            ) : (
+              <label>{userData.birthdate || "Date de Naissance..."}</label>
+            )}
+            <br />
           </div>
-          <div className="second">
-            <div className="Stats">
-              <label className="description">
-                {editing ? (
-                  <input
-                    type="text"
-                    name="description"
-                    value={userData.description || ""}
-                    onChange={handleChange}
-                  />
-                ) : (
-                  userData.description || "...Ma Description"
-                )}
-              </label>
-            </div>
+        </div>
+        <div className="second">
+          <div className="Stats">
+            {editing ? (
+              <input
+                type="text"
+                name="description"
+                value={userData.description || ""}
+                onChange={handleChange}
+                className="description-input"
+                placeholder="Votre description..."
+              />
+            ) : (
+              <label>{userData.description || "Ma description..."}</label>
+            )}
+            <p className="recipes">Mes recettes : {userData.recipes}</p>
+            <p className="comments">Commentaires: {userData.comments}</p>
           </div>
-
-          <div className="right-block">
-            <button
-              className="Edit"
-              type="button"
-              onClick={editing ? handleSaveClick : handleEditClick}
-            >
-              {editing ? "Save" : "Edit"}
-            </button>
-          </div>
+          <button
+            className="Edit"
+            type="button"
+            onClick={editing ? handleSaveClick : handleEditClick}
+          >
+            {editing ? "Save" : "Edit"}
+          </button>
         </div>
       </div>
     </div>
