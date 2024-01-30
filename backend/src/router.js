@@ -75,6 +75,7 @@ const IngredientControllers = require("./controllers/ingredientControllers");
 router.get("/ingredients", IngredientControllers.browse); // Route to get a list of items
 router.get("/ingredient/:id", IngredientControllers.read); // Route to get a specific item by ID
 router.get("/ingredientbyrecipe/:id", IngredientControllers.readByRecipe); // Route to get ingredients for a specific Recipe
+router.get("/units", IngredientControllers.browseUnits); // Route to get a list of units
 /* ************************************************************************* */
 // RECIPE_INGREDIENT
 /* ************************************************************************* */

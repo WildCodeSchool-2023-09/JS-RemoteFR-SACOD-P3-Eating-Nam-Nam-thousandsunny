@@ -11,6 +11,14 @@ class IngredientManager extends AbstractManager {
     return rows;
   }
 
+  async readUnits() {
+    const [rows] = await this.database.query(
+      `select DISTINCT unité from ${this.table}`
+    );
+
+    return rows;
+  }
+
   async read(id) {
     const [rows] = await this.database.query(
       `SELECT  ri.quantity, i.name, i.kcal, i.unité FROM recipe_ingredient AS ri

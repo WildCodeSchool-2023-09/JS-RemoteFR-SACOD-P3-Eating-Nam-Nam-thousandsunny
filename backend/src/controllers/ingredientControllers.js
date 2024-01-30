@@ -11,6 +11,15 @@ const browse = async (req, res, next) => {
   }
 };
 
+const browseUnits = async (req, res, next) => {
+  try {
+    const units = await tables.ingredient.readUnits();
+    res.json(units);
+  } catch (err) {
+    next(err);
+  }
+};
+
 // READ
 const read = async (req, res, next) => {
   try {
@@ -58,6 +67,7 @@ const add = async (req, res, next) => {
 // Ready to export the controller functions
 module.exports = {
   browse,
+  browseUnits,
   read,
   readByRecipe,
   // edit,

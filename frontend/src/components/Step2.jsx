@@ -1,19 +1,25 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
+import Autocomplete from "@mui/material/Autocomplete";
 import { useIngredientCreation } from "../contexts/IngredientCreationContext";
 
 export default function Step2({ ingredient }) {
   const { setIngredientList, ingredientList } = useIngredientCreation();
 
   // eslint-disable-next-line no-unused-vars
-  const [addIngredient, setAddIngredient] = React.useState([]);
-  const [ingredientName, setIngredientName] = React.useState("");
-  const [quantity, setQuantity] = React.useState("");
-  const [unit, setUnit] = React.useState("");
-  const [kcal, setKcal] = React.useState("");
+  const [addIngredient, setAddIngredient] = useState([]);
+  const [ingredientName, setIngredientName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [unit, setUnit] = useState("");
+  const [kcal, setKcal] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    setSearchResults(ingredient);
+  }, [ingredient]);
   const handleAddIngredient = () => {
     const ingredientToAdd = {
       index: ingredientList.length,
@@ -27,16 +33,26 @@ export default function Step2({ ingredient }) {
     setAddIngredient((prev) => [...prev, ingredientToAdd]);
     setIngredientList((prev) => [...prev, ingredientToAdd]);
   };
-
-  const handleInputChange = (e) => {
+  const handleInputChange = (event, newInputValue) => {
+    setIngredientName(newInputValue);
+    const ingredientItem = ingredient.find(
+      (item) => item.name === newInputValue
+    );
+    if (ingredientItem) {
+      setKcal(ingredientItem.kcal);
+      setUnit(ingredientItem.unit);
+    }
+  };
+  /* const handleInputChange = (e) => {
     setIngredientName(e.target.value);
     const ingredientItem = ingredient.find(
       (item) => item.name === e.target.value
     );
     if (ingredientItem) {
       setKcal(ingredientItem.kcal);
+      setUnit(ingredientItem.unit);
     }
-  };
+  }; */
   const handleReset = () => {
     setIngredientName("");
     setQuantity("");
@@ -56,6 +72,14 @@ export default function Step2({ ingredient }) {
   return (
     <div>
       <h1>Step 2</h1>
+      <Autocomplete
+        value={ingredientName}
+        onChange={handleInputChange}
+        id="ingredient-autocomplete"
+        options={ingredient.map((option) => option.name)}
+        /* eslint-disable-next-line react/jsx-props-no-spreading */
+        renderInput={(params) => <TextField {...params} label="Ingrédient" />}
+      />
       <TextField
         className="quantity"
         id="Quantité"
@@ -76,23 +100,6 @@ export default function Step2({ ingredient }) {
         onChange={(e) => setUnit(e.target.value)}
         name=" unit"
       />
-      <TextField
-        className="Ingredient"
-        id="ingrédient"
-        label="Ingrédient"
-        select
-        helperText="Choisissez un ingrédient"
-        variant="filled"
-        value={ingredientName}
-        onChange={handleInputChange}
-        name="ingredient"
-      >
-        {ingredient.map((option) => (
-          <MenuItem key={option.id} value={option.name}>
-            {option.name}
-          </MenuItem>
-        ))}
-      </TextField>
       <TextField
         className="kcal"
         id="Kcal"
