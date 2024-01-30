@@ -17,6 +17,21 @@ function Profil() {
   const handleEditClick = () => {
     setEditing(true);
   };
+
+  const handleKeepClick = () => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/users/8`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setUserData(res.data);
+        setEditing(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const handleSaveClick = () => {
     axios
       .put(
@@ -152,7 +167,9 @@ function Profil() {
           <button
             className="Edit"
             type="button"
-            onClick={editing ? handleSaveClick : handleEditClick}
+            onClick={
+              editing ? handleSaveClick : handleKeepClick && handleEditClick
+            }
           >
             {editing ? "Save" : "Edit"}
           </button>
