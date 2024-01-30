@@ -11,6 +11,7 @@ const CommentManager = require("./models/CommentManager");
 const InstructionManager = require("./models/InstructionManager");
 const FavManager = require("./models/FavManager");
 const TagManager = require("./models/TagManager");
+const RecipeIngredientManager = require("./models/RecipeIngredientManager");
 
 const managers = [
   UserManager,
@@ -21,6 +22,7 @@ const managers = [
   InstructionManager,
   FavManager,
   TagManager,
+  RecipeIngredientManager,
   // Add other managers here
 ];
 
