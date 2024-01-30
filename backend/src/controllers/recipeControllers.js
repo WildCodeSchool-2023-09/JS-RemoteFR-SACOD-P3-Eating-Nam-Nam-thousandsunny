@@ -1,4 +1,5 @@
 const fs = require("fs");
+const jwt = require("jsonwebtoken");
 const tables = require("../tables");
 
 const browse = async (req, res, next) => {
@@ -39,6 +40,9 @@ const readByUser = async (req, res, next) => {
 };
 const add = async (req, res, next) => {
   // Extract the user data from the request body
+  const { token } = req.cookies;
+  const { id } = jwt.verify(token, process.env.APP_SECRET);
+
   const recipe = req.body;
   const image = req.file;
   let newPath;
@@ -53,7 +57,7 @@ const add = async (req, res, next) => {
   }
   try {
     // Insert the recipe into the database
-    const insertId = await tables.recipe.create(recipe, newPath);
+    const insertId = await tables.recipe.create(recipe, newPath, id);
     // Respond with HTTP 201 (Created) and the ID of the newly inserted recipe
     res.status(201).json({ insertId });
   } catch (err) {
