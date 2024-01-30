@@ -35,7 +35,8 @@ function Detail({ name, prep, id }) {
         window.location.href = "/connexion";
       });
   }, []);
-
+  console.info(ingredients);
+  console.info(instructions);
   return (
     <div className="body-content">
       <div className="recipe-detail">

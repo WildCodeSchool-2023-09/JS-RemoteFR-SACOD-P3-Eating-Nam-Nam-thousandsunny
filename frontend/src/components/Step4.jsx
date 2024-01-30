@@ -9,6 +9,9 @@ function Step4() {
   const { instructionList } = useInstructionCreation();
   const { recipeCreation } = useRecipeCreation();
   const [insertId, setInsertId] = React.useState(null);
+
+  console.info({ ingredientList, instructionList, recipeCreation, insertId });
+
   const {
     recipeName,
     recipeDesc,
@@ -85,8 +88,8 @@ function Step4() {
             `${import.meta.env.VITE_BACKEND_URL}/api/instruction`,
             {
               id: item.id,
-              recipe_id: insertId,
-              description: item.description,
+              recipeId: insertId,
+              description: item.name,
             },
             {
               withCredentials: true,
@@ -103,6 +106,7 @@ function Step4() {
     await handlePostIngredient();
     await handlePostInstruction();
   };
+
   return (
     <div>
       <h1>Step 4</h1>

@@ -7,7 +7,7 @@ const add = async (req, res, next) => {
 
   try {
     // Insert the recipe into the database
-    const insertId = await tables.recipe.create(recipeIngredient);
+    const insertId = await tables.recipe_ingredient.create(recipeIngredient);
     // Respond with HTTP 201 (Created) and the ID of the newly inserted recipe
     res.status(201).json({ insertId });
   } catch (err) {
