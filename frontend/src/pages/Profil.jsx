@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 import addimage from "../assets/addimage.svg";
@@ -6,6 +6,7 @@ import "./style/Profil.scss";
 
 function Profil() {
   const [editing, setEditing] = useState(false);
+  const [recipeBy, setRecipeBy] = useState([]);
   const [userData, setUserData] = useState({
     username: null,
     firstname: null,
@@ -19,8 +20,9 @@ function Profil() {
   };
 
   const handleKeepClick = () => {
+    const params = { id: "value" };
     axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/api/users/8`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${params.id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -33,9 +35,10 @@ function Profil() {
   };
 
   const handleSaveClick = () => {
+    const params = { id: "value" };
     axios
       .put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/8`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${params.id}`,
         {
           username: userData.username,
           description: userData.description,
@@ -64,7 +67,10 @@ function Profil() {
   };
 
   useEffect(() => {
-    const endpoints = [`${import.meta.env.VITE_BACKEND_URL}/api/users`];
+    const params = { id: "value" };
+    const endpoints = [
+      `${import.meta.env.VITE_BACKEND_URL}/api/recipebyuser/${params.id}`,
+    ];
     Promise.all(
       endpoints.map((endpoint) =>
         axios.get(endpoint, {
@@ -72,8 +78,8 @@ function Profil() {
         })
       )
     )
-      .then(([{ data: user }]) => {
-        setUserData(user);
+      .then(([{ data: recipebyuser }]) => {
+        setRecipeBy(recipebyuser);
       })
       .catch((erreur) => {
         console.error(erreur);
@@ -161,8 +167,16 @@ function Profil() {
             ) : (
               <label>{userData.description || "Ma description..."}</label>
             )}
-            <p className="recipes">Mes recettes : {userData.recipes}</p>
-            <p className="comments">Commentaires: {userData.comments}</p>
+            <p className="recipes">
+              Mes recettes :{" "}
+              {recipeBy &&
+                recipeBy.map((recipeU) => (
+                  <li key={recipeU.user_id}>
+                    {recipeU.name} {recipeU.title}
+                  </li>
+                ))}
+            </p>
+            <p className="comments">Commentaires: </p>
           </div>
           <button
             className="Edit"
