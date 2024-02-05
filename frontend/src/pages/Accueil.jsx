@@ -14,19 +14,16 @@ function Accueil() {
     },
   };
   const greenButton = {
-    // Hériter des propriétés du styleBoutonOrange
-    background: "#4caf50", // Couleur verte
+    borderRadius: "12px",
+    color: "#f8f7f2",
+    marginBottom: "1rem",
+    background: "#97BF0D",
     "&:hover": {
-      backgroundColor: "rgba(76, 175, 80, 0.8)", // Couleur verte avec une transparence au survol
+      backgroundColor: "rgba(76, 175, 80, 0.8)",
     },
   };
   return (
     <div className="body-content accueil-page">
-      <nav>
-        <div className="head">
-          <p>Thèmes Actus Recettes</p>
-        </div>
-      </nav>
       <img
         className="image_cuisto"
         src="../src/assets/cooking.svg"
@@ -40,12 +37,14 @@ function Accueil() {
       <Button sx={greenButton} component={Link} to="/recipes">
         Voir les recettes
       </Button>
-      <Button sx={orangeButton} component={Link} to="/connexion">
-        connexion
-      </Button>
-      <Button sx={orangeButton} component={Link} to="/connexion">
-        inscription
-      </Button>
+      <div className="accueil-button">
+        <Button sx={orangeButton} component={Link} to="/connexion">
+          connexion
+        </Button>
+        <Button sx={orangeButton} component={Link} to="/connexion">
+          inscription
+        </Button>
+      </div>
     </div>
   );
 }

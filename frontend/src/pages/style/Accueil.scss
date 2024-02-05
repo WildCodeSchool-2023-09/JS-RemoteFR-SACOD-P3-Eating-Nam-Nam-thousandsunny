@@ -9,3 +9,26 @@
     display: inline-block;
   }
 }
+
+.accueil-button {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.header {
+  background-color: #c7b3b3;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.navigation {
+  background-color: #168118;
+  padding: 10px;
+  text-align: center;
+}
