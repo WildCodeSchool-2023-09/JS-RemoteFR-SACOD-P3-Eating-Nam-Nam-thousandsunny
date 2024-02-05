@@ -28,6 +28,21 @@ router.post("/login", AuthControllers.login);
 router.post("/users", AuthMiddleware.hashPwd, UserControllers.add);
 router.get("/verify-token", AuthControllers.verifyToken);
 
+const RecipeControllers = require("./controllers/recipeControllers");
+
+router.get("/recipes", RecipeControllers.browse); // Route to get a list of items
+router.get("/recipes/:id", RecipeControllers.read); // Route to get a specific item by ID
+
+const TagControllers = require("./controllers/tagControllers");
+
+router.get("/tags", TagControllers.browse);
+
+const InstructionControllers = require("./controllers/instructionControllers");
+const IngredientControllers = require("./controllers/ingredientControllers");
+
+router.get("/ingredientbyrecipe/:id", IngredientControllers.readByRecipe); // Route to get ingredients for a specific Recipe
+router.get("/instructionbyrecipe/:id", InstructionControllers.readByRecipe); // Route to get instructions for a specific Recipe
+
 router.use(AuthMiddleware.verifyToken);
 
 router.put(
@@ -55,10 +70,7 @@ router.get("/email/:email", AuthControllers.readByEmail);
 /* ************************************************************************* */
 
 // Import recipeControllers module for handling item-related operations
-const RecipeControllers = require("./controllers/recipeControllers");
 
-router.get("/recipes", RecipeControllers.browse); // Route to get a list of items
-router.get("/recipes/:id", RecipeControllers.read); // Route to get a specific item by ID
 router.get("/recipebyuser/:id", RecipeControllers.readByUser);
 router.post(
   "/recipes",
@@ -70,11 +82,9 @@ router.post(
 /* ************************************************************************* */
 
 // Import ingredientControllers module for handling item-related operations
-const IngredientControllers = require("./controllers/ingredientControllers");
 
 router.get("/ingredients", IngredientControllers.browse); // Route to get a list of items
 router.get("/ingredient/:id", IngredientControllers.read); // Route to get a specific item by ID
-router.get("/ingredientbyrecipe/:id", IngredientControllers.readByRecipe); // Route to get ingredients for a specific Recipe
 router.get("/units", IngredientControllers.browseUnits); // Route to get a list of units
 /* ************************************************************************* */
 // RECIPE_INGREDIENT
@@ -97,10 +107,8 @@ router.get("/commentbyuser/:id", CommentControllers.readByUser); // Route to get
 /* ************************************************************************* */
 
 // Import recipeControllers module for handling item-related operations
-const InstructionControllers = require("./controllers/instructionControllers");
 
 router.get("/instruction/:id", InstructionControllers.read); // Route to get a specific item by ID
-router.get("/instructionbyrecipe/:id", InstructionControllers.readByRecipe); // Route to get instructions for a specific Recipe
 router.post("/instruction", InstructionControllers.add); // Route to get a specific item by ID
 
 /* ************************************************************************* */
@@ -113,13 +121,6 @@ const FavControllers = require("./controllers/favControllers");
 router.get("/favbyrecipe/:id", FavControllers.readByUser); // Route to get a specific item by ID
 router.post("/favbyrecipe", FavControllers.add);
 router.delete("/favbyrecipe/:id", FavControllers.destroy);
-
-const TagControllers = require("./controllers/tagControllers");
-
-// Route to get a list of items
-router.get("/users", UserControllers.browse);
-router.get("/recipes", RecipeControllers.browse);
-router.get("/tags", TagControllers.browse);
 
 /* ************************************************************************* */
 

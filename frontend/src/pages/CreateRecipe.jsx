@@ -13,8 +13,10 @@ import Step2 from "../components/Step2";
 import Step3 from "../components/Step3";
 import Step4 from "../components/Step4";
 
+import "./style/CreateRecipe.scss";
+
 const steps = [
-  "Nom, photo et description",
+  "Nom et description",
   "Ingrédients",
   "Instructions",
   "Confirmation",
@@ -57,8 +59,8 @@ export default function CreateRecipe() {
   };
 
   return (
-    <div className="Cards">
-      <Box className="body-content" sx={{ width: "100%" }}>
+    <div className="body-content create-page">
+      <Box>
         <Stepper activeStep={activeStep}>
           {steps.map((label) => {
             return (
@@ -68,7 +70,7 @@ export default function CreateRecipe() {
             );
           })}
         </Stepper>
-        {activeStep > 3 ? (
+        {activeStep > 3 && (
           <>
             <Typography sx={{ mt: 2, mb: 1 }}>
               Recette créée avec succès ! Elle sera prochainement validée par
@@ -82,8 +84,6 @@ export default function CreateRecipe() {
               </Button>
             </Box>
           </>
-        ) : (
-          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
         )}
       </Box>
       <div className="steps">
