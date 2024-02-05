@@ -1,5 +1,5 @@
+import { React, useState, useEffect } from "react";
 import axios from "axios";
-import React from "react";
 import { useIngredientCreation } from "../contexts/IngredientCreationContext";
 import { useInstructionCreation } from "../contexts/InstructionCreationContext";
 import { useRecipeCreation } from "../contexts/RecipeCreationContext";
@@ -8,7 +8,7 @@ function Step4() {
   const { ingredientList } = useIngredientCreation();
   const { instructionList } = useInstructionCreation();
   const { recipeCreation } = useRecipeCreation();
-  const [insertId, setInsertId] = React.useState(null);
+  const [insertId, setInsertId] = useState(null);
 
   console.info({ ingredientList, instructionList, recipeCreation, insertId });
 
@@ -88,7 +88,7 @@ function Step4() {
             `${import.meta.env.VITE_BACKEND_URL}/api/instruction`,
             {
               id: item.id,
-              recipeId: insertId,
+              recipe_id: insertId,
               description: item.name,
             },
             {
@@ -101,17 +101,21 @@ function Step4() {
       }
     }
   };
-  const combineHandler = async () => {
-    await handlePostRecipe();
-    await handlePostIngredient();
-    await handlePostInstruction();
-  };
+  useEffect(() => {
+    if (insertId) {
+      handlePostIngredient();
+      handlePostInstruction();
+    }
+  }, [insertId]);
 
   return (
     <div>
       <h1>Step 4</h1>
       <div className="recipe-name">
-        {recipeName} {recipeDesc}
+        {recipeCreation.media && (
+          <img src={recipeCreation.media} alt="Recipe" />
+        )}
+        .{recipeName} {recipeDesc}
         {prepTime}
         {nbPeople}
         {tag1}
@@ -133,7 +137,7 @@ function Step4() {
           </div>
         ))}
       </div>
-      <button type="submit" onClick={() => combineHandler()}>
+      <button type="submit" onClick={() => handlePostRecipe()}>
         Poster la recette
       </button>
     </div>

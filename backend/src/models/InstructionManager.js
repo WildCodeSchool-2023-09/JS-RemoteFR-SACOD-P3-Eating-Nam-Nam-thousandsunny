@@ -8,7 +8,7 @@ class InstructionManager extends AbstractManager {
   async create(instruction) {
     const [rows] = await this.database.query(
       `INSERT INTO ${this.table} (recipe_id, description) VALUES (?, ?)`,
-      [instruction.recipeId, instruction.description]
+      [instruction.recipe_id, instruction.description]
     );
 
     return rows.insertId;

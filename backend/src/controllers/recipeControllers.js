@@ -46,7 +46,7 @@ const add = async (req, res, next) => {
   const recipe = req.body;
   const image = req.file;
   let newPath;
-  if (!image) {
+  if (image) {
     newPath = "public/assets/usersAvatars/defaultavatar.png";
   } else {
     fs.renameSync(
