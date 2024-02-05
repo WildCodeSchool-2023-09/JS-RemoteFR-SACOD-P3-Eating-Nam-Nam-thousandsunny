@@ -1,0 +1,34 @@
+@import "../../vars.scss";
+
+.create-page {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: $white-color;
+  border-radius: 2rem;
+
+  .step-one {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .step-one-content {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+  }
+
+  .content-left {
+    gap: 1.45rem;
+  }
+
+  .content-right {
+    margin-top: 5.25rem;
+  }
+}
+
+.steps {
+  margin-top: 2rem;
+}
