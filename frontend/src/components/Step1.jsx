@@ -2,16 +2,10 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import PropTypes from "prop-types";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import { Button, CardActionArea, CardActions } from "@mui/material";
-import Typography from "@mui/material/Typography";
 import { useRecipeCreation } from "../contexts/RecipeCreationContext";
 
 function Step1({ tag }) {
-  const { recipeCreation, handleChangeCreation, handleImg } =
-    useRecipeCreation();
+  const { recipeCreation, handleChangeCreation } = useRecipeCreation();
 
   const difficulties = [
     {
@@ -37,43 +31,6 @@ function Step1({ tag }) {
         variant="filled"
         name="recipeName"
       />
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="200"
-            image={recipeCreation.media}
-            alt="green iguana"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Votre photo
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <input
-            type="file"
-            name="media"
-            accept="image/*"
-            style={{ display: "none" }}
-            onChange={(event) => {
-              const file = event.target.files[0];
-              if (file) {
-                handleImg(URL.createObjectURL(file));
-              }
-            }}
-            id="fileUpload"
-          />
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => document.getElementById("fileUpload").click()}
-          >
-            Upload
-          </Button>
-        </CardActions>
-      </Card>
       <TextField
         label="Description"
         value={recipeCreation.recipeDesc}

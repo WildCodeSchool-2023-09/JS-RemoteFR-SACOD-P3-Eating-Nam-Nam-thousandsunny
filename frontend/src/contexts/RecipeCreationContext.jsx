@@ -21,13 +21,9 @@ export function RecipeProvider({ children }) {
     setRecipeCreation({ ...recipeCreation, [e.target.name]: e.target.value });
   };
 
-  const handleImg = (url) => {
-    setRecipeCreation({ ...recipeCreation, media: url });
-  };
-
   const value = useMemo(() => {
-    return { recipeCreation, handleChangeCreation, handleImg };
-  }, [recipeCreation, handleChangeCreation, handleImg]);
+    return { recipeCreation, handleChangeCreation };
+  }, [recipeCreation, handleChangeCreation]);
 
   return (
     <RecipeCreationContext.Provider value={value}>

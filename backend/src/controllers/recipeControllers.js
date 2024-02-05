@@ -42,11 +42,11 @@ const add = async (req, res, next) => {
   // Extract the user data from the request body
   const { token } = req.cookies;
   const { id } = jwt.verify(token, process.env.APP_SECRET);
-
   const recipe = req.body;
   const image = req.file;
+  console.info(req.file);
   let newPath;
-  if (image) {
+  if (!image) {
     newPath = "public/assets/usersAvatars/defaultavatar.png";
   } else {
     fs.renameSync(
@@ -55,6 +55,7 @@ const add = async (req, res, next) => {
     );
     newPath = `${image.destination}/${image.filename}-${image.originalname}`;
   }
+
   try {
     // Insert the recipe into the database
     const insertId = await tables.recipe.create(recipe, newPath, id);
