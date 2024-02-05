@@ -60,6 +60,19 @@
   }
 }
 
+.navbar-logout {
+  font-size: 1rem;
+  font-weight: 550;
+  color: inherit;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+  padding: 0.5rem;
+  color: $black-color;
+  background: none;
+}
+
 .SearchBar {
   display: flex;
   align-items: center;
