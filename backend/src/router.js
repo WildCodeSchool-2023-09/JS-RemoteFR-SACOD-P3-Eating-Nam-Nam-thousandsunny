@@ -45,6 +45,8 @@ router.get("/instructionbyrecipe/:id", InstructionControllers.readByRecipe); // 
 
 router.use(AuthMiddleware.verifyToken);
 
+router.get("/logout", AuthMiddleware.logout);
+
 router.put(
   "/users/:id",
   uploadUsersAvatars.single("avatar"),

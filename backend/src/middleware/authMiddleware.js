@@ -38,7 +38,21 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
+const logout = (req, res, next) => {
+  try {
+    const { token } = req.cookies;
+    if (token) {
+      res.clearCookie("token");
+      res.status(200).json({ message: "Logged out successfully" });
+    } else res.status(401).json({ error: "Internal error" });
+  } catch (err) {
+    res.status(401).json({ error: "Internal error" });
+    next(err);
+  }
+};
+
 module.exports = {
   hashPwd,
   verifyToken,
+  logout,
 };
