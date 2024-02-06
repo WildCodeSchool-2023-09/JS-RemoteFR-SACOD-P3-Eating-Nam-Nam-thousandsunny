@@ -33,31 +33,37 @@ export default function Step3() {
   };
 
   return (
-    <div>
-      <h1>Step 3</h1>
-      <TextField
-        className="instruction"
-        id="instruction"
-        maxRows={4}
-        label="instruction"
-        helperText="Instruction"
-        variant="filled"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        name="quantity"
-      />
-      <Button
-        onClick={() => {
-          combineHandler();
-        }}
-      >
-        Ajouter une instruction
-      </Button>
+    <div className="step-three">
+      <h2>
+        Décrivez les différentes étapes de réalisation de votre recette...
+      </h2>
+      <div className="instruction-content">
+        <TextField
+          className="instruction-field"
+          id="instruction"
+          maxRows={4}
+          label="instruction"
+          helperText="Instruction"
+          variant="filled"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          name="quantity"
+        />
+        <Button
+          onClick={() => {
+            combineHandler();
+          }}
+        >
+          Ajouter une instruction
+        </Button>
+      </div>
       <div className="instruction-list">
         {instructionList.map((item) => (
-          <div key={item.id}>
-            <span>{item.name}</span>
+          <div className="instruction-item" key={item.id}>
+            <span> Instruction n°{item.id + 1}</span>
+            <span className="instruction-span-desc">{item.name}</span>
             <button
+              className="delete-instruction"
               type="button"
               onClick={() => handleDeleteInstruction(item.id)}
             >

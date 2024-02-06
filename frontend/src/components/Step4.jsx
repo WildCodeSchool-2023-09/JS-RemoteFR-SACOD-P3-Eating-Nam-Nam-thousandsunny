@@ -11,6 +11,7 @@ function Step4() {
   const { recipeCreation } = useRecipeCreation();
   const [insertId, setInsertId] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFileUrl, setselectedFileUrl] = useState(null);
 
   console.info({ ingredientList, instructionList, recipeCreation, insertId });
 
@@ -34,6 +35,17 @@ function Step4() {
 
   const handleFileInput = (e) => {
     setSelectedFile(e.target.files[0]);
+  };
+  const handleImageUpload = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const imgFile = e.target.files[0];
+      setselectedFileUrl(URL.createObjectURL(imgFile));
+    }
+  };
+
+  const combineImagehandler = (e) => {
+    handleFileInput(e);
+    handleImageUpload(e);
   };
   const handlePostRecipe = async () => {
     try {
@@ -114,37 +126,66 @@ function Step4() {
   }, [insertId]);
 
   return (
-    <div>
-      <h1>Step 4</h1>
-      <Typography>
-        {" "}
-        Sélectionnez une image pour illustrer votre recette !
-      </Typography>
-      <input type="file" onChange={handleFileInput} />
-      <div className="recipe-name">
-        .{recipeName} {recipeDesc}
-        {prepTime}
-        {nbPeople}
-        {tag1}
-        {tag2}
-        {tag3}
-        {difficulty}
+    <div className="step-four">
+      <div className="step-four-content">
+        <h1>Vérifiez avant de valider...</h1>
+        <Typography>
+          {" "}
+          Sélectionnez une image pour illustrer votre recette !
+        </Typography>
+        <input type="file" onChange={combineImagehandler} />
+        {selectedFileUrl ? (
+          <img
+            src={selectedFileUrl}
+            alt="Preview"
+            style={{
+              maxWidth: "500px",
+              maxHeight: "500px",
+              objectFit: "cover",
+            }}
+          />
+        ) : null}
+        <div className="recipe-name">
+          <span className="item-span-title">
+            {" "}
+            Nom de la recette : {recipeName}{" "}
+          </span>
+          <span className="item-span-desc"> Description: {recipeDesc} </span>
+          <span className="item-span-prop">
+            {" "}
+            Temps de préparation: {prepTime}{" "}
+          </span>
+          <span className="item-span-prop">
+            {" "}
+            Nombre de participants: {nbPeople}{" "}
+          </span>
+          <span className="item-span-prop"> Tag 1: {tag1} </span>
+          <span className="item-span-prop"> Tag 2: {tag2} </span>
+          <span className="item-span-prop"> Tag 3: {tag3} </span>
+          <span className="item-span-prop"> Difficulté: {difficulty} </span>
+        </div>
+        <div className="ingredient-list">
+          <span className="ingredients-title">Ingrédients: </span>
+          {ingredientList.map((item) => (
+            <div key={item.id} value={item.name}>
+              - {item.name}, {item.quantity} {item.unit}
+            </div>
+          ))}
+        </div>
+        <div className="instruction-list">
+          <span className="instructions-title">Instructions: </span>
+          {instructionList.map((item) => (
+            <div key={item.id}>
+              <span> - {item.name}</span>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="ingredient-list">
-        {ingredientList.map((item) => (
-          <div key={item.id} value={item.name}>
-            {item.name}, {item.quantity} {item.unit}
-          </div>
-        ))}
-      </div>
-      <div className="instruction-list">
-        {instructionList.map((item) => (
-          <div key={item.id}>
-            <span>{item.name}</span>
-          </div>
-        ))}
-      </div>
-      <button type="submit" onClick={() => handlePostRecipe()}>
+      <button
+        className="submit-recipe"
+        type="submit"
+        onClick={() => handlePostRecipe()}
+      >
         Poster la recette
       </button>
     </div>
