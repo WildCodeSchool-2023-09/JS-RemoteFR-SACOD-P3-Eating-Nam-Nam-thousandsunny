@@ -24,7 +24,11 @@ function Step1({ tag }) {
   return (
     <div className="step-one">
       <div className="step-one-content content-left">
-        <h3> Votre recette commence ici... </h3>
+        <h2>
+          {" "}
+          Veuillez remplir les champs ci-dessous avant de passer à l'étape
+          suivante...{" "}
+        </h2>
         <TextField
           label="Nom de votre recette"
           value={recipeCreation.recipeName}

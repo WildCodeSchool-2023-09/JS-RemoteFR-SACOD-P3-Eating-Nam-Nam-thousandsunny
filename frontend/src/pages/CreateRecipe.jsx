@@ -61,15 +61,17 @@ export default function CreateRecipe() {
   return (
     <div className="body-content create-page">
       <Box>
-        <Stepper activeStep={activeStep}>
-          {steps.map((label) => {
-            return (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            );
-          })}
-        </Stepper>
+        <div className="stepper">
+          <Stepper activeStep={activeStep}>
+            {steps.map((label) => {
+              return (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              );
+            })}
+          </Stepper>
+        </div>
         {activeStep > 3 && (
           <>
             <Typography sx={{ mt: 2, mb: 1 }}>
