@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
+import { toast, ToastContainer } from "react-toastify";
 import { useIngredientCreation } from "../contexts/IngredientCreationContext";
 import { useInstructionCreation } from "../contexts/InstructionCreationContext";
 import { useRecipeCreation } from "../contexts/RecipeCreationContext";
@@ -122,6 +123,7 @@ function Step4() {
     if (insertId) {
       handlePostIngredient();
       handlePostInstruction();
+      toast.success("La recette a été créée avec succès !");
     }
   }, [insertId]);
 
@@ -188,6 +190,7 @@ function Step4() {
       >
         Poster la recette
       </button>
+      <ToastContainer autoClose={5000} pauseOnHover={false} />
     </div>
   );
 }

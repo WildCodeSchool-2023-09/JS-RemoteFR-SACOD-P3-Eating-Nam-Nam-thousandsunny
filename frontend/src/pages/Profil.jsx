@@ -129,7 +129,15 @@ function Profil() {
           <div className="left-bloc">
             {editing ? (
               <div>
-                <img src={selectedFileUrl} alt="Preview" />
+                <img
+                  src={selectedFileUrl}
+                  alt="Preview"
+                  style={{
+                    maxWidth: "500px",
+                    maxHeight: "500px",
+                    objectFit: "cover",
+                  }}
+                />
                 <input type="file" onChange={combineImagehandler} />
               </div>
             ) : (
