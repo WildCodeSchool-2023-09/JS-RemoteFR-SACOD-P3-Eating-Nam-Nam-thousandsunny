@@ -30,6 +30,23 @@ const readByUser = async (req, res, next) => {
   }
 };
 
+const readAllByUser = async (req, res, next) => {
+  try {
+    const { token } = req.cookies;
+    if (token) {
+      const user = jwt.verify(token, process.env.APP_SECRET);
+      const result = await tables.fav.readAllUserFav(user.id);
+      if (!result) {
+        res.sendStatus(404);
+      } else {
+        res.json(result);
+      }
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 // The E of BREAD - Edit (Update) operation
 //  This operation is not yet implemented
 
@@ -74,6 +91,7 @@ const destroy = async (req, res, next) => {
 module.exports = {
   browse,
   readByUser,
+  readAllByUser,
   // edit,
   add,
   destroy,

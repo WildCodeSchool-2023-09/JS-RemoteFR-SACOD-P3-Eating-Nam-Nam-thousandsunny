@@ -81,7 +81,6 @@ const verifyToken = async (req, res, next) => {
     } else {
       const decoded = jwt.verify(token, process.env.APP_SECRET);
       const user = await tables.user.read(decoded.id);
-      console.info(decoded);
       if (user)
         res.status(200).json({
           success: "User is valid",

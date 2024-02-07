@@ -28,6 +28,19 @@ class CommentManager extends AbstractManager {
     return rows;
   }
 
+  async readAllUserFav(userId) {
+    const [rows] = await this.database.query(
+      `SELECT recipe.* 
+    FROM recipe
+    JOIN fav ON recipe.id = fav.recipe_id
+    JOIN user ON fav.user_id = user.id
+    WHERE user.id = ?`,
+      [userId]
+    );
+
+    return rows;
+  }
+
   async readByRecipe(id) {
     const [rows] = await this.database.query(
       `SELECT  f.id FROM fav AS f

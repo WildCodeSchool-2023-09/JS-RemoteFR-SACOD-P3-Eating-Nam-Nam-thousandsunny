@@ -120,7 +120,8 @@ router.post("/instruction", InstructionControllers.add); // Route to get a speci
 // Import recipeControllers module for handling item-related operations
 const FavControllers = require("./controllers/favControllers");
 
-router.get("/favbyrecipe/:id", FavControllers.readByUser); // Route to get a specific item by ID
+router.get("/favbyrecipe/:id", FavControllers.readByUser);
+router.get("/alluserfav", FavControllers.readAllByUser); // Route to get a specific item by ID
 router.post("/favbyrecipe", FavControllers.add);
 router.delete("/favbyrecipe/:id", FavControllers.destroy);
 
