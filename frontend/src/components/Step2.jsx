@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import PropTypes from "prop-types";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -8,18 +8,11 @@ import { useIngredientCreation } from "../contexts/IngredientCreationContext";
 export default function Step2({ ingredient }) {
   const { setIngredientList, ingredientList } = useIngredientCreation();
 
-  // eslint-disable-next-line no-unused-vars
-  const [addIngredient, setAddIngredient] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("");
   const [kcal, setKcal] = useState("");
-  // eslint-disable-next-line no-unused-vars
-  const [searchResults, setSearchResults] = useState([]);
 
-  useEffect(() => {
-    setSearchResults(ingredient);
-  }, [ingredient]);
   const handleAddIngredient = () => {
     const ingredientToAdd = {
       index: ingredientList.length,
@@ -30,7 +23,6 @@ export default function Step2({ ingredient }) {
       totalKcal: quantity * kcal,
       id: ingredient.find((i) => i.name === ingredientName)?.id,
     };
-    setAddIngredient((prev) => [...prev, ingredientToAdd]);
     setIngredientList((prev) => [...prev, ingredientToAdd]);
   };
   const handleInputChange = (event, newInputValue) => {

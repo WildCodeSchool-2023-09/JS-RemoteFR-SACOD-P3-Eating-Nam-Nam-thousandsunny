@@ -124,6 +124,9 @@ function Step4() {
       handlePostIngredient();
       handlePostInstruction();
       toast.success("La recette a été créée avec succès !");
+      setTimeout(() => {
+        window.location.href = `/recipes/${insertId}`;
+      }, 5000);
     }
   }, [insertId]);
 

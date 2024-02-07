@@ -6,15 +6,12 @@ import { useInstructionCreation } from "../contexts/InstructionCreationContext";
 export default function Step3() {
   const { setInstructionList, instructionList } = useInstructionCreation();
 
-  // eslint-disable-next-line no-unused-vars
-  const [addInstruction, setAddInstruction] = React.useState([]);
   const [description, setDescription] = React.useState("");
   const handleAddingInstruction = () => {
     const instructionToAdd = {
       id: instructionList.length,
       name: description,
     };
-    setAddInstruction((prev) => [...prev, instructionToAdd]);
     setInstructionList((prev) => [...prev, instructionToAdd]);
   };
   const handleReset = () => {
