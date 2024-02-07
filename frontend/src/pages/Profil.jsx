@@ -3,7 +3,7 @@ import axios from "axios";
 
 import Recipe from "./Recipe";
 import "./style/RecipeList.scss";
-import addimage from "../assets/addimage.svg";
+
 import "./style/Profil.scss";
 
 function Profil() {
@@ -11,12 +11,15 @@ function Profil() {
   const [editing, setEditing] = useState(false);
   const [recipeBy, setRecipeBy] = useState([]);
   const [userData, setUserData] = useState({
+    avatar: null,
     username: null,
     firstname: null,
     lastname: null,
     birthdate: null,
     description: null,
   });
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFileUrl, setselectedFileUrl] = useState(null);
   const [fav, setFav] = useState([]);
 
   const handleEditClick = () => {
@@ -73,23 +76,27 @@ function Profil() {
     }
   }, [id]);
 
-  const handleSaveClick = () => {
-    axios
-      .put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`,
-        {
-          username: userData.username,
-          description: userData.description,
-          firstname: userData.firstname,
-          lastname: userData.lastname,
-          birthdate: userData.birthdate,
-        },
-        { withCredentials: true }
-      )
-      .then(() => {
-        setEditing(false);
-      });
-    setEditing(false);
+  const handleSaveClick = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("avatar", selectedFile);
+      formData.append("name", userData.recipeName);
+      formData.append("title", userData.recipeDesc);
+      formData.append("prep_time", userData.prepTime);
+      formData.append("nb_people", userData.nbPeople);
+      formData.append("difficulty", userData.difficulty);
+
+      await axios
+        .put(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`, formData, {
+          withCredentials: true,
+        })
+        .then(() => {
+          setEditing(false);
+        });
+      setEditing(false);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleChange = (e) => {
@@ -99,13 +106,35 @@ function Profil() {
       [name]: value,
     }));
   };
+  const handleFileInput = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+  const handleImageUpload = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const imgFile = e.target.files[0];
+      setselectedFileUrl(URL.createObjectURL(imgFile));
+    }
+  };
+
+  const combineImagehandler = (e) => {
+    handleFileInput(e);
+    handleImageUpload(e);
+  };
+  const imageUrl = `${import.meta.env.VITE_BACKEND_URL}/${userData.avatar}`;
 
   return (
     <div className="body-content" style={{ flexDirection: "column" }}>
       <div className="Profil_container">
         <div className="first">
           <div className="left-bloc">
-            <img className="No-photo" src={addimage} alt="No Photos" />
+            {editing ? (
+              <div>
+                <img src={selectedFileUrl} alt="Preview" />
+                <input type="file" onChange={combineImagehandler} />
+              </div>
+            ) : (
+              <img src={imageUrl} alt="vide" /> || "photo de profil"
+            )}
           </div>
           <div className="right-bloc">
             <label className="stats-label">
