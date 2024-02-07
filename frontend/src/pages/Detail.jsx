@@ -15,6 +15,8 @@ function Detail({ name, prep, id, image }) {
   const [instructions, setInstructions] = useState([]);
   const [isFav, setIsFav] = useState(false);
 
+  const imageUrl = `${import.meta.env.VITE_BACKEND_URL}/${image}`;
+
   useEffect(() => {
     const endpoints = [
       `${import.meta.env.VITE_BACKEND_URL}/api/ingredientbyrecipe/${id}`,
@@ -76,8 +78,6 @@ function Detail({ name, prep, id, image }) {
     }
     return null;
   };
-
-  const imageUrl = `${import.meta.env.VITE_BACKEND_URL}/${image}`;
 
   return (
     <div className="body-content">
