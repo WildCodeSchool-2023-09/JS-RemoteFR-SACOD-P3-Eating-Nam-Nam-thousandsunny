@@ -46,10 +46,10 @@ class RecipeManager extends AbstractManager {
 
   async readByUser(id) {
     const [rows] = await this.database.query(
-      `SELECT r.name, r.title, r.image FROM recipe AS r JOIN user AS u ON u.id = r.user_id WHERE u.id = ?`,
+      `SELECT r.name, r.title, r.image, u.id FROM recipe AS r JOIN user AS u ON u.id = r.user_id WHERE u.id = ?`,
       [id]
     );
-    return rows[0];
+    return rows;
   }
 }
 

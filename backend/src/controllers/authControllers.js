@@ -87,6 +87,7 @@ const verifyToken = async (req, res, next) => {
           is_loggin: true,
           is_admin: decoded.is_admin,
           description: user.description,
+          id: decoded.id,
         });
       else
         res

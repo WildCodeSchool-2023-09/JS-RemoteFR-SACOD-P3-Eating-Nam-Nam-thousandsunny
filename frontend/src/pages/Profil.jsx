@@ -5,6 +5,7 @@ import addimage from "../assets/addimage.svg";
 import "./style/Profil.scss";
 
 function Profil() {
+  const [id, setId] = useState();
   const [editing, setEditing] = useState(false);
   const [recipeBy, setRecipeBy] = useState([]);
   const [userData, setUserData] = useState({
@@ -19,26 +20,50 @@ function Profil() {
     setEditing(true);
   };
 
-  const handleKeepClick = () => {
-    const params = { id: "value" };
+  useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${params.id}`, {
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/verify-token`, {
         withCredentials: true,
       })
       .then((res) => {
-        setUserData(res.data);
-        setEditing(false);
-      })
-      .catch((error) => {
-        console.error(error);
+        setId(res.data.id);
+        axios
+          .get(`${import.meta.env.VITE_BACKEND_URL}/api/users/${res.data.id}`, {
+            withCredentials: true,
+          })
+          .then((response) => {
+            setUserData(response.data);
+            setEditing(false);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       });
-  };
+  }, []);
 
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/recipebyuser/${id}`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          if (res.data) {
+            console.info(res.data);
+            setRecipeBy(res.data);
+          } else {
+            console.info("No data found");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [id]);
   const handleSaveClick = () => {
-    const params = { id: "value" };
     axios
       .put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/${params.id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`,
         {
           username: userData.username,
           description: userData.description,
@@ -48,8 +73,7 @@ function Profil() {
         },
         { withCredentials: true }
       )
-      .then((res) => {
-        console.info(res.data.firstname);
+      .then(() => {
         setEditing(false);
       })
       .catch((error) => {
@@ -65,27 +89,7 @@ function Profil() {
       [name]: value,
     }));
   };
-
-  useEffect(() => {
-    const params = { id: "value" };
-    const endpoints = [
-      `${import.meta.env.VITE_BACKEND_URL}/api/recipebyuser/${params.id}`,
-    ];
-    Promise.all(
-      endpoints.map((endpoint) =>
-        axios.get(endpoint, {
-          withCredentials: true,
-        })
-      )
-    )
-      .then(([{ data: recipebyuser }]) => {
-        setRecipeBy(recipebyuser);
-      })
-      .catch((erreur) => {
-        console.error(erreur);
-      });
-  }, []);
-
+  console.info(recipeBy);
   return (
     <div className="body-content">
       <div className="Profil_container">
@@ -171,7 +175,7 @@ function Profil() {
               Mes recettes :{" "}
               {recipeBy &&
                 recipeBy.map((recipeU) => (
-                  <li key={recipeU.user_id}>
+                  <li key={recipeU.id}>
                     {recipeU.name} {recipeU.title}
                   </li>
                 ))}
@@ -181,9 +185,7 @@ function Profil() {
           <button
             className="Edit"
             type="button"
-            onClick={
-              editing ? handleSaveClick : handleKeepClick && handleEditClick
-            }
+            onClick={editing ? handleSaveClick : handleEditClick}
           >
             {editing ? "Save" : "Edit"}
           </button>

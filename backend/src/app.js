@@ -124,9 +124,7 @@ app.get("*", (req, res) => {
 
 app.use("*", (req, res) => {
   if (req.originalUrl.includes("assets")) {
-    res.sendFile(
-      path.resolve(__dirname, `../../frontend/dist/${req.originalUrl}`)
-    );
+    res.sendFile(path.resolve(__dirname, `../../backend/${req.originalUrl}`));
   } else {
     res.sendFile(path.resolve(__dirname, `../../frontend/dist/index.html`));
   }
