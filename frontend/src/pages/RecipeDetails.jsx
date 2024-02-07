@@ -9,6 +9,7 @@ function RecipeDetails() {
       name={detail.recipe.name}
       prep={detail.recipe.prep_time}
       id={detail.recipe.id}
+      image={detail.recipe.image}
     />
   );
 }

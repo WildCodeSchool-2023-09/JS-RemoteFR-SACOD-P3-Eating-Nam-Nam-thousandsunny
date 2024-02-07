@@ -8,16 +8,12 @@ import Checkbox from "@mui/material/Checkbox";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
 
-import img from "../assets/crepe.jpeg";
-
 import "./style/detail.scss";
 
-function Detail({ name, prep, id }) {
+function Detail({ name, prep, id, image }) {
   const [ingredients, setIngredients] = useState([]);
   const [instructions, setInstructions] = useState([]);
   const [isFav, setIsFav] = useState(false);
-
-  const test = img;
 
   useEffect(() => {
     const endpoints = [
@@ -81,6 +77,8 @@ function Detail({ name, prep, id }) {
     return null;
   };
 
+  const imageUrl = `${import.meta.env.VITE_BACKEND_URL}/${image}`;
+
   return (
     <div className="body-content">
       <div className="recipe-detail">
@@ -112,7 +110,7 @@ function Detail({ name, prep, id }) {
             </Button>
           </div>
         </div>
-        <img src={test} alt="recette" className="detail-image" />
+        <img src={imageUrl} alt="recette" className="detail-image" />
         <h2 className="detail-prep">Préparation : {prep} minutes</h2>
         <h3 className="detail-ingrédients">Ingrédients :</h3>
         {ingredients.map((element) => (
@@ -140,6 +138,7 @@ Detail.propTypes = {
   name: PropTypes.string.isRequired,
   prep: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 export default Detail;

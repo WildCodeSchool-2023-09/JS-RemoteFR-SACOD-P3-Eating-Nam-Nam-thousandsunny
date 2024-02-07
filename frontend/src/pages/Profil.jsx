@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import Recipe from "./Recipe";
+import "./style/RecipeList.scss";
 import addimage from "../assets/addimage.svg";
 import "./style/Profil.scss";
 
@@ -15,6 +17,7 @@ function Profil() {
     birthdate: null,
     description: null,
   });
+  const [fav, setFav] = useState([]);
 
   const handleEditClick = () => {
     setEditing(true);
@@ -35,8 +38,8 @@ function Profil() {
             setUserData(response.data);
             setEditing(false);
           })
-          .catch((error) => {
-            console.error(error);
+          .catch(() => {
+            window.location.href = "/connexion";
           });
       });
   }, []);
@@ -50,15 +53,26 @@ function Profil() {
         .then((res) => {
           if (res.data) {
             setRecipeBy(res.data);
-          } else {
-            console.info("No data found");
           }
-        })
-        .catch((error) => {
-          console.error(error);
         });
     }
   }, [id]);
+
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`${import.meta.env.VITE_BACKEND_URL}/api/alluserfav`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          if (res.data) {
+            setFav(res.data);
+            console.info(res.data);
+          }
+        });
+    }
+  }, [id]);
+
   const handleSaveClick = () => {
     axios
       .put(
@@ -74,9 +88,6 @@ function Profil() {
       )
       .then(() => {
         setEditing(false);
-      })
-      .catch((error) => {
-        console.error(error);
       });
     setEditing(false);
   };
@@ -90,7 +101,7 @@ function Profil() {
   };
 
   return (
-    <div className="body-content">
+    <div className="body-content" style={{ flexDirection: "column" }}>
       <div className="Profil_container">
         <div className="first">
           <div className="left-bloc">
@@ -179,7 +190,6 @@ function Profil() {
                   </li>
                 ))}
             </p>
-            <p className="comments">Commentaires: </p>
           </div>
           <button
             className="Edit"
@@ -189,6 +199,26 @@ function Profil() {
             {editing ? "Save" : "Edit"}
           </button>
         </div>
+      </div>
+      <div className="recipe-content">
+        <h3>Favoris :</h3>
+        <ul className="recipe-list">
+          {fav.map((recipe) => (
+            <li key={recipe.id} className="recipe">
+              <Recipe
+                id={recipe.id}
+                name={recipe.name}
+                title={recipe.title}
+                difficulty={recipe.difficulty}
+                image={recipe.image}
+                kcal={recipe.total_kcal}
+                tag1={recipe.tag1}
+                tag2={recipe.tag2}
+                tag3={recipe.tag3}
+              />
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
