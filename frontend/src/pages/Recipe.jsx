@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import img from "../assets/crepe.jpeg";
 
 function Recipe({
   name,
@@ -13,13 +12,11 @@ function Recipe({
   tag2,
   tag3,
 }) {
-  let test = image;
-  test = img;
-
+  const imageUrl = `${import.meta.env.VITE_BACKEND_URL}/${image}`;
   return (
     <>
       <div className="image-recipe-pos">
-        <img src={test} alt="recette" className="image-recipe" />
+        <img src={imageUrl} alt="recette" className="image-recipe" />
       </div>
       <div className="desc-recipe">
         <div className="recipe-header">
