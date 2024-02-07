@@ -127,9 +127,11 @@ function Profil() {
       <div className="Profil_container">
         <div className="first">
           <div className="left-bloc">
-            <input type="file" onChange={combineImagehandler} />
-            {selectedFileUrl ? (
-              <img src={selectedFileUrl} alt="Preview" />
+            {editing ? (
+              <div>
+                <img src={selectedFileUrl} alt="Preview" />
+                <input type="file" onChange={combineImagehandler} />
+              </div>
             ) : (
               <img src={imageUrl} alt="vide" /> || "photo de profil"
             )}
