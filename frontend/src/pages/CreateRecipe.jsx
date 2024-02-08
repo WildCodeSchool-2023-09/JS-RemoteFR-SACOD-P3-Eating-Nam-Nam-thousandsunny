@@ -29,8 +29,8 @@ export default function CreateRecipe() {
 
   useEffect(() => {
     const endpoints = [
-      "http://localhost:3310/api/ingredients",
-      "http://localhost:3310/api/tags",
+      `${import.meta.env.VITE_BACKEND_URL}/api/ingredients`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/tags`,
     ];
     Promise.all(
       endpoints.map((endpoint) =>
