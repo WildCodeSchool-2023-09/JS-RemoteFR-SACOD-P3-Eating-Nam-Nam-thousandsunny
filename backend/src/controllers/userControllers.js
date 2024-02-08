@@ -1,4 +1,5 @@
 // Import access to database tables
+const fs = require("fs");
 const tables = require("../tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -35,6 +36,31 @@ const read = async (req, res, next) => {
 };
 
 // The E of BREAD - Edit (Update) operation
+const edit = async (req, res, next) => {
+  const wantedId = parseInt(req.params.id, 10);
+  // Extract the user data from the request body
+  const item = req.body;
+  item.id = wantedId;
+  const avatar = req.file;
+  let newPath;
+  if (!avatar) {
+    newPath = "public/assets/usersAvatars/defaultavatar.png";
+  } else {
+    fs.renameSync(
+      `${avatar.destination}/${avatar.filename}`,
+      `${avatar.destination}/${avatar.filename}-${avatar.originalname}`
+    );
+    newPath = `${avatar.destination}/${avatar.filename}-${avatar.originalname}`;
+  }
+  try {
+    const user = await tables.user.update(item, newPath);
+    // Respond with HTTP 201 (Created) and the ID of the newly inserted recipe
+    res.status(200).json(user);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
 
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
@@ -78,7 +104,7 @@ const add = async (req, res, next) => {
 module.exports = {
   browse,
   read,
-  // edit,
+  edit,
   add,
   // destroy,
 };

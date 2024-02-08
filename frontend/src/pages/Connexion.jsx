@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+
 import {
   isValidUsername,
   isValidEmail,
@@ -13,6 +14,7 @@ import {
   resetErrMsgPassConfSign,
   resetAllErrMsgSign,
 } from "./services/postUserValid";
+
 import "react-toastify/dist/ReactToastify.css";
 import "./style/Connexion.scss";
 
@@ -45,13 +47,16 @@ function TypeOfForm({ checkbox, setCheckbox }) {
         username,
         password,
       };
-      console.info(formData);
 
       try {
         // Appel à l'API pour demander une connexion
-        const response = await axios
-          .post(`${import.meta.env.VITE_BACKEND_URL}/api/login`, formData)
-          .catch((err) => console.error(err));
+        const response = await axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/api/login`,
+          formData,
+          {
+            withCredentials: true,
+          }
+        );
 
         // Redirection vers la page de connexion si la création réussit
 
@@ -69,14 +74,10 @@ function TypeOfForm({ checkbox, setCheckbox }) {
               },
             }
           );
-        } else {
-          toast.error("Erreur d'authentification 😕");
-          loginErrorMsg.innerText =
-            "Nom d'utilisateur ou mot de passe incorrect";
         }
       } catch (err) {
-        // Log des erreurs possibles
-        console.info(err);
+        toast.error("Erreur d'authentification 😕");
+        loginErrorMsg.innerText = "Nom d'utilisateur ou mot de passe incorrect";
       }
     }
   };
@@ -123,7 +124,6 @@ function TypeOfForm({ checkbox, setCheckbox }) {
             // Redirection sur le login en gardant la valeur de username
             document.getElementsByTagName("form")[2].email.value = "";
             if (!checkbox) setCheckbox(true);
-            console.info("response =", res);
           }
         })
         .catch((err) => {
@@ -225,7 +225,7 @@ function Connexion() {
   // Affiche l'en-tête du composant du formulaire (bouton switch)
   return (
     <div className="body-content connect-content">
-      <ToastContainer autoClose={2000} pauseOnHover={false} />
+      <ToastContainer autoClose={5000} pauseOnHover={false} />
       <div className="wrapper">
         <div className="form-container">
           <div className="slide-controls">

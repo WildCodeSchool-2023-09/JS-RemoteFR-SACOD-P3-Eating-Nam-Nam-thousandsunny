@@ -28,13 +28,14 @@ const app = express();
 
 const cors = require("cors");
 
-app.use(cors());
-/*
+// app.use(cors());
+
 app.use(
   cors({
     origin: [
       process.env.FRONTEND_URL, // keep this one, after checking the value in `backend/.env`
     ],
+    credentials: true,
   })
 );
 
@@ -71,8 +72,9 @@ app.use(express.json());
 
 // Then, require the module and use it as middleware in your Express application:
 
-// const cookieParser = require("cookie-parser");
-// app.use(cookieParser());
+const cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
 
 // Once `cookie-parser` is set up, you can read and set cookies in your routes.
 // For example, to set a cookie named "username" with the value "john":
@@ -119,6 +121,8 @@ app.get("*", (req, res) => {
   res.sendFile(`${reactBuildPath}/index.html`);
 });
 */
+
+app.use("/public", express.static(path.join(__dirname, "..", "public")));
 
 app.use("*", (req, res) => {
   if (req.originalUrl.includes("assets")) {

@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 import searchIcon from "../assets/searchIcon.svg";
 import namNamIcon from "../assets/namNamIcon.svg";
 import burgerMenuIcon from "../assets/burgerMenuIcon.svg";
@@ -27,6 +29,27 @@ function activateBurgerMenu() {
 
 function Navbar() {
   const [searchValue, setSearchValue] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/verify-token`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setIsLogin(res.data.is_loggin);
+      });
+  }, []);
+
+  const handleClickLogout = () => {
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_URL}/api/logout`, {
+        withCredentials: true,
+      })
+      .then(() => {
+        window.location.href = "/";
+      });
+  };
 
   return (
     <>
@@ -86,21 +109,40 @@ function Navbar() {
 
       <div className="BurgerMenu">
         <ul>
-          <li>
-            <a href="/Connexion">
-              Connexion
-              <br />
-              ou
-              <br />
-              Inscription
-            </a>
-          </li>
+          {!isLogin && (
+            <li>
+              <a href="/Connexion">
+                Connexion
+                <br />
+                ou
+                <br />
+                Inscription
+              </a>
+            </li>
+          )}
+
           <li>
             <a href="/recipes">Voir les recettes</a>
           </li>
-          <li>
-            <a href="/">Contact</a>
-          </li>
+          {isLogin && (
+            <>
+              <li>
+                <a href="/createrecipe">Créer une recette</a>
+              </li>
+              <li>
+                <a href="/profil">Mon Profil</a>
+              </li>
+              <li>
+                <button
+                  className="navbar-logout"
+                  type="submit"
+                  onClick={handleClickLogout}
+                >
+                  Se Déconnecter
+                </button>
+              </li>
+            </>
+          )}
         </ul>
       </div>
     </>

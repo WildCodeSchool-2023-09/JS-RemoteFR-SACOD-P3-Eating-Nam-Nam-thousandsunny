@@ -1,0 +1,137 @@
+@import "../../vars.scss";
+
+.create-page {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: $white-color;
+  border-radius: 2rem;
+
+  .step-one {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .step-one-content {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+  }
+
+  .content-left {
+    gap: 1.45rem;
+  }
+
+  .content-right {
+    margin-top: 5.25rem;
+  }
+
+  .step-two {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    gap: 2rem;
+  }
+  .selection-div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.45rem;
+    align-items: center;
+  }
+  .ingredient-autocomplete {
+    width: 49%;
+  }
+  .ingredient-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .ingredient-item {
+    display: flex;
+    justify-content: space-between;
+    width: 25%;
+    margin-left: 10%;
+    margin-right: 30%;
+    margin-top: 1rem;
+    padding: 0.5rem;
+  }
+  .ingredient-span {
+    font-size: 1.25rem;
+  }
+  .step-three {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    gap: 2rem;
+  }
+  .instruction-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.45rem;
+    align-items: center;
+  }
+  .instruction-field {
+    width: 100%;
+  }
+  .instruction-item {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 30%;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+  .ingredient-span {
+    font-size: 1.25rem;
+  }
+  .instruction-span-desc {
+    font-size: 1.25rem;
+  }
+  .step-four-content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    gap: 2rem;
+  }
+  .submit-recipe {
+    margin-top: 2rem;
+  }
+  .instructions-title {
+    margin-top: 0.5rem;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .ingredients-title {
+    margin-top: 0.5rem;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .recipe-name {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    font-size: 1rem;
+  }
+}
+.steps {
+  margin-top: 2rem;
+}
+@media screen and (max-width: 800px) {
+  .body-content.create-page {
+    width: 100vw;
+  }
+  .stepper {
+    visibility: hidden;
+  }
+  .step-one {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}

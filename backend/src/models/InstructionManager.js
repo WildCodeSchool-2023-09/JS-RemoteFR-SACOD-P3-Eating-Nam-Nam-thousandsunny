@@ -5,6 +5,15 @@ class InstructionManager extends AbstractManager {
     super({ table: "instruction" });
   }
 
+  async create(instruction) {
+    const [rows] = await this.database.query(
+      `INSERT INTO ${this.table} (recipe_id, description) VALUES (?, ?)`,
+      [instruction.recipe_id, instruction.description]
+    );
+
+    return rows.insertId;
+  }
+
   async readAll() {
     const [rows] = await this.database.query(`select * from ${this.table}`);
 
@@ -31,4 +40,5 @@ WHERE recipe.ID= ?`,
     return rows;
   }
 }
+
 module.exports = InstructionManager;

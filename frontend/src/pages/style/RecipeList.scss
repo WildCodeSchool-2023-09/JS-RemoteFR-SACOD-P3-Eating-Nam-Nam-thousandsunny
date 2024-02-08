@@ -5,7 +5,9 @@
   flex-direction: column;
 
   .filter {
-    text-align: right;
+    margin-bottom: 1rem;
+    margin: 0 1rem 1rem auto;
+
     select {
       background-color: $green-color;
       height: 2rem;
@@ -17,16 +19,20 @@
   }
 
   .recipe-list {
+    display: grid;
+    grid-gap: 2rem;
+    width: auto;
+    margin: 0 auto 0 auto;
     padding: 0;
-    margin-top: 1.5rem;
-    max-width: 350px;
 
     .recipe {
       list-style: none;
       background-color: $white-color;
       border-radius: 1.5rem;
-      margin-bottom: 2rem;
-      height: 150px;
+      min-height: 200px;
+      min-width: 370px;
+      max-width: 420px;
+      box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
 
       display: flex;
 
@@ -36,21 +42,29 @@
 
       .image-recipe-pos {
         width: 45%;
-        height: 150px;
-        max-width: 150px;
+        height: 200px;
+        max-width: 200px;
       }
       .image-recipe {
-        height: 150px;
+        height: 200px;
         width: 100%;
         object-fit: cover;
         border-radius: 1.5rem 0 0 1.5rem;
       }
 
       .desc-recipe {
+        padding: 0.25rem;
         margin: 0.5rem;
         width: 55%;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
+
+        .recipe-bottom {
+          display: flex;
+          justify-content: space-between;
+          align-items: last baseline;
+        }
 
         h2 {
           font-size: medium;
@@ -59,20 +73,30 @@
         }
         p {
           font-size: small;
-          margin: 0.25rem 0.5rem 0.25rem 0;
         }
 
-        .level-recipe {
-          margin: auto 0.25rem 0.25rem auto;
+        .recipe-difficult {
+          display: flex;
+          justify-content: space-between;
         }
 
         .link-to {
           display: flex;
-          margin: 0.25rem 0.25rem 0.25rem auto;
           background-color: $orange-color;
-          padding-left: 0.5rem;
+          padding: 0.5rem;
+          margin: 0.25rem;
           border-radius: 1rem;
           text-align: right;
+          align-items: center;
+          &:hover {
+            background-color: #db9146;
+            cursor: pointer;
+          }
+
+          &:active {
+            scale: 0.9;
+            transition: scale 150ms;
+          }
 
           a {
             color: $white-color;
@@ -80,6 +104,47 @@
           }
         }
       }
+    }
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 780px) {
+  .recipe-content {
+    .recipe-list {
+      grid-template-columns: repeat(1, 1fr);
+      margin: 0 0.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: 780px) and (max-width: 1275px) {
+  .recipe-content {
+    .recipe-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media screen and (min-width: 1275px) and (max-width: 1650px) {
+  .recipe-content {
+    .recipe-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+@media screen and (min-width: 1650px) and (max-width: 2030px) {
+  .recipe-content {
+    .recipe-list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}
+
+@media screen and (min-width: 2030px) and (max-width: 2410px) {
+  .recipe-content {
+    .recipe-list {
+      grid-template-columns: repeat(5, 1fr);
     }
   }
 }
