@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import img from "../assets/Cooking.svg";
 import "./style/Accueil.scss";
 
 function Accueil() {
@@ -24,11 +25,7 @@ function Accueil() {
   };
   return (
     <div className="body-content accueil-page">
-      <img
-        className="image_cuisto"
-        src="../src/assets/cooking.svg"
-        alt="image_cuisto"
-      />
+      <img className="image_cuisto" src={img} alt="image_cuisto" />
       <p>
         Bienvenu sur notre site Eating-Nam-Nam. Il s'agit d'un site de cuisine
         dans lequel vous créez vos propres recettes et pouvez accéder à celles
